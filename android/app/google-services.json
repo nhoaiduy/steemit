@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "149025372280",
+    "project_id": "steemit-7dfaa",
+    "storage_bucket": "steemit-7dfaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149025372280:android:eb01bc7f763f291feb158d",
+        "android_client_info": {
+          "package_name": "com.example.steemit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149025372280-j4l0ma2h0ho45tmgjpjqdtjct235m0vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANwpWtbzZTGRaHJDB9sc0Wm8mfy7SbFNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149025372280-j4l0ma2h0ho45tmgjpjqdtjct235m0vj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
