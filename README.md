@@ -1,6 +1,6 @@
 # steemit
 
-A new Flutter project.
+A new Flutter project. Steemit is a social network app.
 
 ## Getting Started
 
