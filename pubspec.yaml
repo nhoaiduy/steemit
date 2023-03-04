@@ -20,7 +20,7 @@ dependencies:
   cached_network_image: ^3.2.3
   either_dart: ^0.3.0
   tiengviet: ^0.5.0
-  curved_navigation_bar: ^1.0.3
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_lints: ^2.0.0
