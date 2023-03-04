@@ -31,7 +31,7 @@ class ButtonWidget {
         height: finalHeight,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: backgroundColor ?? BaseColor.blue300,
+          color: backgroundColor ?? BaseColor.green500,
           borderRadius: borderRadius ?? BorderRadius.circular(10.0),
           border: border,
         ),

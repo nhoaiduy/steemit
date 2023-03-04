@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:steemit/presentation/page/common/app_loading_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
+import 'package:steemit/presentation/bloc/login/login_cubit.dart';
+import 'package:steemit/presentation/page/authentication/authentication_layer.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 void main() async {
@@ -14,13 +17,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Steemit',
-      theme: ThemeData(
-          primarySwatch: Colors.green,
-          scaffoldBackgroundColor: BaseColor.grey20),
-      home: const AppLoadingPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthenticationCubit()),
+        BlocProvider(create: (context) => LoginCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Steemit',
+        theme: ThemeData(scaffoldBackgroundColor: BaseColor.grey20),
+        home: const AuthenticationLayerPage(),
+      ),
     );
   }
 }

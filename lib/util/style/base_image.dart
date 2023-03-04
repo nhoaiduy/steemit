@@ -4,13 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'base_color.dart';
 
 class BaseImage {
-  static base(String iconPath, {Color? color, Size? size, BoxFit? boxFit}) {
-    Size finalSize = size ?? const Size(24, 24);
+  static base(String iconPath,
+      {Color? color, double? height, double? width, BoxFit? boxFit}) {
     return SvgPicture.asset(
       iconPath,
       color: color ?? BaseColor.grey900,
-      height: finalSize.height,
-      width: finalSize.width,
+      height: height ?? 24.0,
+      width: width ?? 24.0,
       fit: BoxFit.contain,
     );
   }
