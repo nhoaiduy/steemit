@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
+import 'package:steemit/presentation/page/authentication/regisster_page.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
+import 'package:steemit/util/controller/loading_cover_controller.dart';
 import 'package:steemit/util/path/image_path.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_image.dart';
@@ -24,9 +26,9 @@ class _LoginPageState extends State<LoginPage> {
   bool _isHidePassword = true;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String? _usernameErrorText;
-  String? _passwordErrorText;
-  String? _loginErrorText;
+  String _usernameErrorText = "";
+  String _passwordErrorText = "";
+  String _loginErrorText = "";
 
   @override
   void initState() {
@@ -34,36 +36,9 @@ class _LoginPageState extends State<LoginPage> {
     loginCubit = BlocProvider.of<LoginCubit>(context);
     loginCubitStream = loginCubit.stream;
     loginCubitStream.listen((event) {
-      setState(() {
-        _usernameErrorText = null;
-        _passwordErrorText = null;
-      });
       if (!mounted) return;
-      if (event is DisconnectState) {
-        setState(() => _loginErrorText =
-            "S.current.txt_can_not_connect_server}! {S.current.txt_please_try_again}.");
-        return;
-      }
-      if (event is ErrorState) {
-        setState(() => _loginErrorText =
-            "{S.current.txt_data_parsing_failed}! {S.current.txt_please_try_again}.");
-        return;
-      }
-      if (event is WrongLoginInfoState) {
-        setState(() => _loginErrorText =
-            "{S.current.txt_unregistered_username}! or  {S.current.txt_wrong_password}");
-        return;
-      }
-      if (event is InvalidUsernameState) {
-        setState(() {
-          _usernameErrorText = "${event.content}!";
-        });
-        return;
-      }
-      if (event is InvalidPasswordState) {
-        setState(() {
-          _passwordErrorText = "${event.content}!";
-        });
+      if (event is LoginFailureState) {
+        setState(() => _loginErrorText = event.message);
         return;
       }
     });
@@ -76,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Stack(
           children: [
+            buildBottomArea(),
             SingleChildScrollView(
               child: Column(
                 children: [
@@ -141,29 +117,61 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
+  Widget buildBottomArea() {
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.vertical -
+                48.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Create new account?",
+                style: BaseTextStyle.body1(),
+              ),
+              const SizedBox(
+                width: 4.0,
+              ),
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const RegisterPage())),
+                child: Text(
+                  "Register",
+                  style: BaseTextStyle.label(color: BaseColor.green500),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> login() async {
     unFocus();
     resetHidePasswordState();
+    clearError();
     bool loginResult = await loginCubit.login(
         context: context,
         email: _usernameController.text,
         password: _passwordController.text);
     if (loginResult) {
-      authenticationLayerCubit.authenticate();
+      authenticationLayerCubit.authenticate(this);
+    } else {
+      if (mounted) LoadingCoverController.instance.close(context);
     }
-  }
-
-  void clearPassword() {
-    setState(() {
-      _passwordController.clear();
-    });
   }
 
   void clearError() {
     setState(() {
-      _usernameErrorText = null;
-      _passwordErrorText = null;
-      _loginErrorText = null;
+      _usernameErrorText = "";
+      _passwordErrorText = "";
+      _loginErrorText = "";
     });
   }
 
