@@ -77,6 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
             TextFieldWidget.common(
                 onChanged: (text) {},
                 textEditingController: firstNameController,
+                textInputAction: TextInputAction.next,
                 prefixIconPath: Icons.text_fields_outlined,
                 hintText: "First name"),
             const SizedBox(
@@ -86,6 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 onChanged: (text) {},
                 prefixIconPath: Icons.text_fields_outlined,
                 textEditingController: lastNameController,
+                textInputAction: TextInputAction.next,
                 hintText: "Last name"),
             const SizedBox(
               height: commonPadding,
@@ -93,7 +95,9 @@ class _RegisterPageState extends State<RegisterPage> {
             TextFieldWidget.common(
                 onChanged: (text) {},
                 prefixIconPath: Icons.email_outlined,
+                textInputType: TextInputType.emailAddress,
                 textEditingController: emailNameController,
+                textInputAction: TextInputAction.next,
                 hintText: "Email"),
             const SizedBox(
               height: commonPadding,
@@ -102,6 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 onChanged: (text) {},
                 textEditingController: passwordController,
                 prefixIconPath: Icons.lock_outlined,
+                textInputAction: TextInputAction.next,
                 isObscured: _isHidePassword,
                 suffixIconPath: _isHidePassword
                     ? Icons.visibility_off_outlined
@@ -120,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 isObscured: _isHideConfirmPassword,
                 textEditingController: confirmPasswordController,
                 prefixIconPath: Icons.lock_outlined,
+                textInputAction: TextInputAction.done,
                 suffixIconPath: _isHideConfirmPassword
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,
