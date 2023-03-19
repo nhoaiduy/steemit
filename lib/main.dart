@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
+import 'package:steemit/presentation/bloc/register/register_cubit.dart';
 import 'package:steemit/presentation/page/authentication/authentication_layer.dart';
 import 'package:steemit/util/style/base_color.dart';
 
@@ -19,8 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AuthenticationCubit()),
-        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider<AuthenticationCubit>(
+            create: (context) => AuthenticationCubit()),
+        BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+        BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

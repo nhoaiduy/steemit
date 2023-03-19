@@ -2,26 +2,12 @@ part of 'login_cubit.dart';
 
 abstract class LoginState {}
 
-class LoginInitState extends LoginState {}
+class LoginInitialState extends LoginState {}
 
-class WrongLoginInfoState extends LoginState {}
+class LoginFailureState extends LoginState {
+  final String message;
 
-class InvalidUsernameState extends LoginState {
-  InvalidUsernameState(this.content);
-
-  final String content;
-
-  List<Object> get props => [content];
+  LoginFailureState({required this.message});
 }
 
-class InvalidPasswordState extends LoginState {
-  InvalidPasswordState(this.content);
-
-  final String content;
-
-  List<Object> get props => [content];
-}
-
-class DisconnectState extends LoginState {}
-
-class ErrorState extends LoginState {}
+class LoginSuccessState extends LoginState {}

@@ -59,7 +59,7 @@ class TextFieldWidget {
                 enabled: enable,
                 readOnly: readOnly,
                 obscureText: isObscured,
-                cursorColor: BaseColor.blue600,
+                cursorColor: BaseColor.green600,
                 cursorWidth: 2,
                 cursorHeight: 20,
                 enableInteractiveSelection: false,
@@ -137,7 +137,7 @@ class TextFieldWidget {
                               ? const BorderSide(
                                   color: BaseColor.red500, width: 0.8)
                               : const BorderSide(
-                                  color: BaseColor.blue300, width: 0.8)),
+                                  color: BaseColor.green300, width: 0.8)),
                 )),
           ),
           if (errorText != null)
@@ -179,7 +179,7 @@ class TextFieldWidget {
         onSubmit: onSubmit,
         onTap: onTap,
         hintText: hintText,
-        errorText: errorText,
+        errorText: errorText.toString().isNotEmpty ? errorText : null,
         initialValue: initialValue,
         required: required,
         enable: enable,
