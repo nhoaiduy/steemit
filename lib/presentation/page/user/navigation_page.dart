@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
+import 'package:steemit/presentation/page/user/comments_page.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
 class NavigationPage extends StatefulWidget {
@@ -26,7 +27,9 @@ class _NavigationPageState extends State<NavigationPage> {
       appBar: AppBar(),
       body: Center(
         child: ElevatedButton(
-          onPressed: () => logout(),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+          },
           child: Text(
             "Logout",
             style: BaseTextStyle.body1(color: Colors.white),
