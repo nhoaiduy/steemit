@@ -1,10 +1,9 @@
-
-
 class UserModel {
   late String id;
   late String email;
   late String firstName;
   late String lastName;
+  String? token;
   String? avatar;
 
   UserModel(
@@ -12,6 +11,7 @@ class UserModel {
       required this.email,
       required this.firstName,
       required this.lastName,
+      this.token,
       this.avatar});
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +19,7 @@ class UserModel {
     email = json["email"];
     firstName = json["firstName"];
     lastName = json["lastName"];
+    token = json["token"];
     avatar = json["avatar"];
   }
 
@@ -28,6 +29,7 @@ class UserModel {
     data['email'] = email;
     data['firstName'] = firstName;
     data['lastName'] = lastName;
+    data['token'] = token;
     data['avatar'] = avatar;
     return data;
   }

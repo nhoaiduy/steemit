@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
-import 'package:steemit/util/style/base_text_style.dart';
+import 'package:steemit/presentation/page/user/account_page.dart';
+import 'package:steemit/presentation/page/user/home_page.dart';
+import 'package:steemit/presentation/page/user/notification_page.dart';
+import 'package:steemit/util/style/base_color.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -12,31 +13,53 @@ class NavigationPage extends StatefulWidget {
 
 class _NavigationPageState extends State<NavigationPage> {
   int currentIndex = 0;
-  late AuthenticationCubit authenticationCubit;
 
-  @override
-  void initState() {
-    authenticationCubit = BlocProvider.of(context);
-    super.initState();
-  }
+  final List<Widget> pages = [
+    const HomePage(),
+    const AccountPage(),
+    const NotificationPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => logout(),
-          child: Text(
-            "Logout",
-            style: BaseTextStyle.body1(color: Colors.white),
+    return DefaultTabController(
+      length: pages.length,
+      child: Scaffold(
+          body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            children: pages,
           ),
-        ),
-      ),
+          bottomNavigationBar: _bottomTabBar()),
     );
   }
 
-  Future<void> logout() async {
-    authenticationCubit.logout();
+  _bottomTabBar() {
+    return Container(
+      color: Colors.white,
+      child: TabBar(
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          indicatorColor: BaseColor.green500,
+          labelColor: BaseColor.green500,
+          unselectedLabelColor: BaseColor.grey300,
+          tabs: _tabList()),
+    );
+  }
+
+  _tabList() {
+    return const [
+      Tab(
+        icon: Icon(Icons.home_outlined),
+      ),
+      Tab(
+        icon: Icon(Icons.person_outlined),
+      ),
+      Tab(
+        icon: Icon(Icons.notifications_outlined),
+      )
+    ];
   }
 }

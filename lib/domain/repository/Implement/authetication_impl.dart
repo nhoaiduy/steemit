@@ -1,4 +1,4 @@
-import 'package:either_dart/src/either.dart';
+import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
@@ -65,7 +65,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
     }
 
     if (password != confirmPassword) {
-      return Left("Password is mismatch");
+      return const Left("Password is mismatch");
     }
     String uid = "";
     try {

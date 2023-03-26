@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Steemit',
-        theme: ThemeData(scaffoldBackgroundColor: BaseColor.grey20),
+        theme: ThemeData(scaffoldBackgroundColor: BaseColor.appBarBackground),
         home: const AuthenticationLayerPage(),
       ),
     );
