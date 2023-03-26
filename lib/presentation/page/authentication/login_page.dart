@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
+import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/authentication/regisster_page.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
@@ -19,10 +19,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late AuthenticationCubit authenticationLayerCubit;
-  late LoginCubit loginCubit;
-  late Stream loginCubitStream;
-
   bool _isHidePassword = true;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -32,10 +28,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    authenticationLayerCubit = BlocProvider.of<AuthenticationCubit>(context);
-    loginCubit = BlocProvider.of<LoginCubit>(context);
-    loginCubitStream = loginCubit.stream;
-    loginCubitStream.listen((event) {
+    getIt.get<LoginCubit>().stream.listen((event) {
       if (!mounted) return;
       if (event is LoginFailureState) {
         setState(() => _loginErrorText = event.message);
@@ -103,10 +96,10 @@ class _LoginPageState extends State<LoginPage> {
                 _isHidePassword = !_isHidePassword;
               }),
             ),
-            if (_loginErrorText != null)
+            if (_loginErrorText.isNotEmpty)
               Padding(
                   padding: const EdgeInsets.only(top: 12.0),
-                  child: Text(_loginErrorText!,
+                  child: Text(_loginErrorText,
                       style: BaseTextStyle.body2(color: BaseColor.red500))),
             const SizedBox(height: 32),
             ButtonWidget.primary(
@@ -156,12 +149,12 @@ class _LoginPageState extends State<LoginPage> {
     unFocus();
     resetHidePasswordState();
     clearError();
-    bool loginResult = await loginCubit.login(
+    bool loginResult = await getIt.get<LoginCubit>().login(
         context: context,
         email: _usernameController.text,
         password: _passwordController.text);
     if (loginResult) {
-      authenticationLayerCubit.authenticate(this);
+      getIt.get<AuthenticationCubit>().authenticate(this);
     } else {
       if (mounted) LoadingCoverController.instance.close(context);
     }

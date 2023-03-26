@@ -12,8 +12,6 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  int currentIndex = 0;
-
   final List<Widget> pages = [
     const HomePage(),
     const AccountPage(),
@@ -24,6 +22,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: pages.length,
+      initialIndex: 1,
       child: Scaffold(
           body: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
@@ -37,11 +36,6 @@ class _NavigationPageState extends State<NavigationPage> {
     return Container(
       color: Colors.white,
       child: TabBar(
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
           indicatorColor: BaseColor.green500,
           labelColor: BaseColor.green500,
           unselectedLabelColor: BaseColor.grey300,

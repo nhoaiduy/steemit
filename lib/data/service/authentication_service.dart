@@ -18,7 +18,7 @@ class AuthService {
       final response = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       return response.user!.uid;
-    } on FirebaseException catch (e) {
+    } on FirebaseException {
       rethrow;
     }
   }
@@ -28,13 +28,17 @@ class AuthService {
     try {
       final response = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return response.user!.uid ?? "";
-    } on FirebaseAuthException catch (e) {
+      return response.user!.uid;
+    } on FirebaseAuthException {
       rethrow;
     }
   }
 
   Future logout() async {
     await _auth.signOut();
+  }
+
+  String getUserId() {
+    return _auth.currentUser!.uid;
   }
 }

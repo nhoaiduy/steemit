@@ -129,7 +129,7 @@ class ButtonWidget {
         content: content,
         prefixIconPath: prefixIconPath,
         suffixIconPath: isDirection ? Icons.chevron_right : null,
-        contentColor: isDisable ? BaseColor.grey300 : BaseColor.blue300,
+        contentColor: isDisable ? BaseColor.grey300 : BaseColor.green300,
         backgroundColor: isDisable ? BaseColor.grey40 : Colors.white,
         borderRadius: isExpand ? BorderRadius.circular(12.0) : null,
         isExpand: isExpand);

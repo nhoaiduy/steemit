@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
+import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/authentication/authentication_layer.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  setup();
   runApp(const MyApp());
 }
 
@@ -20,10 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthenticationCubit>(
-            create: (context) => AuthenticationCubit()),
-        BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
-        BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
+        BlocProvider.value(value: getIt.get<AuthenticationCubit>()),
+        BlocProvider.value(value: getIt.get<LoginCubit>()),
+        BlocProvider.value(value: getIt.get<RegisterCubit>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
