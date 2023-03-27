@@ -5,7 +5,7 @@ import 'package:steemit/presentation/bloc/authentication_layer/authentication_st
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/authentication/login_page.dart';
 import 'package:steemit/presentation/page/common/app_loading_page.dart';
-import 'package:steemit/presentation/page/user/navigation_page.dart';
+import 'package:steemit/presentation/page/navigation/navigation_page.dart';
 
 class AuthenticationLayerPage extends StatefulWidget {
   const AuthenticationLayerPage({Key? key}) : super(key: key);

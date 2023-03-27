@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:steemit/presentation/page/user/account_page.dart';
-import 'package:steemit/presentation/page/user/home_page.dart';
-import 'package:steemit/presentation/page/user/notification_page.dart';
+import 'package:steemit/presentation/page/navigation/account_page.dart';
+import 'package:steemit/presentation/page/navigation/home_page.dart';
+import 'package:steemit/presentation/page/navigation/notification_page.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 class NavigationPage extends StatefulWidget {
