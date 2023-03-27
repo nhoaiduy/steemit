@@ -95,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textInputType: TextInputType.emailAddress,
                 textEditingController: emailNameController,
                 textInputAction: TextInputAction.next,
+                maxLines: 1,
                 hintText: "Email"),
             const SizedBox(
               height: commonPadding,
@@ -105,6 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 prefixIconPath: Icons.lock_outlined,
                 textInputAction: TextInputAction.next,
                 isObscured: _isHidePassword,
+                maxLines: 1,
                 suffixIconPath: _isHidePassword
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,
@@ -123,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textEditingController: confirmPasswordController,
                 prefixIconPath: Icons.lock_outlined,
                 textInputAction: TextInputAction.done,
+                maxLines: 1,
                 suffixIconPath: _isHideConfirmPassword
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,

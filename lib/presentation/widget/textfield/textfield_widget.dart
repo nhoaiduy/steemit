@@ -76,7 +76,7 @@ class TextFieldWidget {
                 textAlignVertical: textAlignVertical,
                 textInputAction: textInputAction,
                 maxLength: maxLength,
-                maxLines: maxLines ?? 1,
+                maxLines: maxLines,
                 keyboardType: textInputType,
                 decoration: InputDecoration(
                   prefixIcon: prefixIconPath != null

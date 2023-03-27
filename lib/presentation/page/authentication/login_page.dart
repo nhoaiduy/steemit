@@ -78,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               onChanged: (value) {},
               hintText: "Enter your email",
               textEditingController: _usernameController,
+              maxLines: 1,
               errorText: _usernameErrorText,
               prefixIconPath: Icons.email_outlined,
             ),
@@ -85,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
             TextFieldWidget.common(
               onChanged: (value) {},
               hintText: "Enter your password",
+              maxLines: 1,
               isObscured: _isHidePassword,
               textEditingController: _passwordController,
               errorText: _passwordErrorText,

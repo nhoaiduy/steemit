@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/data/model/user_model.dart';
@@ -5,7 +6,10 @@ import 'package:steemit/presentation/bloc/authentication_layer/authentication_cu
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_state.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/user/setting_page.dart';
+import 'package:steemit/presentation/page/user/update_bio_page.dart';
+import 'package:steemit/presentation/page/user/update_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
+import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -33,7 +37,10 @@ class _AccountPageState extends State<AccountPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTopArea(user: user),
-                    _buildPostListArea(user: user)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: _buildPostListArea(user: user),
+                    )
                   ],
                 );
               }
@@ -45,7 +52,7 @@ class _AccountPageState extends State<AccountPage> {
 
   _appBar() {
     return AppBar(
-      backgroundColor: BaseColor.appBarBackground,
+      backgroundColor: BaseColor.background,
       title: Text(
         "Account",
         style: BaseTextStyle.subtitle1(),
@@ -77,6 +84,7 @@ class _AccountPageState extends State<AccountPage> {
               Padding(
                 padding: const EdgeInsets.only(right: 12.0),
                 child: AvatarWidget.base(
+                    isBorder: true,
                     imagePath: user.avatar,
                     name: "${user.firstName} ${user.lastName}",
                     size: extraLargeAvatarSize),
@@ -142,6 +150,13 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ),
           GestureDetector(
+            onTap: () {
+              _showBottomSheet(
+                  userModel: user,
+                  body: UpdateBioPage(
+                    bio: user.bio,
+                  ));
+            },
             child: Container(
               padding:
                   const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 16.0),
@@ -152,8 +167,14 @@ class _AccountPageState extends State<AccountPage> {
               ),
             ),
           ),
+          const SizedBox(height: 16.0),
           ButtonWidget.primaryWhite(
-              onTap: () {}, content: "Update your profile"),
+              onTap: () => _showBottomSheet(
+                  userModel: user,
+                  body: UpdateProfilePage(
+                    userModel: user,
+                  )),
+              content: "Update your profile"),
         ],
       ),
     );
@@ -166,9 +187,17 @@ class _AccountPageState extends State<AccountPage> {
         return Container(
           width: screenWidth / 3,
           height: screenWidth / 3,
-          decoration: BoxDecoration(
-              color: BaseColor.blue100,
-              border: Border.all(color: BaseColor.grey40)),
+          decoration:
+              BoxDecoration(border: Border.all(color: BaseColor.grey40)),
+          child: CachedNetworkImage(
+            imageUrl:
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/330px-Image_created_with_a_mobile_phone.png",
+            fit: BoxFit.cover,
+            placeholder: (context, image) {
+              return ShimmerWidget.base(
+                  width: screenWidth / 3, height: screenWidth / 3);
+            },
+          ),
         );
       }),
     );
@@ -275,5 +304,9 @@ class _AccountPageState extends State<AccountPage> {
         )
       ],
     );
+  }
+
+  _showBottomSheet({required UserModel userModel, required Widget body}) {
+    BottomSheetWidget.base(context: context, body: body);
   }
 }

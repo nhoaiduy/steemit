@@ -23,7 +23,7 @@ class AvatarWidget {
         padding: EdgeInsets.all(isBorder ? (finalSize ~/ 30).toDouble() : 0),
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: isBorder ? Border.all(color: BaseColor.blue500) : null),
+            border: isBorder ? Border.all(color: BaseColor.green500) : null),
         child: Stack(
           alignment: Alignment.center,
           children: [
