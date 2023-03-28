@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:steemit/presentation/page/user/account_page.dart';
-import 'package:steemit/presentation/page/user/home_page.dart';
-import 'package:steemit/presentation/page/user/notification_page.dart';
+import 'package:steemit/presentation/page/navigation/account_page.dart';
+import 'package:steemit/presentation/page/navigation/home_page.dart';
+import 'package:steemit/presentation/page/navigation/notification_page.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 class NavigationPage extends StatefulWidget {
@@ -12,8 +12,6 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  int currentIndex = 0;
-
   final List<Widget> pages = [
     const HomePage(),
     const AccountPage(),
@@ -24,6 +22,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: pages.length,
+      initialIndex: 1,
       child: Scaffold(
           body: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
@@ -37,11 +36,6 @@ class _NavigationPageState extends State<NavigationPage> {
     return Container(
       color: Colors.white,
       child: TabBar(
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
           indicatorColor: BaseColor.green500,
           labelColor: BaseColor.green500,
           unselectedLabelColor: BaseColor.grey300,

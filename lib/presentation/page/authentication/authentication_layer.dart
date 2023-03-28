@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_state.dart';
+import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/authentication/login_page.dart';
 import 'package:steemit/presentation/page/common/app_loading_page.dart';
-import 'package:steemit/presentation/page/user/navigation_page.dart';
+import 'package:steemit/presentation/page/navigation/navigation_page.dart';
 
 class AuthenticationLayerPage extends StatefulWidget {
   const AuthenticationLayerPage({Key? key}) : super(key: key);
@@ -15,19 +16,15 @@ class AuthenticationLayerPage extends StatefulWidget {
 }
 
 class _AuthenticationLayerPageState extends State<AuthenticationLayerPage> {
-  late AuthenticationCubit authenticationCubit;
-  late Stream authenticationStream;
-
   @override
   void initState() {
-    authenticationCubit = BlocProvider.of<AuthenticationCubit>(context)
-      ..authenticate();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+      bloc: getIt.get<AuthenticationCubit>()..authenticate(),
       builder: (context, state) {
         if (state is UnauthenticatedState) {
           return const LoginPage();

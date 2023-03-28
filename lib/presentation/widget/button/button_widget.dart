@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
@@ -129,7 +130,7 @@ class ButtonWidget {
         content: content,
         prefixIconPath: prefixIconPath,
         suffixIconPath: isDirection ? Icons.chevron_right : null,
-        contentColor: isDisable ? BaseColor.grey300 : BaseColor.blue300,
+        contentColor: isDisable ? BaseColor.grey300 : BaseColor.green300,
         backgroundColor: isDisable ? BaseColor.grey40 : Colors.white,
         borderRadius: isExpand ? BorderRadius.circular(12.0) : null,
         isExpand: isExpand);
@@ -171,5 +172,22 @@ class ButtonWidget {
         backgroundColor: isDisable ? BaseColor.grey40 : Colors.white,
         borderRadius: isExpand ? BorderRadius.circular(12.0) : null,
         isExpand: isExpand);
+  }
+
+  static text(
+      {required VoidCallback onTap,
+      required String content,
+      required BuildContext context}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: Colors.transparent,
+        padding: const EdgeInsets.all(textButtonPadding),
+        child: Text(
+          content,
+          style: BaseTextStyle.body1(color: BaseColor.blue300),
+        ),
+      ),
+    );
   }
 }

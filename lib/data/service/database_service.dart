@@ -10,18 +10,19 @@ class DatabaseService {
     try {
       final response = await _fireStore.collection("users").doc(uid).get();
       final userModel = UserModel.fromJson(response.data()!);
-
       return userModel;
-    } on FirebaseException catch (e) {
+    } catch (e) {
       rethrow;
     }
   }
 
   Future<void> setUser({required UserModel userModel}) async {
     try {
-      await _fireStore.collection("users").doc(userModel.id).set(
-          userModel.toJson());
-    } on FirebaseException catch (e) {
+      await _fireStore
+          .collection("users")
+          .doc(userModel.id)
+          .set(userModel.toJson());
+    } on FirebaseException {
       rethrow;
     }
   }

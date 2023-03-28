@@ -47,7 +47,6 @@ class TextFieldWidget {
                         style: BaseTextStyle.label(color: BaseColor.red400))
                 ])),
           Container(
-            height: 44.0,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 color: isSearch ? fillColor : Colors.transparent),
@@ -76,7 +75,7 @@ class TextFieldWidget {
                 textAlignVertical: textAlignVertical,
                 textInputAction: textInputAction,
                 maxLength: maxLength,
-                maxLines: maxLines ?? 1,
+                maxLines: maxLines,
                 keyboardType: textInputType,
                 decoration: InputDecoration(
                   prefixIcon: prefixIconPath != null
@@ -102,8 +101,7 @@ class TextFieldWidget {
                   hintText: hintText,
                   fillColor: isSearch
                       ? Colors.transparent
-                      : fillColor ??
-                          (enable ? Colors.white : BaseColor.grey300),
+                      : fillColor ?? (enable ? Colors.white : BaseColor.grey40),
                   filled: true,
                   contentPadding: contentPadding ??
                       EdgeInsets.only(
