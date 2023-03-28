@@ -3,8 +3,15 @@ import 'package:steemit/util/style/base_color.dart';
 
 import 'comments_page.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   const PostCard({Key? key}) : super(key: key);
+
+  @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  bool isShow = true;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,7 @@ class PostCard extends StatelessWidget {
                 const CircleAvatar(
                   radius: 16,
                   backgroundImage: NetworkImage(
-                    'https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-1/320607492_1476810126175236_2608549826068351142_n.jpg?stp=dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=7206a8&_nc_ohc=IypSIoiCtt8AX8VXtoG&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfCxkCh7GcXY_KLAVLlL1j3eZKH7q0QRInj8wWjjChQUDA&oe=640EEAB7'
+                    'https://nationaltoday.com/wp-content/uploads/2020/08/international-cat-day-640x514.jpg'
                   ),
                 ),
                 Expanded(
@@ -74,7 +81,7 @@ class PostCard extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.5,
             width: double.infinity,
             child: Image.network(
-              'https://instagram.fsgn5-15.fna.fbcdn.net/v/t51.2885-15/334736292_168461862654791_4445004261921005487_n.jpg?stp=dst-jpg_e35&_nc_ht=instagram.fsgn5-15.fna.fbcdn.net&_nc_cat=111&_nc_ohc=OW8rlAZzfD8AX_4Z_NR&edm=AJ9x6zYBAAAA&ccb=7-5&ig_cache_key=MzA1NDkxOTY1NDUxNDE3ODM0Nw%3D%3D.2-ccb7-5&oh=00_AfBYi09vtwwTY_4cBFZTYX2u1wyghYvjfuCq353PbL9B3A&oe=640FD148&_nc_sid=cff2a4',
+              'https://antimatter.vn/wp-content/uploads/2022/04/buon-anh-meo-khoc-cute.jpg',
               fit: BoxFit.cover,
             ),
           ),
@@ -90,7 +97,7 @@ class PostCard extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
                   },
                   icon: const Icon(
                     Icons.comment_outlined,
@@ -131,29 +138,34 @@ class PostCard extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.only(top: 4),
-                  child: Row(
-                      children: [
-                        Text(
-                          'username',
-                          style: TextStyle(color: BaseColor.elements, fontWeight: FontWeight.bold)
-                        ),
-                        const SizedBox(width: 5,),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: const Text(
-                              'Description of post can be replaced. I am making sure this string is long enough to test the overflowed length',
-                              style: TextStyle(color: BaseColor.purpleAccent),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isShow = !isShow;
+                      });
+                    },
+                    child: RichText(
+                      softWrap: true,
+                      overflow: isShow ? TextOverflow.ellipsis : TextOverflow.visible,
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'username',
+                            style: TextStyle(color: BaseColor.elements, fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      ],
-                  ),
+                          TextSpan(
+                            text: ' Description of post can be replaced. post can be replaced. I am making sure this string is long enough to test the overflowed length',
+                            style: TextStyle(color: BaseColor.purpleAccent),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                  },
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: const Text(

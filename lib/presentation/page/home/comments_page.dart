@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:steemit/presentation/page/user/home/comments_card.dart';
+import 'package:steemit/presentation/page/home/comments_card.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 class CommentsPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class _CommentsPageState extends State<CommentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: BaseColor.appBarBackground,
+        backgroundColor: BaseColor.background,
         title: const Text('Comments', style: TextStyle(color: BaseColor.grey900),),
         centerTitle: false,
         iconTheme: const IconThemeData(
@@ -35,7 +35,7 @@ class _CommentsPageState extends State<CommentsPage> {
           child: Row(
             children: [
               const CircleAvatar(
-                backgroundImage: NetworkImage('https://thuthuatnhanh.com/wp-content/uploads/2021/02/Anh-avatar-bua-cute-dep-390x390.jpg'),
+                backgroundImage: NetworkImage('https://antimatter.vn/wp-content/uploads/2022/04/buon-anh-meo-khoc-cute.jpg'),
                 radius: 18,
               ),
               const Expanded(

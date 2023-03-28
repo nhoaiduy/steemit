@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
 import 'package:steemit/presentation/bloc/register/register_state.dart';
+import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -17,8 +17,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  late final RegisterCubit registerCubit;
-
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailNameController = TextEditingController();
@@ -33,8 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void initState() {
-    registerCubit = BlocProvider.of<RegisterCubit>(context);
-    registerCubit.stream.listen((event) {
+    getIt.get<RegisterCubit>().stream.listen((event) {
       if (!mounted) return;
       if (event is RegisterErrorState) {
         setState(() {
@@ -98,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textInputType: TextInputType.emailAddress,
                 textEditingController: emailNameController,
                 textInputAction: TextInputAction.next,
+                maxLines: 1,
                 hintText: "Email"),
             const SizedBox(
               height: commonPadding,
@@ -108,6 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 prefixIconPath: Icons.lock_outlined,
                 textInputAction: TextInputAction.next,
                 isObscured: _isHidePassword,
+                maxLines: 1,
                 suffixIconPath: _isHidePassword
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,
@@ -126,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textEditingController: confirmPasswordController,
                 prefixIconPath: Icons.lock_outlined,
                 textInputAction: TextInputAction.done,
+                maxLines: 1,
                 suffixIconPath: _isHideConfirmPassword
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,
@@ -171,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
     clearError();
     unFocus();
     resetHidePasswordState();
-    registerCubit.register(
+    getIt.get<RegisterCubit>().register(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         email: emailNameController.text,

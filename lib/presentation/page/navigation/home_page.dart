@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:steemit/presentation/page/user/home/post_card.dart';
+import 'package:steemit/presentation/page/home/post_card.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 import '../../../../util/path/image_path.dart';
@@ -20,9 +20,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: BaseColor.green500,
         elevation: 0.0,
         title: BaseImage.base(
-            ImagePath.appIcon,
-            color: Colors.white,
-         ),
+          ImagePath.appIcon,
+          color: Colors.white,
+        ),
         actions: [
           IconButton(
               onPressed: () {},
@@ -30,11 +30,11 @@ class _HomePageState extends State<HomePage> {
           )],
       ),
       body: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          const PostCard(),
-          const PostCard()
-        ]
+          scrollDirection: Axis.vertical,
+          children: [
+            const PostCard(),
+            const PostCard()
+          ]
       ),
     );
   }

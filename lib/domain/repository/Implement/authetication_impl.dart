@@ -1,4 +1,4 @@
-import 'package:either_dart/src/either.dart';
+import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
@@ -24,9 +24,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
       Either<String, void> validPassword =
           ValidationHelper.validPassword(password);
       if (validPassword.isLeft) return Left(validPassword.left);
-      final result = await authService.login(email: email, password: password);
-
-      ///TODO: get user data
+      await authService.login(email: email, password: password);
       return const Right(null);
     } on FirebaseAuthException catch (e) {
       return Left(e.message!);
@@ -46,11 +44,11 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
       required String password,
       required String confirmPassword}) async {
     if (firstName.isEmpty) {
-      return Left("Please enter your first name");
+      return const Left("Please enter your first name");
     }
 
     if (lastName.isEmpty) {
-      return Left("Please enter your last name");
+      return const Left("Please enter your last name");
     }
 
     Either<String, void> validEmail = ValidationHelper.validUsername(email);
@@ -65,7 +63,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
     }
 
     if (password != confirmPassword) {
-      return Left("Password is mismatch");
+      return const Left("Password is mismatch");
     }
     String uid = "";
     try {
@@ -75,7 +73,12 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
     }
 
     UserModel userModel = UserModel(
-        id: uid, email: email, firstName: firstName, lastName: lastName);
+        id: uid,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        followers: List.empty(growable: true),
+        followings: List.empty(growable: true));
 
     try {
       await databaseService.setUser(userModel: userModel);
@@ -83,5 +86,16 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
       return Left(e.message!);
     }
     return const Right(null);
+  }
+
+  @override
+  Future<Either<String, UserModel>> getCurrentUser() async {
+    try {
+      final response =
+          await databaseService.getUser(uid: authService.getUserId());
+      return Right(response);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
   }
 }

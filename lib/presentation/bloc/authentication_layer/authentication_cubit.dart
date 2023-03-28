@@ -8,12 +8,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit() : super(AuthInitialState());
 
   Future<void> authenticate([State? state]) async {
-    if (state is AuthInitialState) {
-      await Future.delayed(const Duration(seconds: 4));
-    }
+    await Future.delayed(const Duration(seconds: 3));
     final authRepository = AuthenticationRepositoryImpl().authenticate();
     if (authRepository) {
-      emit(AuthenticatedState());
+      final response = await AuthenticationRepositoryImpl().getCurrentUser();
+      if (response.isLeft) {
+        emit(ErrorState(message: response.left));
+        return;
+      }
+      emit(AuthenticatedState(userModel: response.right));
     } else {
       emit(UnauthenticatedState());
     }

@@ -67,5 +67,5 @@ class BaseColor {
   static const Color purpleAccent = Color(0xffEEE9F3);
   static const Color elements = Color(0xffffffff);
 
-  static const Color appBarBackground = Color(0xffF3F4F7);
+  static const Color background = Color(0xffF3F4F7);
 }
