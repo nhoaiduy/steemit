@@ -1,44 +1,41 @@
-import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:steemit/core/exception/exception.dart';
-import 'package:steemit/core/failures/login_failures.dart';
 
 final AuthService authService = AuthService();
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Either<Exception, bool> authenticate() {
-    try {
-      if (_auth.currentUser != null) {
-        return const Right(true);
-      }
-      return const Right(false);
-    } catch (e) {
-      if (e is ServerException) {
-        return Left(ServerException());
-      }
-      if (e is AuthorizationException) {
-        return Left(AuthorizationException());
-      }
-      return Left(DataParsingException());
+  bool authenticate() {
+    if (_auth.currentUser != null) {
+      return true;
     }
+    return false;
   }
 
-  Future<Either<AuthenticationFailures, String>> login(
+  Future<String> login(
       {required String email, required String password}) async {
     try {
       final response = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      return Right(response.user!.uid);
-    } catch (e) {
-      if (e is ServerException) {
-        return Left(ServerFailures());
-      }
-      if (e is AuthorizationException) {
-        return Left(WrongLoginInfoFailures());
-      }
-      return Left(DataParsingFailures());
+
+      return response.user!.uid;
+    } on FirebaseException catch (e) {
+      rethrow;
     }
+  }
+
+  Future<String> register(
+      {required String email, required String password}) async {
+    try {
+      final response = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return response.user!.uid ?? "";
+    } on FirebaseAuthException catch (e) {
+      rethrow;
+    }
+  }
+
+  Future logout() async {
+    await _auth.signOut();
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/util/style/base_color.dart';
 
+import 'comments_page.dart';
+
 class PostCard extends StatelessWidget {
   const PostCard({Key? key}) : super(key: key);
 
@@ -87,7 +89,9 @@ class PostCard extends StatelessWidget {
                 )
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                  },
                   icon: const Icon(
                     Icons.comment_outlined,
                     color: Colors.white,

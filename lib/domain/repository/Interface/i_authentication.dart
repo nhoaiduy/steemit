@@ -1,10 +1,13 @@
 import 'package:either_dart/either.dart';
-import 'package:steemit/core/failures/failures.dart';
-import 'package:steemit/core/failures/login_failures.dart';
 
 abstract class AuthenticationRepositoryInterface {
-  Either<Failures, bool> authenticate();
+  bool authenticate();
 
-  Future<Either<AuthenticationFailures, String>> login(
+  Future<Either<String, void>> login(
       {required String email, required String password});
+
+  void logout();
+
+  Future<Either<String, void>> register(
+      {required String firstName, required String lastName, required String email, required String password, required String confirmPassword});
 }
