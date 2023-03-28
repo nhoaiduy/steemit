@@ -37,10 +37,7 @@ class _AccountPageState extends State<AccountPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTopArea(user: user),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: _buildPostListArea(user: user),
-                    )
+                    _buildPostListArea(user: user)
                   ],
                 );
               }
@@ -67,12 +64,19 @@ class _AccountPageState extends State<AccountPage> {
               color: BaseColor.grey900,
             ))
       ],
+      bottom: PreferredSize(
+        preferredSize: Size(double.infinity, 1.0),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: BaseColor.grey60))),
+        ),
+      ),
     );
   }
 
   _buildTopArea({required UserModel user}) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: const BoxDecoration(
           border:
               Border(bottom: BorderSide(width: 0.7, color: BaseColor.grey40))),

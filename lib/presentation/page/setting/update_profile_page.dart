@@ -16,6 +16,20 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
+  @override
+  void initState() {
+    setState(() {
+      firstNameController.text = widget.userModel.firstName;
+      lastNameController.text = widget.userModel.lastName;
+      emailController.text = widget.userModel.email;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = widget.userModel;
@@ -42,18 +56,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     onChanged: (text) {},
                     labelText: "First name",
                     hintText: "Enter first name",
+                    textEditingController: firstNameController,
                     required: true),
                 const SizedBox(height: 20.0),
                 TextFieldWidget.common(
                     onChanged: (text) {},
                     labelText: "Last name",
                     hintText: "Enter last name",
+                    textEditingController: lastNameController,
                     required: true),
                 const SizedBox(height: 20.0),
                 TextFieldWidget.common(
                     onChanged: (text) {},
                     labelText: "Email",
                     hintText: "Enter  email",
+                    textEditingController: emailController,
+                    enable: false,
                     required: true),
               ],
             )),

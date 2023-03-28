@@ -12,6 +12,18 @@ class UpdateBioPage extends StatefulWidget {
 }
 
 class _UpdateBioPageState extends State<UpdateBioPage> {
+  final TextEditingController bioController = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.bio != null) {
+      setState(() {
+        bioController.text = widget.bio!;
+      });
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -21,11 +33,15 @@ class _UpdateBioPageState extends State<UpdateBioPage> {
                 left: 16.0,
                 right: 16.0,
                 top: 72.0,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 16.0),
+                bottom: MediaQuery
+                    .of(context)
+                    .viewInsets
+                    .bottom + 16.0),
             child: Column(
               children: [
                 TextFieldWidget.common(
                     onChanged: (text) {},
+                    textEditingController: bioController,
                     labelText: "Bio",
                     hintText: "Enter your bio"),
               ],
