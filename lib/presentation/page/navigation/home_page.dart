@@ -17,25 +17,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: BaseColor.green500,
         elevation: 0.0,
+        backgroundColor: Colors.transparent,
         title: BaseImage.base(
           ImagePath.appIcon,
-          color: Colors.white,
         ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.messenger_outline)
-          )],
+        bottom: PreferredSize(
+          preferredSize: const Size(double.infinity, 1.0),
+          child: Container(
+            decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: BaseColor.grey60))),
+          ),
+        ),
       ),
-      body: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            const PostCard(),
-            const PostCard()
-          ]
-      ),
+      body: ListView(children: List.generate(10, (index) => const PostCard())),
     );
   }
 }

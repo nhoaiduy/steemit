@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 class CommentsCard extends StatefulWidget {
@@ -15,12 +16,7 @@ class _CommentsCardState extends State<CommentsCard> {
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
       child: Row(
         children: [
-          const CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://thuthuatnhanh.com/wp-content/uploads/2021/02/Anh-avatar-bua-cute-dep-390x390.jpg'
-            ),
-            radius: 18,
-          ),
+          AvatarWidget.base(name: "steemit_user"),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 8),
@@ -34,8 +30,9 @@ class _CommentsCardState extends State<CommentsCard> {
                       children: [
                         TextSpan(
                             text: 'username',
-                            style: TextStyle(fontWeight: FontWeight.bold,)
-                        ),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
                         TextSpan(
                           text: ' Original comments for the post',
                         ),
@@ -45,9 +42,11 @@ class _CommentsCardState extends State<CommentsCard> {
                   const Padding(
                     padding: EdgeInsets.only(top: 4),
                     child: Text(
-                        '23/3/2023'
-                      ,
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400,),
+                      '23/3/2023',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   )
                 ],
@@ -59,4 +58,3 @@ class _CommentsCardState extends State<CommentsCard> {
     );
   }
 }
-

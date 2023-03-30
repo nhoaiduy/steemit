@@ -23,18 +23,17 @@ class _AuthenticationLayerPageState extends State<AuthenticationLayerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const NavigationPage();
-    //   BlocBuilder<AuthenticationCubit, AuthenticationState>(
-    //   bloc: getIt.get<AuthenticationCubit>()..authenticate(),
-    //   builder: (context, state) {
-    //     if (state is UnauthenticatedState) {
-    //       return const LoginPage();
-    //     }
-    //     if (state is AuthenticatedState) {
-    //       return const NavigationPage();
-    //     }
-    //     return const AppLoadingPage();
-    //   },
-    // );
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+      bloc: getIt.get<AuthenticationCubit>()..authenticate(),
+      builder: (context, state) {
+        if (state is UnauthenticatedState) {
+          return const LoginPage();
+        }
+        if (state is AuthenticatedState) {
+          return const NavigationPage();
+        }
+        return const AppLoadingPage();
+      },
+    );
   }
 }
