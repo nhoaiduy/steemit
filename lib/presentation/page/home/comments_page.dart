@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/presentation/page/home/comments_card.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
+import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 
@@ -50,21 +51,11 @@ class _CommentsPageState extends State<CommentsPage> {
               AvatarWidget.base(name: "steemit_user"),
               Expanded(
                 child: Padding(
-                    padding: EdgeInsets.only(left: 16, right: 8),
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: TextFieldWidget.common(
                         onChanged: (text) {}, hintText: "Type your comment")),
               ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  child: const Text(
-                    'Post',
-                    style: TextStyle(color: BaseColor.blue400),
-                  ),
-                ),
-              )
+              ButtonWidget.text(onTap: () {}, content: "Post", context: context)
             ],
           ),
         ),

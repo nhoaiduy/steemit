@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
+import 'package:steemit/util/style/base_text_style.dart';
 
 class CommentsCard extends StatefulWidget {
   const CommentsCard({Key? key}) : super(key: key);
@@ -25,29 +26,24 @@ class _CommentsCardState extends State<CommentsCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RichText(
-                    text: const TextSpan(
-                      style: TextStyle(color: BaseColor.grey900),
+                    text: TextSpan(
+                      style: const TextStyle(color: BaseColor.grey900),
                       children: [
                         TextSpan(
                             text: 'username',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
+                            style: BaseTextStyle.body2(color: Colors.black)
+                                .copyWith(fontWeight: FontWeight.bold)),
                         TextSpan(
-                          text: ' Original comments for the post',
-                        ),
+                            text: ' Original comments for the post',
+                            style:
+                                BaseTextStyle.body2(color: BaseColor.grey600)),
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 4),
-                    child: Text(
-                      '23/3/2023',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text('23/3/2023',
+                        style: BaseTextStyle.body2(color: BaseColor.grey600)),
                   )
                 ],
               ),
