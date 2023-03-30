@@ -44,8 +44,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         BottomSheetWidget.title(
             context: context,
             title: "Change password",
-            prefixContent: "Cancel",
-            suffixContent: "Update"),
+            rollbackContent: "Cancel",
+            submitContent: "Update"),
       ],
     );
   }

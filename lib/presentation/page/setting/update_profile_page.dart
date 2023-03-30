@@ -78,8 +78,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         BottomSheetWidget.title(
             context: context,
             title: "Update profile",
-            prefixContent: "Cancel",
-            suffixContent: "Update"),
+            rollbackContent: "Cancel",
+            submitContent: "Update"),
       ],
     );
   }

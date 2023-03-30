@@ -65,9 +65,9 @@ class _AccountPageState extends State<AccountPage> {
             ))
       ],
       bottom: PreferredSize(
-        preferredSize: Size(double.infinity, 1.0),
+        preferredSize: const Size(double.infinity, 1.0),
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               border: Border(bottom: BorderSide(color: BaseColor.grey60))),
         ),
       ),
@@ -172,7 +172,7 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ),
           const SizedBox(height: 16.0),
-          ButtonWidget.primaryWhite(
+          ButtonWidget.tertiary(
               onTap: () => _showBottomSheet(
                   userModel: user,
                   body: UpdateProfilePage(
