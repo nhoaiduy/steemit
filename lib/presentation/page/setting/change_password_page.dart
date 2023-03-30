@@ -46,6 +46,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             title: "Change password",
             rollbackContent: "Cancel",
             submitContent: "Update"),
+
       ],
     );
   }

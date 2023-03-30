@@ -34,6 +34,7 @@ class _UpdateBioPageState extends State<UpdateBioPage> {
                 right: 16.0,
                 top: 72.0,
                 bottom: MediaQuery.of(context).viewInsets.bottom + 16.0),
+
             child: Column(
               children: [
                 TextFieldWidget.common(
@@ -48,6 +49,7 @@ class _UpdateBioPageState extends State<UpdateBioPage> {
             title: "Update bio",
             rollbackContent: "Cancel",
             submitContent: "Update"),
+
       ],
     );
   }

@@ -80,6 +80,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             title: "Update profile",
             rollbackContent: "Cancel",
             submitContent: "Update"),
+
       ],
     );
   }
