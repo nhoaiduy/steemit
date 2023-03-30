@@ -9,78 +9,68 @@ const double textButtonPadding = 12.0;
 
 class BottomSheetWidget {
   static base({required BuildContext context, required Widget body}) {
-    double pageHeight = MediaQuery.of(context).size.height;
-    double overlayHeight = MediaQuery.of(context).padding.top;
-    showModalBottomSheet(
+    final pageHeight = MediaQuery.of(context).size.height;
+    final overHeight = MediaQuery.of(context).padding.top;
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
         context: context,
         isScrollControlled: true,
-        backgroundColor: Colors.transparent,
         builder: (_) {
           return Container(
-              height: pageHeight - overlayHeight - 32,
+              width: double.infinity,
+              height: pageHeight - overHeight - 32.0,
               decoration: const BoxDecoration(
-                  color: BaseColor.background,
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(
                         16.0,
                       ),
                       topRight: Radius.circular(16.0))),
-              child: Stack(
-                children: [
-                  body,
-                ],
-              ));
+              child: body);
         });
   }
 
   static title(
       {required BuildContext context,
       required String title,
-      VoidCallback? onPrefix,
-      String? prefixContent,
-      VoidCallback? onSuffix,
+      VoidCallback? onRollback,
+      String? rollbackContent,
+      VoidCallback? onSubmit,
       double horizontalPadding = 16.0,
-      String? suffixContent}) {
+      String? submitContent}) {
     return Container(
-      decoration: const BoxDecoration(
-          color: BaseColor.background,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(
-                16.0,
-              ),
-              topRight: Radius.circular(16.0))),
       height: 56,
-      padding: EdgeInsets.symmetric(
-          horizontal:
-              horizontalPadding - min(horizontalPadding, textButtonPadding)),
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: BaseColor.grey200)),
+      ),
+      padding: EdgeInsets.all(
+          horizontalPadding - min(horizontalPadding, textButtonPadding)),
       child: Stack(
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              prefixContent != null
+              rollbackContent != null
                   ? ButtonWidget.text(
-                      onTap: onPrefix ?? () => Navigator.pop(context),
-                      content: prefixContent,
+                      onTap: onRollback ?? () => Navigator.pop(context),
+                      content: rollbackContent,
                       context: context)
-                  : const SizedBox.shrink(),
-              if (suffixContent != null)
+                  : const Center(),
+              if (submitContent != null)
                 ButtonWidget.text(
-                    onTap: onSuffix ?? () {},
-                    content: suffixContent,
+                    onTap: onSubmit ?? () {},
+                    content: submitContent,
                     context: context)
             ],
           ),
           Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: textButtonPadding),
-              child: Text(
-                title,
-                style: BaseTextStyle.label(),
-                textAlign: TextAlign.center,
-              ),
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: BaseTextStyle.label(),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
