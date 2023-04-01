@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:steemit/presentation/page/home/post_card.dart';
+import 'package:steemit/presentation/page/common/search_page.dart';
+import 'package:steemit/presentation/page/post/create_post_page.dart';
+import 'package:steemit/presentation/widget/post/post_card.dart';
 import 'package:steemit/util/style/base_color.dart';
 
 import '../../../../util/path/image_path.dart';
@@ -22,6 +24,24 @@ class _HomePageState extends State<HomePage> {
         title: BaseImage.base(
           ImagePath.appIcon,
         ),
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CreatePostPage())),
+              icon: const Icon(
+                Icons.edit_outlined,
+                color: BaseColor.grey900,
+              )),
+          IconButton(
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SearchPage())),
+              icon: const Icon(
+                Icons.search_outlined,
+                color: BaseColor.grey900,
+              ))
+        ],
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 1.0),
           child: Container(

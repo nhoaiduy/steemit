@@ -1,3 +1,6 @@
+import 'package:steemit/util/enum/gender_enum.dart';
+import 'package:steemit/util/helper/gender_helper.dart';
+
 class UserModel {
   late String id;
   late String email;
@@ -5,6 +8,7 @@ class UserModel {
   late String lastName;
   late List<UserModel> followers;
   late List<UserModel> followings;
+  Gender? gender;
   String? bio;
   String? token;
   String? avatar;
@@ -16,6 +20,7 @@ class UserModel {
       required this.lastName,
       required this.followers,
       required this.followings,
+      this.gender,
       this.bio,
       this.token,
       this.avatar});
@@ -39,6 +44,9 @@ class UserModel {
     } else {
       followings = List.empty(growable: true);
     }
+    if (json["gender"] != null) {
+      gender = GenderHelper.mapStringToEnum(json["gender"]);
+    }
     token = json["token"];
     bio = json["bio"];
     avatar = json["avatar"];
@@ -52,6 +60,8 @@ class UserModel {
     data['lastName'] = lastName;
     data['followings'] = followings;
     data['followers'] = followers;
+    data['gender'] =
+        gender != null ? GenderHelper.mapEnumToString(gender!) : null;
     data['bio'] = bio;
     data['token'] = token;
     data['avatar'] = avatar;

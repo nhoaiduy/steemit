@@ -4,6 +4,7 @@ import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/data/service/database_service.dart';
 import 'package:steemit/domain/repository/Interface/i_authentication.dart';
+import 'package:steemit/util/enum/gender_enum.dart';
 import 'package:steemit/util/helper/login_helper.dart';
 
 class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
@@ -42,7 +43,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
       required String lastName,
       required String email,
       required String password,
-      required String confirmPassword}) async {
+      required String confirmPassword,
+      Gender? gender}) async {
     if (firstName.isEmpty) {
       return const Left("Please enter your first name");
     }
@@ -77,6 +79,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
         email: email,
         firstName: firstName,
         lastName: lastName,
+        gender: gender,
         followers: List.empty(growable: true),
         followings: List.empty(growable: true));
 
