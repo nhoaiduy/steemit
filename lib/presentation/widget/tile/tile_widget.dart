@@ -28,7 +28,7 @@ class TileWidget {
             ),
             if (prefix != null)
               Container(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(6.0),
                   margin: const EdgeInsets.only(right: 8.0),
                   decoration: BoxDecoration(
                       color: prefixColor ?? BaseColor.yellow500,
@@ -36,6 +36,7 @@ class TileWidget {
                   child: Icon(
                     prefix,
                     color: Colors.white,
+                    size: 20.0,
                   )),
             Expanded(
               child: Container(
@@ -58,5 +59,21 @@ class TileWidget {
         ),
       ),
     );
+  }
+
+  static pickItem(
+      {required String content, bool isChosen = false, VoidCallback? onTap}) {
+    return cellSmall(
+        height: 44.0,
+        onTap: onTap,
+        content: content,
+        contentStyle: BaseTextStyle.body1(),
+        backgroundColor: Colors.white,
+        suffix: isChosen
+            ? const Icon(
+                Icons.check,
+                color: BaseColor.blue300,
+              )
+            : null);
   }
 }

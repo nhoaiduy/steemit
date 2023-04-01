@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:steemit/presentation/page/home/comments_card.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
+import 'package:steemit/presentation/widget/comment/comments_card.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 

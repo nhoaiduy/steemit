@@ -3,7 +3,7 @@ import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
-import 'comments_page.dart';
+import '../../page/post/comments_page.dart';
 
 class PostCard extends StatefulWidget {
   const PostCard({Key? key}) : super(key: key);

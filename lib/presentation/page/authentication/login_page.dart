@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
-import 'package:steemit/presentation/page/authentication/regisster_page.dart';
+import 'package:steemit/presentation/page/authentication/forgot_password_page.dart';
+import 'package:steemit/presentation/page/authentication/register_page.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/controller/loading_cover_controller.dart';
@@ -98,15 +99,34 @@ class _LoginPageState extends State<LoginPage> {
                 _isHidePassword = !_isHidePassword;
               }),
             ),
+            Row(children: [
+              const Spacer(),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ForgotPasswordPage())),
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  color: Colors.transparent,
+                  child: Text(
+                    "Forgot password",
+                    style: BaseTextStyle.body1(color: BaseColor.green500),
+                  ),
+                ),
+              )
+            ]),
             if (_loginErrorText.isNotEmpty)
               Padding(
                   padding: const EdgeInsets.only(top: 12.0),
                   child: Text(_loginErrorText,
                       style: BaseTextStyle.body2(color: BaseColor.red500))),
-            const SizedBox(height: 32),
-            ButtonWidget.primary(
-              onTap: () => login(),
-              content: "Login",
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: ButtonWidget.primary(
+                onTap: () => login(),
+                content: "Login",
+              ),
             ),
           ],
         ));

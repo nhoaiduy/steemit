@@ -5,6 +5,8 @@ import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_state.dart';
 import 'package:steemit/presentation/injection/injection.dart';
+import 'package:steemit/presentation/page/post/create_post_page.dart';
+import 'package:steemit/presentation/page/post/post_page.dart';
 import 'package:steemit/presentation/page/setting/setting_page.dart';
 import 'package:steemit/presentation/page/setting/update_bio_page.dart';
 import 'package:steemit/presentation/page/setting/update_profile_page.dart';
@@ -56,6 +58,13 @@ class _AccountPageState extends State<AccountPage> {
       ),
       elevation: 0,
       actions: [
+        IconButton(
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CreatePostPage())),
+            icon: Icon(
+              Icons.edit_outlined,
+              color: BaseColor.grey900,
+            )),
         IconButton(
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingPage())),
@@ -188,19 +197,24 @@ class _AccountPageState extends State<AccountPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Wrap(
       children: List.generate(100, (index) {
-        return Container(
-          width: screenWidth / 3,
-          height: screenWidth / 3,
-          decoration:
-              BoxDecoration(border: Border.all(color: BaseColor.grey40)),
-          child: CachedNetworkImage(
-            imageUrl:
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/330px-Image_created_with_a_mobile_phone.png",
-            fit: BoxFit.cover,
-            placeholder: (context, image) {
-              return ShimmerWidget.base(
-                  width: screenWidth / 3, height: screenWidth / 3);
-            },
+        return GestureDetector(
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PostPage())),
+          child: Container(
+            width: screenWidth / 3,
+            height: screenWidth / 3,
+            decoration: BoxDecoration(
+                border: Border.all(color: BaseColor.grey40),
+                color: Colors.transparent),
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/330px-Image_created_with_a_mobile_phone.png",
+              fit: BoxFit.cover,
+              placeholder: (context, image) {
+                return ShimmerWidget.base(
+                    width: screenWidth / 3, height: screenWidth / 3);
+              },
+            ),
           ),
         );
       }),

@@ -5,7 +5,7 @@ import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
-const double textButtonPadding = 12.0;
+const double textButtonPadding = 8.0;
 
 class BottomSheetWidget {
   static base({required BuildContext context, required Widget body}) {
@@ -20,7 +20,7 @@ class BottomSheetWidget {
               width: double.infinity,
               height: pageHeight - overHeight - 32.0,
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: BaseColor.background,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(
                         16.0,
@@ -41,8 +41,8 @@ class BottomSheetWidget {
     return Container(
       height: 56,
       width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: BaseColor.background,
         border: Border(bottom: BorderSide(color: BaseColor.grey200)),
       ),
       padding: EdgeInsets.all(

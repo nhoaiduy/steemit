@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/setting/change_password_page.dart';
+import 'package:steemit/presentation/page/setting/recent_activities_page.dart';
+import 'package:steemit/presentation/page/setting/saved_post_page.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/tile/tile_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -24,8 +26,34 @@ class _SettingPageState extends State<SettingPage> {
           child: Column(
             children: [
               TileWidget.cellSmall(
+                  content: "Recent activities",
+                  prefix: Icons.local_activity,
+                  prefixColor: BaseColor.blue500,
+                  suffix: const Icon(
+                    Icons.chevron_right,
+                    color: BaseColor.blue300,
+                    size: 36,
+                  ),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RecentActivitiesPage()))),
+              TileWidget.cellSmall(
+                  content: "Saved posts",
+                  prefix: Icons.bookmark_outlined,
+                  suffix: const Icon(
+                    Icons.chevron_right,
+                    color: BaseColor.blue300,
+                    size: 36,
+                  ),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SavedPostPage()))),
+              TileWidget.cellSmall(
                   content: "Change password",
                   prefix: Icons.key_outlined,
+                  prefixColor: BaseColor.red500,
                   suffix: const Icon(
                     Icons.chevron_right,
                     color: BaseColor.blue300,

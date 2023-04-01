@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/user_model.dart';
+import 'package:steemit/presentation/page/setting/select_gender_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
+import 'package:steemit/util/enum/gender_enum.dart';
+import 'package:steemit/util/helper/gender_helper.dart';
 
 class UpdateProfilePage extends StatefulWidget {
   final UserModel userModel;
@@ -19,6 +22,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController genderController = TextEditingController();
+  Gender? gender;
 
   @override
   void initState() {
@@ -26,6 +31,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       firstNameController.text = widget.userModel.firstName;
       lastNameController.text = widget.userModel.lastName;
       emailController.text = widget.userModel.email;
+      gender = widget.userModel.gender;
+      if (gender != null) {
+        genderController.text = GenderHelper.mapEnumToString(gender!);
+      }
     });
     super.initState();
   }
@@ -56,6 +65,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     onChanged: (text) {},
                     labelText: "First name",
                     hintText: "Enter first name",
+                    prefixIconPath: Icons.text_fields_outlined,
                     textEditingController: firstNameController,
                     required: true),
                 const SizedBox(height: 20.0),
@@ -63,13 +73,48 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     onChanged: (text) {},
                     labelText: "Last name",
                     hintText: "Enter last name",
+                    prefixIconPath: Icons.text_fields_outlined,
                     textEditingController: lastNameController,
                     required: true),
+                const SizedBox(height: 20.0),
+                GestureDetector(
+                  onTap: () async {
+                    final result = await BottomSheetWidget.base(
+                        context: context,
+                        body: SelectGenderPage(
+                          preGender: gender,
+                        ));
+                    if (result != null) {
+                      setState(() {
+                        gender = result;
+                        genderController.text =
+                            GenderHelper.mapEnumToString(result);
+                      });
+                    }
+                  },
+                  child: Stack(
+                    children: [
+                      TextFieldWidget.common(
+                          onChanged: (text) {},
+                          labelText: "Gender",
+                          textEditingController: genderController,
+                          prefixIconPath: Icons.people_outline,
+                          readOnly: true,
+                          hintText: "Gender"),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 32,
+                        height: 80.0,
+                        color: Colors.transparent,
+                      )
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 20.0),
                 TextFieldWidget.common(
                     onChanged: (text) {},
                     labelText: "Email",
                     hintText: "Enter  email",
+                    prefixIconPath: Icons.email_outlined,
                     textEditingController: emailController,
                     enable: false,
                     required: true),
@@ -80,7 +125,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             title: "Update profile",
             rollbackContent: "Cancel",
             submitContent: "Update"),
-
       ],
     );
   }

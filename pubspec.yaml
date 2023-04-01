@@ -23,6 +23,7 @@ dependencies:
   flutter_svg: ^1.1.6
   get_it: ^7.2.0
   shimmer: ^2.0.0
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_lints: ^2.0.0
