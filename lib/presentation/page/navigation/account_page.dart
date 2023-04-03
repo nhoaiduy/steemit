@@ -70,13 +70,6 @@ class _AccountPageState extends State<AccountPage> {
             )),
         IconButton(
             onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CreatePostPage())),
-            icon: Icon(
-              Icons.edit_outlined,
-              color: BaseColor.grey900,
-            )),
-        IconButton(
-            onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingPage())),
             icon: const Icon(
               Icons.menu,
