@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 
@@ -24,28 +25,28 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               children: [
                 TextFieldWidget.common(
                     onChanged: (text) {},
-                    labelText: "Old password",
-                    hintText: "Enter your old password",
+                    labelText: S.current.lbl_old_password,
+                    hintText: S.current.txt_old_password_hint,
                     required: true),
                 const SizedBox(height: 20.0),
                 TextFieldWidget.common(
                     onChanged: (text) {},
-                    labelText: "New password",
-                    hintText: "Enter your new password",
+                    labelText: S.current.lbl_new_password,
+                    hintText: S.current.txt_new_password_hint,
                     required: true),
                 const SizedBox(height: 20.0),
                 TextFieldWidget.common(
                     onChanged: (text) {},
-                    labelText: "Confirm new password",
-                    hintText: "Enter your new password",
+                    labelText: S.current.lbl_confirm_new_password,
+                    hintText: S.current.txt_confirm_new_password_hint,
                     required: true),
               ],
             )),
         BottomSheetWidget.title(
             context: context,
-            title: "Change password",
-            rollbackContent: "Cancel",
-            submitContent: "Update"),
+            title: S.current.lbl_change_password,
+            rollbackContent: S.current.btn_cancel,
+            submitContent: S.current.btn_update),
 
       ],
     );

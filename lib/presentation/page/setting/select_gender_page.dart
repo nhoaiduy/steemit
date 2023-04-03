@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/tile/tile_widget.dart';
 import 'package:steemit/util/enum/gender_enum.dart';
@@ -48,10 +49,10 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
             }))),
         BottomSheetWidget.title(
             context: context,
-            title: "Select your gender",
-            rollbackContent: "Cancel",
+            title: S.current.lbl_select_gender,
+            rollbackContent: S.current.btn_cancel,
             onRollback: () => Navigator.pop(context),
-            submitContent: "Done",
+            submitContent: S.current.btn_done,
             onSubmit: () => Navigator.pop(context, gender)),
       ],
     );

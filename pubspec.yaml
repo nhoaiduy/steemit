@@ -16,6 +16,8 @@ dependencies:
   firebase_storage: ^11.0.13
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_bloc: ^8.1.2
   cached_network_image: ^3.2.3
   either_dart: ^0.3.0
@@ -45,3 +47,5 @@ flutter:
     - family: OpenSansSemiBold
       fonts:
         - asset: assets/fonts/OpenSans-SemiBold.ttf
+flutter_intl:
+  enabled: true

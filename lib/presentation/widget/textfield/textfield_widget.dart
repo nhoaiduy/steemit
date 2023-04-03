@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
@@ -223,7 +224,7 @@ class TextFieldWidget {
         onTap: onTap,
         onSubmit: onSubmit,
         labelText: labelText,
-        hintText: "Search",
+        hintText: S.current.txt_search_hint,
         errorText: errorText,
         initialValue: initialValue,
         required: required,

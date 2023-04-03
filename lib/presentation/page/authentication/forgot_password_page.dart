@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -31,7 +32,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             size: 36,
           )),
       title: Text(
-        "Forgot password",
+        S.current.lbl_forgot_password,
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,
@@ -52,11 +53,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         children: [
           TextFieldWidget.common(
               onChanged: (text) {},
-              labelText: "Email",
+              labelText: S.current.lbl_email,
               required: true,
-              hintText: "Enter your email"),
+              hintText: S.current.txt_email_hint),
           const SizedBox(height: 24.0),
-          ButtonWidget.primary(onTap: () {}, content: "Send")
+          ButtonWidget.primary(onTap: () {}, content: S.current.btn_send)
         ],
       ),
     );

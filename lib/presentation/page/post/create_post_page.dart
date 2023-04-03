@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/attach_image/attach_file.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -23,13 +24,13 @@ class _CreatePostPageState extends State<CreatePostPage> {
           children: [
             TextFieldWidget.common(
                 onChanged: (text) {},
-                hintText: "What's on your mind?",
-                labelText: "Content",
+                hintText: S.current.txt_post_hint,
+                labelText: S.current.lbl_content,
                 required: true),
             Padding(
                 padding: const EdgeInsets.only(bottom: 8.0, top: 20.0),
                 child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  Text("Photo", style: BaseTextStyle.label()),
+                  Text(S.current.lbl_photo, style: BaseTextStyle.label()),
                   Text(" *",
                       style: BaseTextStyle.label(color: BaseColor.red400))
                 ])),
@@ -51,7 +52,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             size: 36,
           )),
       title: Text(
-        "New post",
+        S.current.lbl_new_post,
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,
@@ -59,10 +60,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
         GestureDetector(
           child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             color: Colors.transparent,
             child: Text(
-              "Post",
+              S.current.btn_post,
               style: BaseTextStyle.subtitle2(color: BaseColor.blue300),
             ),
           ),

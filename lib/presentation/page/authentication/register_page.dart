@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
 import 'package:steemit/presentation/bloc/register/register_state.dart';
 import 'package:steemit/presentation/injection/injection.dart';
@@ -29,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       TextEditingController();
   final TextEditingController genderController = TextEditingController();
 
-  String _registerErrorText = "";
+  String? _registerErrorText;
 
   bool _isHidePassword = true;
   bool _isHideConfirmPassword = true;
@@ -69,9 +70,9 @@ class _RegisterPageState extends State<RegisterPage> {
           color: BaseColor.green500,
         ),
       ),
-      title: const Text(
-        "Sign Up",
-        style: TextStyle(color: BaseColor.green500),
+      title: Text(
+        S.current.lbl_register,
+        style: const TextStyle(color: BaseColor.green500),
       ),
       centerTitle: true,
       backgroundColor: Colors.transparent,
@@ -90,9 +91,9 @@ class _RegisterPageState extends State<RegisterPage> {
               textEditingController: firstNameController,
               textInputAction: TextInputAction.next,
               prefixIconPath: Icons.text_fields_outlined,
-              labelText: "First name",
+              labelText: S.current.lbl_first_name,
               required: true,
-              hintText: "First name"),
+              hintText: S.current.txt_first_name_hint),
           const SizedBox(
             height: commonPadding,
           ),
@@ -101,9 +102,9 @@ class _RegisterPageState extends State<RegisterPage> {
               prefixIconPath: Icons.text_fields_outlined,
               textEditingController: lastNameController,
               textInputAction: TextInputAction.next,
-              labelText: "Last name",
+              labelText: S.current.lbl_last_name,
               required: true,
-              hintText: "Last name"),
+              hintText: S.current.txt_last_name_hint),
           const SizedBox(
             height: commonPadding,
           ),
@@ -116,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
               maxLines: 1,
               labelText: "Email",
               required: true,
-              hintText: "Email"),
+              hintText: S.current.txt_email_hint),
           const SizedBox(
             height: commonPadding,
           ),
@@ -138,11 +139,11 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 TextFieldWidget.common(
                     onChanged: (text) {},
-                    labelText: "Gender",
+                    labelText: S.current.lbl_gender,
                     textEditingController: genderController,
                     prefixIconPath: Icons.people_outline,
                     readOnly: true,
-                    hintText: "Gender"),
+                    hintText: S.current.txt_gender_hint),
                 Container(
                   width: MediaQuery.of(context).size.width - 32,
                   height: 80.0,
@@ -160,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
               prefixIconPath: Icons.lock_outlined,
               textInputAction: TextInputAction.next,
               isObscured: _isHidePassword,
-              labelText: "Password",
+              labelText: S.current.lbl_password,
               required: true,
               maxLines: 1,
               suffixIconPath: _isHidePassword
@@ -171,7 +172,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   _isHidePassword = !_isHidePassword;
                 });
               },
-              hintText: "Password"),
+              hintText: S.current.txt_password_hint),
           const SizedBox(
             height: commonPadding,
           ),
@@ -181,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
               textEditingController: confirmPasswordController,
               prefixIconPath: Icons.lock_outlined,
               textInputAction: TextInputAction.done,
-              labelText: "Confirm password",
+              labelText: S.current.lbl_confirm_password,
               required: true,
               maxLines: 1,
               suffixIconPath: _isHideConfirmPassword
@@ -192,19 +193,19 @@ class _RegisterPageState extends State<RegisterPage> {
                   _isHideConfirmPassword = !_isHideConfirmPassword;
                 });
               },
-              hintText: "Confirm password"),
-          if (_registerErrorText.isNotEmpty)
+              hintText: S.current.txt_password_hint),
+          if (_registerErrorText != null)
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
-                _registerErrorText,
+                _registerErrorText!,
                 style: BaseTextStyle.body1(color: BaseColor.red500),
               ),
             ),
           const SizedBox(
             height: commonPadding,
           ),
-          ButtonWidget.primary(onTap: () => register(), content: "Sign up")
+          ButtonWidget.primary(onTap: () => register(), content: S.current.btn_register)
         ],
       ),
     );

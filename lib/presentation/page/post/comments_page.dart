@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/comment/comments_card.dart';
@@ -19,9 +20,9 @@ class _CommentsPageState extends State<CommentsPage> {
       appBar: AppBar(
         backgroundColor: BaseColor.background,
         elevation: 0,
-        title: const Text(
-          'Comments',
-          style: TextStyle(color: BaseColor.grey900),
+        title: Text(
+         S.current.lbl_comment,
+          style: const TextStyle(color: BaseColor.grey900),
         ),
         centerTitle: false,
         iconTheme: const IconThemeData(
@@ -53,9 +54,9 @@ class _CommentsPageState extends State<CommentsPage> {
                 child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFieldWidget.common(
-                        onChanged: (text) {}, hintText: "Type your comment")),
+                        onChanged: (text) {}, hintText: S.current.txt_comment_hint)),
               ),
-              ButtonWidget.text(onTap: () {}, content: "Post", context: context)
+              ButtonWidget.text(onTap: () {}, content: S.current.btn_post, context: context)
             ],
           ),
         ),

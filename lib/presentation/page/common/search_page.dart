@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/page/post/post_page.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
@@ -34,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
                   onChanged: (text) {}, maxLines: 1)),
           ButtonWidget.text(
               onTap: () => Navigator.pop(context),
-              content: "Cancel",
+              content: S.current.btn_cancel,
               context: context)
         ],
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
+
 import 'package:steemit/presentation/widget/activity/activity_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -41,7 +43,8 @@ class _RecentActivitiesPageState extends State<RecentActivitiesPage> {
             size: 36,
           )),
       title: Text(
-        "Recent activities",
+        S.current.lbl_recent_activities,
+
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,

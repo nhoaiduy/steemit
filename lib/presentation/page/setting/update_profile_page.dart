@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/user_model.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/page/setting/select_gender_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
@@ -60,19 +61,19 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       size: extraLargeAvatarSize),
                 ),
                 ButtonWidget.text(
-                    onTap: () {}, content: "Add photo", context: context),
+                    onTap: () {}, content: user.avatar!=null ? S.current.btn_change_photo:S.current.btn_add_photo, context: context),
                 TextFieldWidget.common(
                     onChanged: (text) {},
-                    labelText: "First name",
-                    hintText: "Enter first name",
+                    labelText: S.current.lbl_first_name,
+                    hintText: S.current.txt_first_name_hint,
                     prefixIconPath: Icons.text_fields_outlined,
                     textEditingController: firstNameController,
                     required: true),
                 const SizedBox(height: 20.0),
                 TextFieldWidget.common(
                     onChanged: (text) {},
-                    labelText: "Last name",
-                    hintText: "Enter last name",
+                    labelText: S.current.lbl_last_name,
+                    hintText: S.current.txt_last_name_hint,
                     prefixIconPath: Icons.text_fields_outlined,
                     textEditingController: lastNameController,
                     required: true),
@@ -96,11 +97,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     children: [
                       TextFieldWidget.common(
                           onChanged: (text) {},
-                          labelText: "Gender",
+                          labelText: S.current.lbl_gender,
                           textEditingController: genderController,
                           prefixIconPath: Icons.people_outline,
                           readOnly: true,
-                          hintText: "Gender"),
+                          hintText: S.current.txt_gender_hint),
                       Container(
                         width: MediaQuery.of(context).size.width - 32,
                         height: 80.0,
@@ -112,8 +113,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 const SizedBox(height: 20.0),
                 TextFieldWidget.common(
                     onChanged: (text) {},
-                    labelText: "Email",
-                    hintText: "Enter  email",
+                    labelText: S.current.lbl_email,
+                    hintText: S.current.txt_email_hint,
                     prefixIconPath: Icons.email_outlined,
                     textEditingController: emailController,
                     enable: false,
@@ -122,9 +123,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             )),
         BottomSheetWidget.title(
             context: context,
-            title: "Update profile",
-            rollbackContent: "Cancel",
-            submitContent: "Update"),
+            title: S.current.btn_update_profile,
+            rollbackContent: S.current.btn_cancel,
+            submitContent: S.current.btn_update),
       ],
     );
   }
