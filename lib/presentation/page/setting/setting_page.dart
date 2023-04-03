@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/setting/change_password_page.dart';
@@ -26,7 +27,7 @@ class _SettingPageState extends State<SettingPage> {
           child: Column(
             children: [
               TileWidget.cellSmall(
-                  content: "Recent activities",
+                  content: S.current.lbl_recent_activities,
                   prefix: Icons.local_activity,
                   prefixColor: BaseColor.blue500,
                   suffix: const Icon(
@@ -37,9 +38,9 @@ class _SettingPageState extends State<SettingPage> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RecentActivitiesPage()))),
+                          builder: (context) => const RecentActivitiesPage()))),
               TileWidget.cellSmall(
-                  content: "Saved posts",
+                  content: S.current.lbl_saved_posts,
                   prefix: Icons.bookmark_outlined,
                   suffix: const Icon(
                     Icons.chevron_right,
@@ -49,9 +50,9 @@ class _SettingPageState extends State<SettingPage> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SavedPostPage()))),
+                          builder: (context) => const SavedPostPage()))),
               TileWidget.cellSmall(
-                  content: "Change password",
+                  content: S.current.lbl_change_password,
                   prefix: Icons.key_outlined,
                   prefixColor: BaseColor.red500,
                   suffix: const Icon(
@@ -64,7 +65,7 @@ class _SettingPageState extends State<SettingPage> {
                         context: context, body: const ChangePasswordPage());
                   }),
               TileWidget.cellSmall(
-                  content: "Log out",
+                  content: S.current.btn_log_out,
                   contentColor: BaseColor.red500,
                   onTap: () {
                     Navigator.pop(context);
@@ -86,7 +87,7 @@ class _SettingPageState extends State<SettingPage> {
             size: 36,
           )),
       title: Text(
-        "Setting",
+        S.current.lbl_setting,
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,

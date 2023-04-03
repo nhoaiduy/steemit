@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:steemit/presentation/page/common/search_page.dart';
 import 'package:steemit/presentation/page/post/create_post_page.dart';
 import 'package:steemit/presentation/widget/post/post_card.dart';
+import 'package:steemit/util/path/image_path.dart';
 import 'package:steemit/util/style/base_color.dart';
-
-import '../../../../util/path/image_path.dart';
-import '../../../../util/style/base_image.dart';
+import 'package:steemit/util/style/base_image.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

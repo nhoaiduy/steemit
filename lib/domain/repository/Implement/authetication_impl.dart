@@ -4,6 +4,7 @@ import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/data/service/database_service.dart';
 import 'package:steemit/domain/repository/Interface/i_authentication.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/util/enum/gender_enum.dart';
 import 'package:steemit/util/helper/login_helper.dart';
 
@@ -46,11 +47,11 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
       required String confirmPassword,
       Gender? gender}) async {
     if (firstName.isEmpty) {
-      return const Left("Please enter your first name");
+      return Left(S.current.txt_err_empty_first_name);
     }
 
     if (lastName.isEmpty) {
-      return const Left("Please enter your last name");
+      return Left(S.current.txt_err_empty_last_name);
     }
 
     Either<String, void> validEmail = ValidationHelper.validUsername(email);
@@ -65,7 +66,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
     }
 
     if (password != confirmPassword) {
-      return const Left("Password is mismatch");
+      return Left(S.current.txt_err_mismatch_password);
     }
     String uid = "";
     try {

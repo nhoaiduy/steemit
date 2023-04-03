@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/notification/notification_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -27,7 +28,7 @@ class _NotificationPageState extends State<NotificationPage> {
     return AppBar(
       backgroundColor: BaseColor.background,
       title: Text(
-        "Notification",
+        S.current.lbl_notification,
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,

@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
@@ -29,9 +31,25 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Steemit',
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: locale(),
+        supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(scaffoldBackgroundColor: BaseColor.background),
         home: const AuthenticationLayerPage(),
       ),
     );
+  }
+
+  ///TODO: move to cubit
+  Locale? locale() {
+    if (S.delegate.isSupported(WidgetsBinding.instance.window.locale)) {
+      return WidgetsBinding.instance.window.locale;
+    }
+    return null;
   }
 }

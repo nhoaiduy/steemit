@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/page/post/post_page.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -32,7 +33,7 @@ class _SavedPostPageState extends State<SavedPostPage> {
             size: 36,
           )),
       title: Text(
-        "Saved posts",
+        S.current.lbl_saved_posts,
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,

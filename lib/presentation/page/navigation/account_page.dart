@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/data/model/user_model.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_state.dart';
 import 'package:steemit/presentation/injection/injection.dart';
@@ -53,15 +54,17 @@ class _AccountPageState extends State<AccountPage> {
     return AppBar(
       backgroundColor: BaseColor.background,
       title: Text(
-        "Account",
+        S.current.lbl_account,
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,
       actions: [
         IconButton(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CreatePostPage())),
-            icon: Icon(
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CreatePostPage())),
+            icon: const Icon(
               Icons.edit_outlined,
               color: BaseColor.grey900,
             )),
@@ -106,50 +109,59 @@ class _AccountPageState extends State<AccountPage> {
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                          "Posts",
-                          style: BaseTextStyle.label(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            S.current.lbl_post,
+                            style: BaseTextStyle.label(),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "100",
-                        style: BaseTextStyle.body1(),
-                      ),
-                    ],
+                        Text(
+                          "100",
+                          style: BaseTextStyle.body1(),
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                          "Followings",
-                          style: BaseTextStyle.label(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            S.current.lbl_following,
+                            style: BaseTextStyle.label(),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "${user.followings.length}",
-                        style: BaseTextStyle.body1(),
-                      ),
-                    ],
+                        Text(
+                          "${user.followings.length}",
+                          style: BaseTextStyle.body1(),
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                          "Followers",
-                          style: BaseTextStyle.label(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            S.current.lbl_follower,
+                            style: BaseTextStyle.label(),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "${user.followers.length}",
-                        style: BaseTextStyle.body1(),
-                      ),
-                    ],
+                        Text(
+                          "${user.followers.length}",
+                          style: BaseTextStyle.body1(),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ))
@@ -175,7 +187,7 @@ class _AccountPageState extends State<AccountPage> {
                   const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 16.0),
               color: Colors.transparent,
               child: Text(
-                user.bio ?? "Add bIo",
+                user.bio ?? S.current.btn_add_bio,
                 style: BaseTextStyle.body1(color: BaseColor.grey300),
               ),
             ),
@@ -187,7 +199,7 @@ class _AccountPageState extends State<AccountPage> {
                   body: UpdateProfilePage(
                     userModel: user,
                   )),
-              content: "Update your profile"),
+              content: S.current.btn_update_profile),
         ],
       ),
     );
@@ -198,8 +210,8 @@ class _AccountPageState extends State<AccountPage> {
     return Wrap(
       children: List.generate(100, (index) {
         return GestureDetector(
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => PostPage())),
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const PostPage())),
           child: Container(
             width: screenWidth / 3,
             height: screenWidth / 3,

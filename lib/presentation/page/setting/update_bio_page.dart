@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 
@@ -40,15 +41,15 @@ class _UpdateBioPageState extends State<UpdateBioPage> {
                 TextFieldWidget.common(
                     onChanged: (text) {},
                     textEditingController: bioController,
-                    labelText: "Bio",
-                    hintText: "Enter your bio"),
+                    labelText: S.current.lbl_bio,
+                    hintText: S.current.txt_bio_hint),
               ],
             )),
         BottomSheetWidget.title(
             context: context,
-            title: "Update bio",
-            rollbackContent: "Cancel",
-            submitContent: "Update"),
+            title: S.current.lbl_update_bio,
+            rollbackContent: S.current.btn_cancel,
+            submitContent: S.current.btn_update),
 
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -46,7 +47,7 @@ class _PostCardState extends State<PostCard> {
                                     const EdgeInsets.symmetric(vertical: 16),
                                 shrinkWrap: true,
                                 children: [
-                                  'Delete',
+                                  S.current.btn_delete,
                                 ]
                                     .map((e) => InkWell(
                                           onTap: () {},
@@ -155,12 +156,12 @@ class _PostCardState extends State<PostCard> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CommentsPage()));
+                            builder: (context) => const CommentsPage()));
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
-                      'View all 200 comments',
+                      '${S.current.txt_view_all} 200 ${S.current.txt_comments}',
                       style: BaseTextStyle.body2(),
                     ),
                   ),

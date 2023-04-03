@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             TextFieldWidget.common(
               onChanged: (value) {},
-              hintText: "Enter your email",
+              hintText: S.current.txt_email_hint,
               textEditingController: _usernameController,
               maxLines: 1,
               errorText: _usernameErrorText,
@@ -86,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 24),
             TextFieldWidget.common(
               onChanged: (value) {},
-              hintText: "Enter your password",
+              hintText: S.current.txt_password_hint,
               maxLines: 1,
               isObscured: _isHidePassword,
               textEditingController: _passwordController,
@@ -110,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(8.0),
                   color: Colors.transparent,
                   child: Text(
-                    "Forgot password",
+                    S.current.btn_forgot_password,
                     style: BaseTextStyle.body1(color: BaseColor.green500),
                   ),
                 ),
@@ -125,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(top: 16.0),
               child: ButtonWidget.primary(
                 onTap: () => login(),
-                content: "Login",
+                content: S.current.btn_login,
               ),
             ),
           ],
@@ -146,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Create new account?",
+                S.current.txt_create_account,
                 style: BaseTextStyle.body1(),
               ),
               const SizedBox(
@@ -156,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const RegisterPage())),
                 child: Text(
-                  "Register",
+                  S.current.btn_register,
                   style: BaseTextStyle.label(color: BaseColor.green500),
                 ),
               )
