@@ -28,6 +28,7 @@ class _SettingPageState extends State<SettingPage> {
             children: [
               TileWidget.cellSmall(
                   content: S.current.lbl_recent_activities,
+
                   prefix: Icons.local_activity,
                   prefixColor: BaseColor.blue500,
                   suffix: const Icon(
