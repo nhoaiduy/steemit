@@ -21,7 +21,7 @@ class _PostCardState extends State<PostCard> {
     return Container(
       decoration: const BoxDecoration(
           border:
-              Border(bottom: BorderSide(width: 0.8, color: BaseColor.grey60))),
+              Border(bottom: BorderSide(width: 3, color: BaseColor.grey60))),
       child: Column(
         children: [
           // Header
@@ -32,9 +32,14 @@ class _PostCardState extends State<PostCard> {
               children: [
                 AvatarWidget.base(name: "steemit_user", size: mediumAvatarSize),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text('username', style: BaseTextStyle.label()),
+                  child: Column(
+                    children: [
+                      Text('username', style: BaseTextStyle.label()),
+                      Text(
+                        '10/3/2023',
+                        style: BaseTextStyle.caption(),
+                      ),
+                    ],
                   ),
                 ),
                 IconButton(
@@ -66,6 +71,30 @@ class _PostCardState extends State<PostCard> {
               ],
             ),
           ),
+          Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isShow = !isShow;
+                  });
+                },
+                child: RichText(
+                  softWrap: true,
+                  overflow: isShow
+                      ? TextOverflow.ellipsis
+                      : TextOverflow.visible,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text:
+                        'Description of post can be replaced. post can be replaced. I am making sure this string is long enough to test the overflowed length',
+                        style: BaseTextStyle.body2(),
+                      )
+                    ],
+                  ),
+                ),
+              )),
           // Image
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.5,
@@ -75,82 +104,16 @@ class _PostCardState extends State<PostCard> {
               fit: BoxFit.cover,
             ),
           ),
-          // Actions
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite,
-                    color: Colors.redAccent,
-                  )),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CommentsPage()));
-                  },
-                  icon: const Icon(
-                    Icons.comment_outlined,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.send,
-                  )),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark_border),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          // Likes and comments
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   '243 likes',
                   style: BaseTextStyle.body2(),
                   overflow: TextOverflow.fade,
                 ),
-                Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.only(top: 4),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isShow = !isShow;
-                        });
-                      },
-                      child: RichText(
-                        softWrap: true,
-                        overflow: isShow
-                            ? TextOverflow.ellipsis
-                            : TextOverflow.visible,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: 'username',
-                                style: BaseTextStyle.body2(color: Colors.black)
-                                    .copyWith(fontWeight: FontWeight.bold)),
-                            TextSpan(
-                              text:
-                                  ' Description of post can be replaced. post can be replaced. I am making sure this string is long enough to test the overflowed length',
-                              style: BaseTextStyle.body2(),
-                            )
-                          ],
-                        ),
-                      ),
-                    )),
                 InkWell(
                   onTap: () {
                     Navigator.push(
@@ -159,23 +122,62 @@ class _PostCardState extends State<PostCard> {
                             builder: (context) => const CommentsPage()));
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
                       '${S.current.txt_view_all} 200 ${S.current.txt_comments}',
                       style: BaseTextStyle.body2(),
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    '10/3/2023',
-                    style: BaseTextStyle.caption(),
+
+              ],
+            ),
+          ),
+          // Actions
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            decoration: const BoxDecoration(
+                border: Border(top: BorderSide(width: 0.8, color: BaseColor.grey60))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () { },
+                  child: Row(
+                    children: const [
+                      Icon(Icons.favorite, color: Colors.redAccent,),
+                      SizedBox(width: 5),
+                      Text('Like'),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CommentsPage()));
+                  },
+                  child: Row(
+                    children: const [
+                      Icon(Icons.comment_outlined,),
+                      SizedBox(width: 5),
+                      Text('Comment'),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () { },
+                  child: Row(
+                    children: const [
+                      Icon(Icons.send,),
+                      SizedBox(width: 5),
+                      Text('Share'),
+                    ],
                   ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
