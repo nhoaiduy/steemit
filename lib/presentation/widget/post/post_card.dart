@@ -29,44 +29,49 @@ class _PostCardState extends State<PostCard> {
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
                 .copyWith(right: 0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AvatarWidget.base(name: "steemit_user", size: mediumAvatarSize),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text('username', style: BaseTextStyle.label()),
-                      Text(
-                        '10/3/2023',
-                        style: BaseTextStyle.caption(),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: AvatarWidget.base(name: "steemit_user", size: mediumAvatarSize),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10, top: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('username', style: BaseTextStyle.label()),
+                          Text(
+                            '10/3/2023',
+                            style: BaseTextStyle.caption(),),
+                        ],
                       ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => Dialog(
-                              child: ListView(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                shrinkWrap: true,
-                                children: [
-                                  S.current.btn_delete,
-                                ]
-                                    .map((e) => InkWell(
-                                          onTap: () {},
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12, horizontal: 16),
-                                            child: Text(e),
-                                          ),
-                                        ))
-                                    .toList(),
-                              ),
-                            ));
+                PopupMenuButton<String>(
+                  onSelected: (value) {
+
                   },
-                  icon: const Icon(Icons.more_vert),
+                  itemBuilder: (BuildContext context) {
+                    return const [
+                      PopupMenuItem<String>(
+                        value: "Edit",
+                        child: Text("Edit Post"),
+                      ),
+                      PopupMenuItem<String>(
+                        value: "Save",
+                        child: Text("Save post"),
+                      ),
+                      PopupMenuItem<String>(
+                        value: "Delete",
+                        child: Text("Delete"),
+                      ),
+                    ];
+                  },
                 ),
               ],
             ),
@@ -138,7 +143,7 @@ class _PostCardState extends State<PostCard> {
             decoration: const BoxDecoration(
                 border: Border(top: BorderSide(width: 0.8, color: BaseColor.grey60))),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
                   onTap: () { },
@@ -162,16 +167,6 @@ class _PostCardState extends State<PostCard> {
                       Icon(Icons.comment_outlined,),
                       SizedBox(width: 5),
                       Text('Comment'),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () { },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.send,),
-                      SizedBox(width: 5),
-                      Text('Share'),
                     ],
                   ),
                 ),
