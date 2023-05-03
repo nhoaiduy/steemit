@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
+import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/common/search_page.dart';
 import 'package:steemit/presentation/page/post/create_post_page.dart';
 import 'package:steemit/presentation/widget/post/post_card.dart';
@@ -49,7 +52,28 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: ListView(children: List.generate(10, (index) => const PostCard())),
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    return RefreshIndicator(
+      onRefresh: () async => getIt.get<PostsCubit>().getPosts(),
+      child: BlocBuilder<PostsCubit, PostsState>(
+          bloc: getIt.get<PostsCubit>()..getPosts(),
+          builder: (context, state) {
+            if (state is PostsSuccess) {
+              return ListView.builder(
+                  itemCount: state.posts.length,
+                  itemBuilder: (context, index) {
+                    final post = state.posts[index];
+                    return PostCard(
+                      postModel: post,
+                    );
+                  });
+            }
+            return const Center();
+          }),
     );
   }
 }

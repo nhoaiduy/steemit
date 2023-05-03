@@ -5,6 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
+import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/authentication/authentication_layer.dart';
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
         BlocProvider.value(value: getIt.get<AuthenticationCubit>()),
         BlocProvider.value(value: getIt.get<LoginCubit>()),
         BlocProvider.value(value: getIt.get<RegisterCubit>()),
+        BlocProvider.value(value: getIt.get<PostControllerCubit>()),
+        BlocProvider.value(value: getIt.get<PostsCubit>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

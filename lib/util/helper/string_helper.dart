@@ -8,4 +8,11 @@ class StringHelper {
     if (result.length > 2) result = result.substring(0, 2);
     return result.toUpperCase();
   }
+
+  static String formatDate(String date) {
+    String d = date.substring(8, 10);
+    String m = date.substring(5, 7);
+    String y = date.substring(0, 4);
+    return "$d/$m/$y";
+  }
 }

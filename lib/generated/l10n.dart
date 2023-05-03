@@ -690,21 +690,81 @@ class S {
     );
   }
 
-  /// `View all`
-  String get txt_view_all {
-    return Intl.message(
-      'View all',
-      name: 'txt_view_all',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `comments`
   String get txt_comments {
     return Intl.message(
       'comments',
       name: 'txt_comments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `comment`
+  String get txt_comment {
+    return Intl.message(
+      'comment',
+      name: 'txt_comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This post has no content`
+  String get txt_create_empty_post {
+    return Intl.message(
+      'This post has no content',
+      name: 'txt_create_empty_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Like`
+  String get btn_like {
+    return Intl.message(
+      'Like',
+      name: 'btn_like',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `like`
+  String get txt_like {
+    return Intl.message(
+      'like',
+      name: 'txt_like',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `likes`
+  String get txt_likes {
+    return Intl.message(
+      'likes',
+      name: 'txt_likes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comment`
+  String get btn_comment {
+    return Intl.message(
+      'Comment',
+      name: 'btn_comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save post`
+  String get btn_save_post {
+    return Intl.message(
+      'Save post',
+      name: 'btn_save_post',
       desc: '',
       args: [],
     );
