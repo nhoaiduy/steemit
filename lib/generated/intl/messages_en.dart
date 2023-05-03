@@ -27,14 +27,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "btn_change_photo":
             MessageLookupByLibrary.simpleMessage("Change photo"),
+        "btn_comment": MessageLookupByLibrary.simpleMessage("Comment"),
         "btn_delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "btn_done": MessageLookupByLibrary.simpleMessage("Done"),
         "btn_forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
+        "btn_like": MessageLookupByLibrary.simpleMessage("Like"),
         "btn_log_out": MessageLookupByLibrary.simpleMessage("Log out"),
         "btn_login": MessageLookupByLibrary.simpleMessage("Login"),
         "btn_post": MessageLookupByLibrary.simpleMessage("Post"),
         "btn_register": MessageLookupByLibrary.simpleMessage("Register"),
+        "btn_save_post": MessageLookupByLibrary.simpleMessage("Save post"),
         "btn_send": MessageLookupByLibrary.simpleMessage("Send"),
         "btn_update": MessageLookupByLibrary.simpleMessage("Update"),
         "btn_update_profile":
@@ -76,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "lbl_update_bio": MessageLookupByLibrary.simpleMessage("Update bio"),
         "txt_bio_hint": MessageLookupByLibrary.simpleMessage("Enter your bio"),
+        "txt_comment": MessageLookupByLibrary.simpleMessage("comment"),
         "txt_comment_hint":
             MessageLookupByLibrary.simpleMessage("Enter your comment"),
         "txt_comments": MessageLookupByLibrary.simpleMessage("comments"),
@@ -110,6 +114,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select your gender"),
         "txt_last_name_hint":
             MessageLookupByLibrary.simpleMessage("Enter your last name"),
+        "txt_like": MessageLookupByLibrary.simpleMessage("like"),
+        "txt_likes": MessageLookupByLibrary.simpleMessage("likes"),
         "txt_male": MessageLookupByLibrary.simpleMessage("Male"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your new password"),
@@ -119,7 +125,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("What\'s on your mind?"),
-        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search"),
-        "txt_view_all": MessageLookupByLibrary.simpleMessage("View all")
+        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search")
       };
 }

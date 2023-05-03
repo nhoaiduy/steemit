@@ -63,7 +63,12 @@
   "txt_male": "Male",
   "txt_female": "Female",
   "btn_delete": "Delete",
-  "txt_view_all": "View all",
   "txt_comments": "comments",
-  "txt_create_empty_post": "This post has no content"
+  "txt_comment": "comment",
+  "txt_create_empty_post": "This post has no content",
+  "btn_like": "Like",
+  "txt_like": "like",
+  "txt_likes": "likes",
+  "btn_comment": "Comment",
+  "btn_save_post": "Save post"
 }

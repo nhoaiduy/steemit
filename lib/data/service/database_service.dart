@@ -3,13 +3,11 @@ import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/util/path/services_path.dart';
-import 'package:uuid/uuid.dart';
 
 final DatabaseService databaseService = DatabaseService();
 
 class DatabaseService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-  final Uuid _uuid = const Uuid();
 
   Future<UserModel> getUser({required String uid}) async {
     try {
@@ -35,7 +33,6 @@ class DatabaseService {
 
   Future<void> createPost({required PostModel postModel}) async {
     try {
-      postModel.id = _uuid.v1();
       await _fireStore
           .collection(ServicePath.post)
           .doc(postModel.id)
@@ -52,11 +49,15 @@ class DatabaseService {
         final response = await _fireStore
             .collection(ServicePath.post)
             .where("userId", isEqualTo: authService.getUserId())
+            .orderBy("updatedAt", descending: true)
             .get();
         posts.addAll(
             response.docs.map((e) => PostModel.fromJson(e.data())).toList());
       } else {
-        final response = await _fireStore.collection(ServicePath.post).get();
+        final response = await _fireStore
+            .collection(ServicePath.post)
+            .orderBy("updatedAt", descending: true)
+            .get();
         posts.addAll(
             response.docs.map((e) => PostModel.fromJson(e.data())).toList());
       }

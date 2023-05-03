@@ -63,7 +63,12 @@
   "txt_male": "Nam",
   "txt_female": "Nữ",
   "btn_delete": "Xóa",
-  "txt_view_all": "Hiển thị",
   "txt_comments": "bình luận",
-  "txt_create_empty_post": "Bài đăng không có nội dung"
+  "txt_comment": "bình luận",
+  "txt_create_empty_post": "Bài đăng không có nội dung",
+  "btn_like": "Thích",
+  "txt_like": "lượt thích",
+  "txt_likes": "lượt thích",
+  "btn_comment": "Binh luận",
+  "btn_save_post": "Lưu bài viết"
 }
