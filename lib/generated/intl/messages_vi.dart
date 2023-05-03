@@ -82,6 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu mới"),
         "txt_create_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
+        "txt_create_empty_post":
+            MessageLookupByLibrary.simpleMessage("Bài đăng không có nội dung"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Nhập email của bạn"),
         "txt_err_empty_email":

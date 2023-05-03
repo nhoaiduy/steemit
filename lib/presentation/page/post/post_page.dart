@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
-
-import 'package:steemit/presentation/widget/post/post_card.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
@@ -18,11 +16,13 @@ class _PostPageState extends State<PostPage> {
     return Scaffold(
         appBar: _appBar(),
         body: SingleChildScrollView(
-          child: Column(
-              children: List.generate(100, (index) {
-            return const PostCard();
-
-          })),
+          child: Column(children: []
+              //     List.generate(100, (index) {
+              //   return PostCard();
+              //
+              // }
+              // )
+              ),
         ));
   }
 
@@ -38,7 +38,6 @@ class _PostPageState extends State<PostPage> {
           )),
       title: Text(
         S.current.lbl_post,
-
         style: BaseTextStyle.subtitle1(),
       ),
       elevation: 0,

@@ -709,6 +709,16 @@ class S {
       args: [],
     );
   }
+
+  /// `This post has no content`
+  String get txt_create_empty_post {
+    return Intl.message(
+      'This post has no content',
+      name: 'txt_create_empty_post',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

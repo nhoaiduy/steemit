@@ -64,5 +64,6 @@
   "txt_female": "Female",
   "btn_delete": "Delete",
   "txt_view_all": "View all",
-  "txt_comments": "comments"
+  "txt_comments": "comments",
+  "txt_create_empty_post": "This post has no content"
 }

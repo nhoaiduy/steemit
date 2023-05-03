@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
+import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/attach_image/attach_file.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -13,6 +16,32 @@ class CreatePostPage extends StatefulWidget {
 }
 
 class _CreatePostPageState extends State<CreatePostPage> {
+  final TextEditingController contentController = TextEditingController();
+  final List<String> images = List.empty(growable: true);
+
+  @override
+  void initState() {
+    getIt.get<PostControllerCubit>().stream.listen((event) {
+      if (!mounted) return;
+      if (event is PostControllerFailure) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: BaseColor.red500,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
+            content: Text(
+              event.message,
+              style: BaseTextStyle.body1(color: Colors.white),
+            )));
+      }
+      if (event is PostControllerSuccess) {
+        Navigator.pop(context);
+        getIt.get<PostsCubit>().getPosts();
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,15 +54,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
             TextFieldWidget.common(
                 onChanged: (text) {},
                 hintText: S.current.txt_post_hint,
-                labelText: S.current.lbl_content,
-                required: true),
+                textEditingController: contentController,
+                labelText: S.current.lbl_content),
             Padding(
                 padding: const EdgeInsets.only(bottom: 8.0, top: 20.0),
-                child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  Text(S.current.lbl_photo, style: BaseTextStyle.label()),
-                  Text(" *",
-                      style: BaseTextStyle.label(color: BaseColor.red400))
-                ])),
+                child: Text(S.current.lbl_photo, style: BaseTextStyle.label())),
             AttachFileWidget.base()
           ],
         ),
@@ -58,6 +83,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
       elevation: 0,
       actions: [
         GestureDetector(
+          onTap: () => post(),
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(16.0),
@@ -78,4 +104,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
       ),
     );
   }
+
+  void post() => getIt
+      .get<PostControllerCubit>()
+      .create(content: contentController.text, images: images);
 }

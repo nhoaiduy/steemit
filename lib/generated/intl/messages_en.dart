@@ -83,6 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter confirm new password"),
         "txt_create_account":
             MessageLookupByLibrary.simpleMessage("Create new account?"),
+        "txt_create_empty_post":
+            MessageLookupByLibrary.simpleMessage("This post has no content"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Enter your email"),
         "txt_err_empty_email":

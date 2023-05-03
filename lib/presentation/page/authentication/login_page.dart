@@ -78,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             TextFieldWidget.common(
               onChanged: (value) {},
+              textInputType: TextInputType.emailAddress,
               hintText: S.current.txt_email_hint,
               textEditingController: _usernameController,
               maxLines: 1,
