@@ -119,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_male": MessageLookupByLibrary.simpleMessage("Male"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your new password"),
+        "txt_no_image":
+            MessageLookupByLibrary.simpleMessage("There is no image"),
         "txt_old_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your old password"),
         "txt_password_hint":

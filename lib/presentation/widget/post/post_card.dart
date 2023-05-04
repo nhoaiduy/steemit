@@ -124,23 +124,6 @@ class _PostCardState extends State<PostCard> {
                 fit: BoxFit.cover,
               ),
             ),
-          //   SizedBox(
-          //     height: MediaQuery.of(context).size.height * 0.5,
-          //     child: ListView.builder(
-          //         shrinkWrap: true,
-          //         scrollDirection: Axis.horizontal,
-          //         itemCount: postModel.images!.length,
-          //         itemBuilder: (context, index) {
-          //           return SizedBox(
-          //             height: MediaQuery.of(context).size.height * 0.5,
-          //             width: double.infinity,
-          //             child: Image.network(
-          //               postModel.images!.first,
-          //               fit: BoxFit.cover,
-          //             ),
-          //           );
-          //         }),
-          //   ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
             child: Row(

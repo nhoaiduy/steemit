@@ -5,6 +5,7 @@ import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/common/search_page.dart';
 import 'package:steemit/presentation/page/post/create_post_page.dart';
 import 'package:steemit/presentation/widget/post/post_card.dart';
+import 'package:steemit/presentation/widget/post/post_shimmer.dart';
 import 'package:steemit/util/path/image_path.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_image.dart';
@@ -18,6 +19,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    getIt.get<PostsCubit>().clean();
+    getIt.get<PostsCubit>().getPosts();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -29,9 +37,13 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CreatePostPage())),
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CreatePostPage()))
+                      .then((value) {
+                    getIt.get<PostsCubit>().clean();
+                    getIt.get<PostsCubit>().getPosts();
+                  }),
               icon: const Icon(
                 Icons.edit_outlined,
                 color: BaseColor.grey900,
@@ -75,5 +87,29 @@ class _HomePageState extends State<HomePage> {
             return const Center();
           }),
     );
+  }
+
+  Widget _buildBody() {
+    return BlocBuilder<PostsCubit, PostsState>(builder: (context, state) {
+      if (state is PostsSuccess) {
+        return ListView.builder(
+            itemCount: state.posts.length,
+            itemBuilder: (context, index) {
+              final post = state.posts[index];
+              return PostCard(
+                postModel: post,
+              );
+            });
+      }
+      if (state is PostsFailure) {
+        return const SizedBox.shrink();
+      }
+
+      return ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return const PostShimmer();
+          });
+    });
   }
 }

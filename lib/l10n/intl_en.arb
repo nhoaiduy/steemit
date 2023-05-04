@@ -70,5 +70,7 @@
   "txt_like": "like",
   "txt_likes": "likes",
   "btn_comment": "Comment",
+  "btn_save_post": "Save post",
+  "txt_no_image": "There is no image"
   "btn_save_post": "Save post"
 }
