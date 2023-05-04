@@ -4,9 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
-import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
+import 'package:steemit/util/controller/loading_cover_controller.dart';
 import 'package:steemit/util/helper/Image_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -38,9 +38,9 @@ class _CreatePostPageState extends State<CreatePostPage> {
             )));
       }
       if (event is PostControllerSuccess) {
-        getIt.get<PostsCubit>().getPosts();
         Navigator.pop(context);
       }
+      LoadingCoverController.instance.close(context);
     });
     super.initState();
   }
@@ -133,7 +133,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       height: 50,
                       alignment: Alignment.center,
                       child: Text(
-                        "There is no image",
+                        S.current.txt_no_image,
                         style: BaseTextStyle.body1(),
                       ),
                     )
@@ -198,7 +198,9 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   void unFocus() => FocusScope.of(context).unfocus();
 
-  void post() => getIt
-      .get<PostControllerCubit>()
-      .create(content: contentController.text, images: images);
+  void post() {
+    unFocus();
+    getIt.get<PostControllerCubit>().create(
+        content: contentController.text, images: images, context: context);
+  }
 }

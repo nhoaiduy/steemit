@@ -26,6 +26,7 @@ class PostRepository extends PostRepositoryInterface {
 
       final PostModel post = PostModel(
           content: content,
+          id: postId,
           comments: List.empty(),
           likes: List.empty(),
           images: imagePaths,

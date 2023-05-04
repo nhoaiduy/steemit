@@ -19,4 +19,6 @@ class PostsCubit extends Cubit<PostsState> {
 
     emit(PostsSuccess(response.right));
   }
+
+  void clean() => emit(PostsInitial());
 }

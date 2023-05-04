@@ -769,6 +769,16 @@ class S {
       args: [],
     );
   }
+
+  /// `There is no image`
+  String get txt_no_image {
+    return Intl.message(
+      'There is no image',
+      name: 'txt_no_image',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
