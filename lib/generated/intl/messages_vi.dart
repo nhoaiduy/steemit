@@ -94,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bài đăng không có nội dung"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Nhập email của bạn"),
+        "txt_empty_bio":
+            MessageLookupByLibrary.simpleMessage("Vui lòng nhập tiểu sử"),
         "txt_err_empty_email":
             MessageLookupByLibrary.simpleMessage("Vui lòng nhập email của bạn"),
         "txt_err_empty_first_name":
@@ -132,6 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bạn đang nghĩ gì?"),
         "txt_search_hint": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "txt_system_language":
-            MessageLookupByLibrary.simpleMessage("Ngôn ngữ hệ thống")
+            MessageLookupByLibrary.simpleMessage("Ngôn ngữ hệ thống"),
+        "txt_update_successfully":
+            MessageLookupByLibrary.simpleMessage("Cập nhật thành công")
       };
 }

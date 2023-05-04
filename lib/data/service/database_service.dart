@@ -31,6 +31,17 @@ class DatabaseService {
     }
   }
 
+  Future<void> updateBio({required String bio, required String uid}) async {
+    try {
+      await _fireStore
+          .collection(ServicePath.user)
+          .doc(uid)
+          .update({"bio": bio});
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
   Future<void> createPost({required PostModel postModel}) async {
     try {
       await _fireStore

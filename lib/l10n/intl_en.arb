@@ -74,5 +74,7 @@
   "txt_no_image": "There is no image",
   "lbl_change_language": "Change language",
   "txt_system_language": "System language",
-  "txt_check_mail": "Please check your email"
+  "txt_check_mail": "Please check your email",
+  "txt_empty_bio": "Please enter your bio",
+  "txt_update_successfully": "Update successfully"
 }

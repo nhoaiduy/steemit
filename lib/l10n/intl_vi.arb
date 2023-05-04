@@ -74,5 +74,7 @@
   "txt_no_image": "Không có ảnh nào",
   "lbl_change_language": "Đổi ngôn ngữ",
   "txt_system_language": "Ngôn ngữ hệ thống",
-  "txt_check_mail": "Vui lòng kiểm tra email"
+  "txt_check_mail": "Vui lòng kiểm tra email",
+  "txt_empty_bio": "Vui lòng nhập tiểu sử",
+  "txt_update_successfully": "Cập nhật thành công"
 }

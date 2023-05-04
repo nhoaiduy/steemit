@@ -809,6 +809,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter your bio`
+  String get txt_empty_bio {
+    return Intl.message(
+      'Please enter your bio',
+      name: 'txt_empty_bio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update successfully`
+  String get txt_update_successfully {
+    return Intl.message(
+      'Update successfully',
+      name: 'txt_update_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
