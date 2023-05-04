@@ -15,6 +15,7 @@ import 'package:steemit/presentation/page/setting/update_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
+import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -41,8 +42,33 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
-      body: SingleChildScrollView(
+      body: Column(
+        children: [
+          Header.background(
+            topPadding: MediaQuery.of(context).padding.top,
+            content: S.current.lbl_account,
+            suffixIconPath: Icons.settings,
+            onSuffix: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SettingPage()));
+            },
+            secondSuffixIconPath: Icons.edit,
+            onSecondSuffix: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CreatePostPage()));
+            },
+          ),
+          _buildBody()
+        ],
+      ),
+    );
+  }
+
+  _buildBody() {
+    return Expanded(
+      child: SingleChildScrollView(
         child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
             bloc: getIt.get<AuthenticationCubit>(),
             builder: (context, state) {
@@ -58,42 +84,6 @@ class _AccountPageState extends State<AccountPage> {
               }
               return _shimmer();
             }),
-      ),
-    );
-  }
-
-  _appBar() {
-    return AppBar(
-      backgroundColor: BaseColor.background,
-      title: Text(
-        S.current.lbl_account,
-        style: BaseTextStyle.subtitle1(),
-      ),
-      elevation: 0,
-      actions: [
-        IconButton(
-            onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const CreatePostPage())),
-            icon: const Icon(
-              Icons.edit_outlined,
-              color: BaseColor.grey900,
-            )),
-        IconButton(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SettingPage())),
-            icon: const Icon(
-              Icons.menu,
-              color: BaseColor.grey900,
-            ))
-      ],
-      bottom: PreferredSize(
-        preferredSize: const Size(double.infinity, 1.0),
-        child: Container(
-          decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: BaseColor.grey60))),
-        ),
       ),
     );
   }
@@ -349,6 +339,6 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   _showBottomSheet({required UserModel userModel, required Widget body}) {
-    BottomSheetWidget.base(context: context, body: body);
+    BottomSheetWidget.show(context: context, body: body);
   }
 }

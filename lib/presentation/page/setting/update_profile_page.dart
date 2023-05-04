@@ -13,6 +13,7 @@ import 'package:steemit/presentation/page/setting/select_gender_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
+import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/enum/gender_enum.dart';
 import 'package:steemit/util/helper/gender_helper.dart';
@@ -154,7 +155,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 const SizedBox(height: 20.0),
                 GestureDetector(
                   onTap: () async {
-                    final result = await BottomSheetWidget.base(
+                    final result = await BottomSheetWidget.show(
                         context: context,
                         body: SelectGenderPage(
                           preGender: gender,
@@ -195,18 +196,17 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     required: true),
               ],
             )),
-        BottomSheetWidget.title(
-            context: context,
-            title: S.current.btn_update_profile,
-            rollbackContent: S.current.btn_cancel,
-            submitContent: S.current.btn_update,
-            onSubmit: () async {
+        Header.background(
+            content: S.current.btn_update_profile,
+            prefixContent: S.current.btn_cancel,
+            suffixContent: S.current.btn_update,
+            onSuffix: () async {
               unFocus();
               await updateProfile(photo!, firstNameController.text,
                   lastNameController.text, genderController.text);
               if (mounted) Navigator.pop(context);
               //reload();
-            }),
+            })
       ],
     );
   }
