@@ -7,9 +7,6 @@ import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/controller/loading_cover_controller.dart';
-import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
-import 'package:steemit/presentation/injection/injection.dart';
-import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/helper/Image_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -44,9 +41,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
         Navigator.pop(context);
       }
       LoadingCoverController.instance.close(context);
-        getIt.get<PostsCubit>().getPosts();
-        Navigator.pop(context);
-      }
     });
     super.initState();
   }
@@ -203,6 +197,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   }
 
   void unFocus() => FocusScope.of(context).unfocus();
+
   void post() {
     unFocus();
     getIt.get<PostControllerCubit>().create(
