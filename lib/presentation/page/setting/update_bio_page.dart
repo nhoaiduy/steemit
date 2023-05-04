@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
-import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/user/controller/user_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/snackbar/snackbar_widget.dart';
@@ -43,7 +43,7 @@ class _UpdateBioPageState extends State<UpdateBioPage> {
             context: context,
             snackBar: SnackBarWidget.success(
                 content: S.current.txt_update_successfully));
-        await getIt.get<AuthenticationCubit>().authenticate();
+        await getIt.get<MeCubit>().getData();
         if (mounted) Navigator.pop(context);
       }
     });

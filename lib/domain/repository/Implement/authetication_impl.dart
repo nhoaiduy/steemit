@@ -76,13 +76,12 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
     }
 
     UserModel userModel = UserModel(
-        id: uid,
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        gender: gender,
-        followers: List.empty(growable: true),
-        followings: List.empty(growable: true));
+      id: uid,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+    );
 
     try {
       await databaseService.setUser(userModel: userModel);
@@ -90,17 +89,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
       return Left(e.message!);
     }
     return const Right(null);
-  }
-
-  @override
-  Future<Either<String, UserModel>> getCurrentUser() async {
-    try {
-      final response =
-          await databaseService.getUser(uid: authService.getUserId());
-      return Right(response);
-    } on FirebaseException catch (e) {
-      return Left(e.message!);
-    }
   }
 
   @override

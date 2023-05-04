@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_post": MessageLookupByLibrary.simpleMessage("Đăng"),
         "btn_register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "btn_save_post": MessageLookupByLibrary.simpleMessage("Lưu bài viết"),
+        "btn_saved_post":
+            MessageLookupByLibrary.simpleMessage("Đã lưu bài viết"),
         "btn_send": MessageLookupByLibrary.simpleMessage("Gửi"),
         "btn_update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "btn_update_profile":

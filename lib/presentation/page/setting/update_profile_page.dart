@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/generated/l10n.dart';
-import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
+import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/setting/select_gender_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
@@ -73,7 +73,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         "lastName": lastName,
         "gender": gender,
       });
-      getIt.get<AuthenticationCubit>().authenticate(this);
+      getIt.get<MeCubit>().getData();
     } catch (e) {
       debugPrint(e.toString());
     }
