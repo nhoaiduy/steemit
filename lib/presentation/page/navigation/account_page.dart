@@ -5,6 +5,7 @@ import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_state.dart';
+import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/post/create_post_page.dart';
 import 'package:steemit/presentation/page/post/post_page.dart';
@@ -26,6 +27,17 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  @override
+  void initState() {
+    getIt.get<BaseLayerCubit>().stream.listen((event) {
+      if (!mounted) return;
+      if (event is LanguageState) {
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

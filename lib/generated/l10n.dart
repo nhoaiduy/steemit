@@ -779,6 +779,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Change language`
+  String get lbl_change_language {
+    return Intl.message(
+      'Change language',
+      name: 'lbl_change_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System language`
+  String get txt_system_language {
+    return Intl.message(
+      'System language',
+      name: 'txt_system_language',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

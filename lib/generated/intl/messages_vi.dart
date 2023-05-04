@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Tiểu sử"),
+        "lbl_change_language":
+            MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
         "lbl_change_password":
             MessageLookupByLibrary.simpleMessage("Đối mật khẩu"),
         "lbl_comment": MessageLookupByLibrary.simpleMessage("Bình luận"),
@@ -126,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nhập mật khâ của bạn"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("Bạn đang nghĩ gì?"),
-        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Tìm kiếm")
+        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
+        "txt_system_language":
+            MessageLookupByLibrary.simpleMessage("Ngôn ngữ hệ thống")
       };
 }

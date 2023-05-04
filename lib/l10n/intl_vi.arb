@@ -71,5 +71,7 @@
   "txt_likes": "lượt thích",
   "btn_comment": "Binh luận",
   "btn_save_post": "Lưu bài viết",
-  "txt_no_image": "Không có ảnh nào"
+  "txt_no_image": "Không có ảnh nào",
+  "lbl_change_language": "Đổi ngôn ngữ",
+  "txt_system_language": "Ngôn ngữ hệ thống"
 }

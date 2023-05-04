@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
+import 'package:steemit/presentation/page/setting/change_language_page.dart';
 import 'package:steemit/presentation/page/setting/change_password_page.dart';
 import 'package:steemit/presentation/page/setting/recent_activities_page.dart';
 import 'package:steemit/presentation/page/setting/saved_post_page.dart';
@@ -26,48 +27,43 @@ class _SettingPageState extends State<SettingPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TileWidget.cellSmall(
+              TileWidget.setting(
+                  isFirst: true,
                   content: S.current.lbl_recent_activities,
-
-                  prefix: Icons.local_activity,
-                  prefixColor: BaseColor.blue500,
-                  suffix: const Icon(
-                    Icons.chevron_right,
-                    color: BaseColor.blue300,
-                    size: 36,
-                  ),
+                  prefixIcon: Icons.local_activity,
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const RecentActivitiesPage()))),
-              TileWidget.cellSmall(
+              TileWidget.setting(
                   content: S.current.lbl_saved_posts,
-                  prefix: Icons.bookmark_outlined,
-                  suffix: const Icon(
-                    Icons.chevron_right,
-                    color: BaseColor.blue300,
-                    size: 36,
-                  ),
+                  prefixIcon: Icons.bookmark_outlined,
+                  prefixBackgroundColor: BaseColor.yellow500,
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const SavedPostPage()))),
-              TileWidget.cellSmall(
+              TileWidget.setting(
                   content: S.current.lbl_change_password,
-                  prefix: Icons.key_outlined,
-                  prefixColor: BaseColor.red500,
-                  suffix: const Icon(
-                    Icons.chevron_right,
-                    color: BaseColor.blue300,
-                    size: 36,
-                  ),
+                  prefixIcon: Icons.key_outlined,
+                  prefixBackgroundColor: BaseColor.red500,
                   onTap: () {
                     BottomSheetWidget.base(
                         context: context, body: const ChangePasswordPage());
                   }),
-              TileWidget.cellSmall(
+              TileWidget.setting(
+                  content: S.current.lbl_change_language,
+                  prefixIcon: Icons.language,
+                  prefixBackgroundColor: BaseColor.green500,
+                  onTap: () {
+                    BottomSheetWidget.base(
+                        context: context, body: const ChangeLanguagePage());
+                  }),
+              TileWidget.setting(
+                  isLast: true,
                   content: S.current.btn_log_out,
                   contentColor: BaseColor.red500,
+                  isDirect: false,
                   onTap: () {
                     Navigator.pop(context);
                     getIt.get<AuthenticationCubit>().logout();
