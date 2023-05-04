@@ -41,7 +41,7 @@ class BottomSheetWidget {
     return Container(
       height: 56,
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: BaseColor.background,
         border: Border(bottom: BorderSide(color: BaseColor.grey200)),
       ),
