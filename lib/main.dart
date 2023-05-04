@@ -8,6 +8,7 @@ import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
+import 'package:steemit/presentation/bloc/user/controller/user_controller_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/base_layer/base_layer_page.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       BlocProvider.value(value: getIt.get<PostControllerCubit>()),
       BlocProvider.value(value: getIt.get<PostsCubit>()),
       BlocProvider.value(value: getIt.get<ForgotPasswordCubit>()),
+      BlocProvider.value(value: getIt.get<UserControllerCubit>()),
     ], child: const BaseLayer());
   }
 }

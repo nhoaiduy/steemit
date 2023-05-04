@@ -95,6 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("This post has no content"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Enter your email"),
+        "txt_empty_bio":
+            MessageLookupByLibrary.simpleMessage("Please enter your bio"),
         "txt_err_empty_email":
             MessageLookupByLibrary.simpleMessage("Please enter your email"),
         "txt_err_empty_first_name": MessageLookupByLibrary.simpleMessage(
@@ -133,6 +135,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("What\'s on your mind?"),
         "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search"),
         "txt_system_language":
-            MessageLookupByLibrary.simpleMessage("System language")
+            MessageLookupByLibrary.simpleMessage("System language"),
+        "txt_update_successfully":
+            MessageLookupByLibrary.simpleMessage("Update successfully")
       };
 }
