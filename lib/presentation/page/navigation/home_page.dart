@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                     final post = state.posts[index];
                     return PostCard(
                       postModel: post,
+                      // snap: snapshot.data!.docs[index].data(),
                     );
                   });
             }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/post_model.dart';
+import 'package:steemit/data/service/storage_service.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/page/post/comments_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
@@ -9,8 +10,9 @@ import 'package:steemit/util/style/base_text_style.dart';
 
 class PostCard extends StatefulWidget {
   final PostModel postModel;
+  final snap;
 
-  const PostCard({Key? key, required this.postModel}) : super(key: key);
+  const PostCard({Key? key, required this.postModel, required this.snap}) : super(key: key);
 
   @override
   State<PostCard> createState() => _PostCardState();
@@ -178,7 +180,13 @@ class _PostCardState extends State<PostCard> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () async{
+                    await StorageService().likePost(
+                        widget.snap['id'],
+                        widget.snap['userId'],
+                        widget.snap['likes']
+                    );
+                  },
                   child: Row(
                     children: [
                       const Icon(
