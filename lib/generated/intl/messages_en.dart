@@ -81,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "lbl_update_bio": MessageLookupByLibrary.simpleMessage("Update bio"),
         "txt_bio_hint": MessageLookupByLibrary.simpleMessage("Enter your bio"),
+        "txt_check_mail":
+            MessageLookupByLibrary.simpleMessage("Please check your email"),
         "txt_comment": MessageLookupByLibrary.simpleMessage("comment"),
         "txt_comment_hint":
             MessageLookupByLibrary.simpleMessage("Enter your comment"),

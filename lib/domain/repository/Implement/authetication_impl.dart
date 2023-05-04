@@ -102,4 +102,18 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
       return Left(e.message!);
     }
   }
+
+  @override
+  Future<Either<String, void>> resetPassword({required String email}) async {
+    Either<String, void> validEmail = ValidationHelper.validUsername(email);
+    if (validEmail.isLeft) {
+      return Left(validEmail.left);
+    }
+    try {
+      await authService.resetPassword(email: email);
+      return const Right(null);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
 }
