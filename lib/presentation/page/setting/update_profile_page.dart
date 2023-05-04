@@ -1,7 +1,10 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
@@ -13,8 +16,6 @@ import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/enum/gender_enum.dart';
 import 'package:steemit/util/helper/gender_helper.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class UpdateProfilePage extends StatefulWidget {
   final UserModel userModel;
@@ -52,8 +53,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     super.initState();
   }
 
-  Future<void> updateProfile(XFile file ,String firstName, String lastName, String gender) async {
-    try{
+  Future<void> updateProfile(
+      XFile file, String firstName, String lastName, String gender) async {
+    try {
       firebase_storage.UploadTask uploadTask;
       firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
           .ref()
@@ -71,15 +73,15 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         "gender": gender,
       });
       getIt.get<AuthenticationCubit>().authenticate(this);
-    } catch (e){
+    } catch (e) {
       debugPrint(e.toString());
     }
   }
 
-  pickImage(ImageSource image) async{
-    try{
+  pickImage(ImageSource image) async {
+    try {
       photo = (await ImagePicker().pickImage(source: image))!;
-      if(photo == null) return;
+      if (photo == null) return;
       final tempImage = File(photo!.path);
       setState(() {
         photoPath = tempImage;
@@ -198,12 +200,16 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             title: S.current.btn_update_profile,
             rollbackContent: S.current.btn_cancel,
             submitContent: S.current.btn_update,
-            onSubmit: () {
-              updateProfile(photo!, firstNameController.text, lastNameController.text, genderController.text);
-              Navigator.pop(context);
+            onSubmit: () async {
+              unFocus();
+              await updateProfile(photo!, firstNameController.text,
+                  lastNameController.text, genderController.text);
+              if (mounted) Navigator.pop(context);
               //reload();
             }),
       ],
     );
   }
+
+  void unFocus() => FocusScope.of(context).unfocus();
 }
