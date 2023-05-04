@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update profile"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Account"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Bio"),
+        "lbl_change_language":
+            MessageLookupByLibrary.simpleMessage("Change language"),
         "lbl_change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
         "lbl_comment": MessageLookupByLibrary.simpleMessage("Comment"),
@@ -127,6 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("What\'s on your mind?"),
-        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search")
+        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search"),
+        "txt_system_language":
+            MessageLookupByLibrary.simpleMessage("System language")
       };
 }
