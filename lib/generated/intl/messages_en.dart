@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_post": MessageLookupByLibrary.simpleMessage("Post"),
         "btn_register": MessageLookupByLibrary.simpleMessage("Register"),
         "btn_save_post": MessageLookupByLibrary.simpleMessage("Save post"),
+        "btn_saved_post": MessageLookupByLibrary.simpleMessage("Saved post"),
         "btn_send": MessageLookupByLibrary.simpleMessage("Send"),
         "btn_update": MessageLookupByLibrary.simpleMessage("Update"),
         "btn_update_profile":

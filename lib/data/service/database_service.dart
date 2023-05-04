@@ -80,4 +80,36 @@ class DatabaseService {
       rethrow;
     }
   }
+
+  Future<void> savePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.user).doc(uid).update({
+        "savedPosts": FieldValue.arrayUnion([postId])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> unSavePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.user).doc(uid).update({
+        "savedPosts": FieldValue.arrayRemove([postId])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<PostModel> getPostById({required String postId}) async {
+    try {
+      final response =
+          await _fireStore.collection(ServicePath.post).doc(postId).get();
+      final PostModel postModel = PostModel.fromJson(response.data()!);
+      postModel.user = await getUser(uid: postModel.userId!);
+      return postModel;
+    } on FirebaseException {
+      rethrow;
+    }
+  }
 }
