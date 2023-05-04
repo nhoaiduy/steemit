@@ -73,5 +73,6 @@
   "btn_save_post": "Lưu bài viết",
   "txt_no_image": "Không có ảnh nào",
   "lbl_change_language": "Đổi ngôn ngữ",
-  "txt_system_language": "Ngôn ngữ hệ thống"
+  "txt_system_language": "Ngôn ngữ hệ thống",
+  "txt_check_mail": "Vui lòng kiểm tra email"
 }

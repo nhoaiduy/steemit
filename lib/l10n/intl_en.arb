@@ -73,5 +73,6 @@
   "btn_save_post": "Save post",
   "txt_no_image": "There is no image",
   "lbl_change_language": "Change language",
-  "txt_system_language": "System language"
+  "txt_system_language": "System language",
+  "txt_check_mail": "Please check your email"
 }

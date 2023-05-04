@@ -6,6 +6,7 @@ import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
+import 'package:steemit/presentation/widget/snackbar/snackbar_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/controller/loading_cover_controller.dart';
 import 'package:steemit/util/helper/Image_helper.dart';
@@ -28,15 +29,9 @@ class _CreatePostPageState extends State<CreatePostPage> {
     getIt.get<PostControllerCubit>().stream.listen((event) {
       if (!mounted) return;
       if (event is PostControllerFailure) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: BaseColor.red500,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0)),
-            content: Text(
-              event.message,
-              style: BaseTextStyle.body1(color: Colors.white),
-            )));
+        SnackBarWidget.show(
+            context: context,
+            snackBar: SnackBarWidget.danger(content: event.message));
       }
       if (event is PostControllerSuccess) {
         Navigator.pop(context);

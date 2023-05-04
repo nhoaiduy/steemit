@@ -80,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_update_bio":
             MessageLookupByLibrary.simpleMessage("Cập nhật tiểu sử"),
         "txt_bio_hint": MessageLookupByLibrary.simpleMessage("Nhập tiểu sử"),
+        "txt_check_mail":
+            MessageLookupByLibrary.simpleMessage("Vui lòng kiểm tra email"),
         "txt_comment": MessageLookupByLibrary.simpleMessage("bình luận"),
         "txt_comment_hint":
             MessageLookupByLibrary.simpleMessage("Nhập bình luận"),
