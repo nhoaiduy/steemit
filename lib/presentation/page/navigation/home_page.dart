@@ -69,6 +69,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildBody() {
+    return RefreshIndicator(
+      onRefresh: () async => getIt.get<PostsCubit>().getPosts(),
+      child: BlocBuilder<PostsCubit, PostsState>(
+          bloc: getIt.get<PostsCubit>()..getPosts(),
+          builder: (context, state) {
+            if (state is PostsSuccess) {
+              return ListView.builder(
+                  itemCount: state.posts.length,
+                  itemBuilder: (context, index) {
+                    final post = state.posts[index];
+                    return PostCard(
+                      postModel: post,
+                    );
+                  });
+            }
+            return const Center();
+          }),
+    );
+  }
+
+  Widget _buildBody() {
     return BlocBuilder<PostsCubit, PostsState>(builder: (context, state) {
       if (state is PostsSuccess) {
         return ListView.builder(
