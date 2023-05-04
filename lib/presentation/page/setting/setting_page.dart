@@ -7,6 +7,7 @@ import 'package:steemit/presentation/page/setting/change_password_page.dart';
 import 'package:steemit/presentation/page/setting/recent_activities_page.dart';
 import 'package:steemit/presentation/page/setting/saved_post_page.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
+import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/tile/tile_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -22,55 +23,66 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: _appBar(),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TileWidget.setting(
-                  isFirst: true,
-                  content: S.current.lbl_recent_activities,
-                  prefixIcon: Icons.local_activity,
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RecentActivitiesPage()))),
-              TileWidget.setting(
-                  content: S.current.lbl_saved_posts,
-                  prefixIcon: Icons.bookmark_outlined,
-                  prefixBackgroundColor: BaseColor.yellow500,
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SavedPostPage()))),
-              TileWidget.setting(
-                  content: S.current.lbl_change_password,
-                  prefixIcon: Icons.key_outlined,
-                  prefixBackgroundColor: BaseColor.red500,
-                  onTap: () {
-                    BottomSheetWidget.base(
-                        context: context, body: const ChangePasswordPage());
-                  }),
-              TileWidget.setting(
-                  content: S.current.lbl_change_language,
-                  prefixIcon: Icons.language,
-                  prefixBackgroundColor: BaseColor.green500,
-                  onTap: () {
-                    BottomSheetWidget.base(
-                        context: context, body: const ChangeLanguagePage());
-                  }),
-              TileWidget.setting(
-                  isLast: true,
-                  content: S.current.btn_log_out,
-                  contentColor: BaseColor.red500,
-                  isDirect: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    getIt.get<AuthenticationCubit>().logout();
-                  }),
-            ],
+        body: Column(
+      children: [
+        Header.background(
+          topPadding: MediaQuery.of(context).padding.top,
+          content: S.current.lbl_setting,
+          prefixIconPath: Icons.chevron_left,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                TileWidget.setting(
+                    isFirst: true,
+                    content: S.current.lbl_recent_activities,
+                    prefixIcon: Icons.local_activity,
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const RecentActivitiesPage()))),
+                TileWidget.setting(
+                    content: S.current.lbl_saved_posts,
+                    prefixIcon: Icons.bookmark_outlined,
+                    prefixBackgroundColor: BaseColor.yellow500,
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SavedPostPage()))),
+                TileWidget.setting(
+                    content: S.current.lbl_change_password,
+                    prefixIcon: Icons.key_outlined,
+                    prefixBackgroundColor: BaseColor.red500,
+                    onTap: () {
+                      BottomSheetWidget.show(
+                          context: context, body: const ChangePasswordPage());
+                    }),
+                TileWidget.setting(
+                    content: S.current.lbl_change_language,
+                    prefixIcon: Icons.language,
+                    prefixBackgroundColor: BaseColor.green500,
+                    onTap: () {
+                      BottomSheetWidget.show(
+                          context: context, body: const ChangeLanguagePage());
+                    }),
+                TileWidget.setting(
+                    isLast: true,
+                    content: S.current.btn_log_out,
+                    contentColor: BaseColor.red500,
+                    isDirect: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      getIt.get<AuthenticationCubit>().logout();
+                    }),
+              ],
+            ),
           ),
-        ));
+        ),
+      ],
+    ));
   }
 
   _appBar() {
