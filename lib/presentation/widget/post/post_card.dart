@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/post_model.dart';
-import 'package:steemit/data/service/database_service.dart';
-import 'package:steemit/data/service/storage_service.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
@@ -48,7 +46,7 @@ class _PostCardState extends State<PostCard> {
           isSaved = true;
         });
       }
-      if (postModel.likes!.contains(user.id)){
+      if (postModel.likes!.contains(user.id)) {
         setState(() {
           isLike = true;
         });
@@ -205,53 +203,69 @@ class _PostCardState extends State<PostCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector(
-                  onTap: () async{
-                    // await DatabaseService().likePost(
-                    //     postModel: postModel
-                    // );
-                    if (isLike) {
-                      await getIt
-                          .get<PostControllerCubit>()
-                          .unLike(postId: postModel.id!);
-                    } else {
-                      await getIt
-                          .get<PostControllerCubit>()
-                          .like(postId: postModel.id!);
-                    }
-                    setState(() {
-                      isLike = !isLike;
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      isLike
-                          ? const Icon(
-                              Icons.favorite,
-                              color: Colors.redAccent,)
-                          : const Icon(
-                            Icons.favorite_border,
-                            color: Colors.redAccent,),
-                      const SizedBox(width: 5),
-                      Text(S.current.btn_like),
-                    ],
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      // await DatabaseService().likePost(
+                      //     postModel: postModel
+                      // );
+                      if (isLike) {
+                        await getIt
+                            .get<PostControllerCubit>()
+                            .unLike(postId: postModel.id!);
+                        postModel.likes!.removeAt(0);
+                      } else {
+                        await getIt
+                            .get<PostControllerCubit>()
+                            .like(postId: postModel.id!);
+                        postModel.likes!.add("");
+                      }
+                      setState(() {
+                        isLike = !isLike;
+                      });
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          isLike
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.redAccent,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.redAccent,
+                                ),
+                          const SizedBox(width: 5),
+                          Text(S.current.btn_like),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CommentsPage()));
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.comment_outlined,
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CommentsPage()));
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.comment_outlined,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(S.current.btn_comment),
+                        ],
                       ),
-                      const SizedBox(width: 5),
-                      Text(S.current.btn_comment),
-                    ],
+                    ),
                   ),
                 ),
               ],
