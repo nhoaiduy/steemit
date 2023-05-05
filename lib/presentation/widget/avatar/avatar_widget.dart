@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -11,6 +12,7 @@ const double extraLargeAvatarSize = 80;
 
 class AvatarWidget {
   static Widget base({
+    File? pickedImagePath,
     String? imagePath,
     double? size,
     String name = "",
@@ -48,6 +50,19 @@ class AvatarWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(finalSize),
                     child: Image.network(imagePath, fit: BoxFit.cover)),
+              ),
+            if (pickedImagePath != null)
+              Container(
+                height: finalSize,
+                width: finalSize,
+                padding: const EdgeInsets.all(1),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    border: Border.all(color: BaseColor.grey40)),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(finalSize),
+                    child: Image.file(pickedImagePath)),
               ),
           ],
         ));

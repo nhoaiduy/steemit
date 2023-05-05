@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update profile"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Account"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Bio"),
+        "lbl_change_language":
+            MessageLookupByLibrary.simpleMessage("Change language"),
         "lbl_change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
         "lbl_comment": MessageLookupByLibrary.simpleMessage("Comment"),
@@ -79,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "lbl_update_bio": MessageLookupByLibrary.simpleMessage("Update bio"),
         "txt_bio_hint": MessageLookupByLibrary.simpleMessage("Enter your bio"),
+        "txt_check_mail":
+            MessageLookupByLibrary.simpleMessage("Please check your email"),
         "txt_comment": MessageLookupByLibrary.simpleMessage("comment"),
         "txt_comment_hint":
             MessageLookupByLibrary.simpleMessage("Enter your comment"),
@@ -91,6 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("This post has no content"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Enter your email"),
+        "txt_empty_bio":
+            MessageLookupByLibrary.simpleMessage("Please enter your bio"),
         "txt_err_empty_email":
             MessageLookupByLibrary.simpleMessage("Please enter your email"),
         "txt_err_empty_first_name": MessageLookupByLibrary.simpleMessage(
@@ -119,12 +125,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_male": MessageLookupByLibrary.simpleMessage("Male"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your new password"),
+        "txt_no_image":
+            MessageLookupByLibrary.simpleMessage("There is no image"),
         "txt_old_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your old password"),
         "txt_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("What\'s on your mind?"),
-        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search")
+        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search"),
+        "txt_system_language":
+            MessageLookupByLibrary.simpleMessage("System language"),
+        "txt_update_successfully":
+            MessageLookupByLibrary.simpleMessage("Update successfully")
       };
 }

@@ -769,6 +769,66 @@ class S {
       args: [],
     );
   }
+
+  /// `There is no image`
+  String get txt_no_image {
+    return Intl.message(
+      'There is no image',
+      name: 'txt_no_image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change language`
+  String get lbl_change_language {
+    return Intl.message(
+      'Change language',
+      name: 'lbl_change_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System language`
+  String get txt_system_language {
+    return Intl.message(
+      'System language',
+      name: 'txt_system_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your email`
+  String get txt_check_mail {
+    return Intl.message(
+      'Please check your email',
+      name: 'txt_check_mail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your bio`
+  String get txt_empty_bio {
+    return Intl.message(
+      'Please enter your bio',
+      name: 'txt_empty_bio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update successfully`
+  String get txt_update_successfully {
+    return Intl.message(
+      'Update successfully',
+      name: 'txt_update_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

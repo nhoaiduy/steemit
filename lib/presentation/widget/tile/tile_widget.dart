@@ -4,55 +4,49 @@ import 'package:steemit/util/style/base_text_style.dart';
 
 class TileWidget {
   static cellSmall(
-      {double? height,
-      required String content,
-      TextStyle? contentStyle,
+      {bool isFirst = false,
+      bool isLast = false,
+      double? height,
+      required Widget content,
       Color? contentColor,
       Color? backgroundColor,
-      IconData? prefix,
-      Color? prefixColor,
+      Widget? prefix,
       Widget? suffix,
       VoidCallback? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
         height: height ?? 48.0,
-        margin: const EdgeInsets.only(bottom: 16.0),
         decoration: BoxDecoration(
-            color: backgroundColor ?? Colors.white,
-            borderRadius: BorderRadius.circular(12.0)),
+          color: backgroundColor ?? Colors.white,
+          borderRadius: BorderRadius.only(
+            topRight: isFirst ? const Radius.circular(12.0) : Radius.zero,
+            topLeft: isFirst ? const Radius.circular(12.0) : Radius.zero,
+            bottomLeft: isLast ? const Radius.circular(12.0) : Radius.zero,
+            bottomRight: isLast ? const Radius.circular(12.0) : Radius.zero,
+          ),
+        ),
         child: Row(
           children: [
             const SizedBox(
               width: 16.0,
             ),
-            if (prefix != null)
-              Container(
-                  padding: const EdgeInsets.all(6.0),
-                  margin: const EdgeInsets.only(right: 8.0),
-                  decoration: BoxDecoration(
-                      color: prefixColor ?? BaseColor.yellow500,
-                      borderRadius: BorderRadius.circular(12.0)),
-                  child: Icon(
-                    prefix,
-                    color: Colors.white,
-                    size: 20.0,
-                  )),
+            if (prefix != null) prefix,
             Expanded(
               child: Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.only(
                     right: 16.0,
                   ),
+                  decoration: BoxDecoration(
+                      border: isFirst
+                          ? null
+                          : const Border(
+                              top: BorderSide(
+                                  color: BaseColor.grey60, width: 0.7))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(content,
-                          overflow: TextOverflow.ellipsis,
-                          style: contentStyle ??
-                              BaseTextStyle.label(color: contentColor)),
-                      if (suffix != null) suffix
-                    ],
+                    children: [content, if (suffix != null) suffix],
                   )),
             )
           ],
@@ -61,19 +55,90 @@ class TileWidget {
     );
   }
 
+  static setting(
+      {bool isFirst = false,
+      bool isLast = false,
+      bool isChosen = false,
+      required String content,
+      Color? contentColor,
+      IconData? prefixIcon,
+      double prefixSize = 28.0,
+      Color? prefixColor,
+      Color? prefixBackgroundColor,
+      Color? backgroundColor,
+      String? suffixText = "",
+      Color? suffixColor,
+      bool? isDirect = true,
+      VoidCallback? onTap}) {
+    return cellSmall(
+        height: 48.0,
+        isFirst: isFirst,
+        isLast: isLast,
+        onTap: onTap,
+        backgroundColor: isChosen ? BaseColor.blue300 : null,
+        content: Text(content,
+            overflow: TextOverflow.ellipsis,
+            style: BaseTextStyle.label(color: contentColor)),
+        contentColor: isChosen ? Colors.white : contentColor,
+        prefix: prefixIcon != null
+            ? Container(
+                width: prefixSize,
+                height: prefixSize,
+                margin:
+                    const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 12.0),
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6.0),
+                    color: prefixBackgroundColor ?? BaseColor.blue500),
+                child: Icon(
+                  prefixIcon,
+                  color: prefixColor ?? Colors.white,
+                  size: 16.0,
+                ),
+              )
+            : null,
+        suffix: isDirect ?? true
+            ? Icon(Icons.chevron_right,
+                color:
+                    isChosen ? Colors.white : suffixColor ?? BaseColor.blue300)
+            : Text(
+                suffixText ?? "",
+                style: BaseTextStyle.body1(
+                    color: isChosen ? Colors.white : BaseColor.blue300),
+                overflow: TextOverflow.ellipsis,
+              ));
+  }
+
   static pickItem(
-      {required String content, bool isChosen = false, VoidCallback? onTap}) {
+      {bool isFirst = false,
+      bool isLast = false,
+      required String content,
+      String? prefix,
+      bool isChosen = false,
+      VoidCallback? onTap}) {
     return cellSmall(
         height: 44.0,
         onTap: onTap,
-        content: content,
-        contentStyle: BaseTextStyle.body1(),
-        backgroundColor: Colors.white,
+        content: Text(content,
+            overflow: TextOverflow.ellipsis, style: BaseTextStyle.body1()),
+        prefix: prefix != null
+            ? Container(
+                width: 24.0,
+                height: 24.0,
+                margin:
+                    const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 12.0),
+                child: Image.asset(
+                  prefix,
+                  fit: BoxFit.contain,
+                ))
+            : null,
         suffix: isChosen
             ? const Icon(
                 Icons.check,
-                color: BaseColor.blue300,
+                color: BaseColor.blue500,
               )
-            : null);
+            : null,
+        isLast: isLast,
+        isFirst: isFirst);
   }
 }

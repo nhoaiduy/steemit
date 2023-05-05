@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/post_model.dart';
+import 'package:steemit/data/service/database_service.dart';
 import 'package:steemit/data/service/storage_service.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/page/post/comments_page.dart';
@@ -10,9 +11,9 @@ import 'package:steemit/util/style/base_text_style.dart';
 
 class PostCard extends StatefulWidget {
   final PostModel postModel;
-  final snap;
+  // final snap;
 
-  const PostCard({Key? key, required this.postModel, required this.snap}) : super(key: key);
+  const PostCard({Key? key, required this.postModel}) : super(key: key);
 
   @override
   State<PostCard> createState() => _PostCardState();
@@ -126,23 +127,6 @@ class _PostCardState extends State<PostCard> {
                 fit: BoxFit.cover,
               ),
             ),
-          //   SizedBox(
-          //     height: MediaQuery.of(context).size.height * 0.5,
-          //     child: ListView.builder(
-          //         shrinkWrap: true,
-          //         scrollDirection: Axis.horizontal,
-          //         itemCount: postModel.images!.length,
-          //         itemBuilder: (context, index) {
-          //           return SizedBox(
-          //             height: MediaQuery.of(context).size.height * 0.5,
-          //             width: double.infinity,
-          //             child: Image.network(
-          //               postModel.images!.first,
-          //               fit: BoxFit.cover,
-          //             ),
-          //           );
-          //         }),
-          //   ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
             child: Row(
@@ -181,18 +165,19 @@ class _PostCardState extends State<PostCard> {
               children: [
                 GestureDetector(
                   onTap: () async{
-                    await StorageService().likePost(
-                        widget.snap['id'],
-                        widget.snap['userId'],
-                        widget.snap['likes']
+                    await DatabaseService().likePost(
+                        postModel: postModel
                     );
                   },
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.favorite,
-                        color: Colors.redAccent,
-                      ),
+                      (postModel.likes!.contains(postModel.userId))
+                          ? const Icon(
+                              Icons.favorite,
+                              color: Colors.redAccent,)
+                          : const Icon(
+                            Icons.favorite_border,
+                            color: Colors.redAccent,),
                       const SizedBox(width: 5),
                       Text(S.current.btn_like),
                     ],

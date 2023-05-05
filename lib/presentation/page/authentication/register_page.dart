@@ -6,6 +6,7 @@ import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/setting/select_gender_page.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
+import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/enum/gender_enum.dart';
 import 'package:steemit/util/helper/gender_helper.dart';
@@ -57,156 +58,150 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _appBar(), body: _body());
-  }
-
-  _appBar() {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () => Navigator.pop(context),
-        icon: const Icon(
-          Icons.chevron_left,
-          size: 36.0,
-          color: BaseColor.green500,
+    return Scaffold(
+        body: Column(
+      children: [
+        Header.background(
+          topPadding: MediaQuery.of(context).padding.top,
+          content: S.current.lbl_register,
+          prefixIconPath: Icons.chevron_left,
         ),
-      ),
-      title: Text(
-        S.current.lbl_register,
-        style: const TextStyle(color: BaseColor.green500),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-    );
+        _body()
+      ],
+    ));
   }
 
   _body() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(commonPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFieldWidget.common(
-              onChanged: (text) {},
-              textEditingController: firstNameController,
-              textInputAction: TextInputAction.next,
-              prefixIconPath: Icons.text_fields_outlined,
-              labelText: S.current.lbl_first_name,
-              required: true,
-              hintText: S.current.txt_first_name_hint),
-          const SizedBox(
-            height: commonPadding,
-          ),
-          TextFieldWidget.common(
-              onChanged: (text) {},
-              prefixIconPath: Icons.text_fields_outlined,
-              textEditingController: lastNameController,
-              textInputAction: TextInputAction.next,
-              labelText: S.current.lbl_last_name,
-              required: true,
-              hintText: S.current.txt_last_name_hint),
-          const SizedBox(
-            height: commonPadding,
-          ),
-          TextFieldWidget.common(
-              onChanged: (text) {},
-              prefixIconPath: Icons.email_outlined,
-              textInputType: TextInputType.emailAddress,
-              textEditingController: emailNameController,
-              textInputAction: TextInputAction.next,
-              maxLines: 1,
-              labelText: "Email",
-              required: true,
-              hintText: S.current.txt_email_hint),
-          const SizedBox(
-            height: commonPadding,
-          ),
-          GestureDetector(
-            onTap: () async {
-              final result = await BottomSheetWidget.base(
-                  context: context,
-                  body: SelectGenderPage(
-                    preGender: gender,
-                  ));
-              if (result != null) {
-                setState(() {
-                  gender = result;
-                  genderController.text = GenderHelper.mapEnumToString(result);
-                });
-              }
-            },
-            child: Stack(
-              children: [
-                TextFieldWidget.common(
-                    onChanged: (text) {},
-                    labelText: S.current.lbl_gender,
-                    textEditingController: genderController,
-                    prefixIconPath: Icons.people_outline,
-                    readOnly: true,
-                    hintText: S.current.txt_gender_hint),
-                Container(
-                  width: MediaQuery.of(context).size.width - 32,
-                  height: 80.0,
-                  color: Colors.transparent,
-                )
-              ],
+    return Expanded(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(commonPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFieldWidget.common(
+                onChanged: (text) {},
+                textEditingController: firstNameController,
+                textInputAction: TextInputAction.next,
+                prefixIconPath: Icons.text_fields_outlined,
+                labelText: S.current.lbl_first_name,
+                required: true,
+                hintText: S.current.txt_first_name_hint),
+            const SizedBox(
+              height: commonPadding,
             ),
-          ),
-          const SizedBox(
-            height: commonPadding,
-          ),
-          TextFieldWidget.common(
-              onChanged: (text) {},
-              textEditingController: passwordController,
-              prefixIconPath: Icons.lock_outlined,
-              textInputAction: TextInputAction.next,
-              isObscured: _isHidePassword,
-              labelText: S.current.lbl_password,
-              required: true,
-              maxLines: 1,
-              suffixIconPath: _isHidePassword
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined,
-              onSuffixIconTap: () {
-                setState(() {
-                  _isHidePassword = !_isHidePassword;
-                });
+            TextFieldWidget.common(
+                onChanged: (text) {},
+                prefixIconPath: Icons.text_fields_outlined,
+                textEditingController: lastNameController,
+                textInputAction: TextInputAction.next,
+                labelText: S.current.lbl_last_name,
+                required: true,
+                hintText: S.current.txt_last_name_hint),
+            const SizedBox(
+              height: commonPadding,
+            ),
+            TextFieldWidget.common(
+                onChanged: (text) {},
+                prefixIconPath: Icons.email_outlined,
+                textInputType: TextInputType.emailAddress,
+                textEditingController: emailNameController,
+                textInputAction: TextInputAction.next,
+                maxLines: 1,
+                labelText: "Email",
+                required: true,
+                hintText: S.current.txt_email_hint),
+            const SizedBox(
+              height: commonPadding,
+            ),
+            GestureDetector(
+              onTap: () async {
+                final result = await BottomSheetWidget.show(
+                    context: context,
+                    body: SelectGenderPage(
+                      preGender: gender,
+                    ));
+                if (result != null) {
+                  setState(() {
+                    gender = result;
+                    genderController.text =
+                        GenderHelper.mapEnumToString(result);
+                  });
+                }
               },
-              hintText: S.current.txt_password_hint),
-          const SizedBox(
-            height: commonPadding,
-          ),
-          TextFieldWidget.common(
-              onChanged: (text) {},
-              isObscured: _isHideConfirmPassword,
-              textEditingController: confirmPasswordController,
-              prefixIconPath: Icons.lock_outlined,
-              textInputAction: TextInputAction.done,
-              labelText: S.current.lbl_confirm_password,
-              required: true,
-              maxLines: 1,
-              suffixIconPath: _isHideConfirmPassword
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined,
-              onSuffixIconTap: () {
-                setState(() {
-                  _isHideConfirmPassword = !_isHideConfirmPassword;
-                });
-              },
-              hintText: S.current.txt_password_hint),
-          if (_registerErrorText != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: Text(
-                _registerErrorText!,
-                style: BaseTextStyle.body1(color: BaseColor.red500),
+              child: Stack(
+                children: [
+                  TextFieldWidget.common(
+                      onChanged: (text) {},
+                      labelText: S.current.lbl_gender,
+                      textEditingController: genderController,
+                      prefixIconPath: Icons.people_outline,
+                      readOnly: true,
+                      hintText: S.current.txt_gender_hint),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 32,
+                    height: 80.0,
+                    color: Colors.transparent,
+                  )
+                ],
               ),
             ),
-          const SizedBox(
-            height: commonPadding,
-          ),
-          ButtonWidget.primary(onTap: () => register(), content: S.current.btn_register)
-        ],
+            const SizedBox(
+              height: commonPadding,
+            ),
+            TextFieldWidget.common(
+                onChanged: (text) {},
+                textEditingController: passwordController,
+                prefixIconPath: Icons.lock_outlined,
+                textInputAction: TextInputAction.next,
+                isObscured: _isHidePassword,
+                labelText: S.current.lbl_password,
+                required: true,
+                maxLines: 1,
+                suffixIconPath: _isHidePassword
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                onSuffixIconTap: () {
+                  setState(() {
+                    _isHidePassword = !_isHidePassword;
+                  });
+                },
+                hintText: S.current.txt_password_hint),
+            const SizedBox(
+              height: commonPadding,
+            ),
+            TextFieldWidget.common(
+                onChanged: (text) {},
+                isObscured: _isHideConfirmPassword,
+                textEditingController: confirmPasswordController,
+                prefixIconPath: Icons.lock_outlined,
+                textInputAction: TextInputAction.done,
+                labelText: S.current.lbl_confirm_password,
+                required: true,
+                maxLines: 1,
+                suffixIconPath: _isHideConfirmPassword
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                onSuffixIconTap: () {
+                  setState(() {
+                    _isHideConfirmPassword = !_isHideConfirmPassword;
+                  });
+                },
+                hintText: S.current.txt_password_hint),
+            if (_registerErrorText != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Text(
+                  _registerErrorText!,
+                  style: BaseTextStyle.body1(color: BaseColor.red500),
+                ),
+              ),
+            const SizedBox(
+              height: commonPadding,
+            ),
+            ButtonWidget.primary(
+                onTap: () => register(), content: S.current.btn_register)
+          ],
+        ),
       ),
     );
   }

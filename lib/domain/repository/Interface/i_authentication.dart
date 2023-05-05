@@ -11,10 +11,11 @@ abstract class AuthenticationRepositoryInterface {
 
   void logout();
 
-  Future<Either<String, void>> register(
-      {required String firstName,
-      required String lastName,
-      required String email,
-      required String password,
-      required String confirmPassword});
+  Future<Either<String, void>> register({required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String confirmPassword});
+
+  Future<Either<String, void>> resetPassword({required String email});
 }

@@ -31,6 +31,17 @@ class DatabaseService {
     }
   }
 
+  Future<void> updateBio({required String bio, required String uid}) async {
+    try {
+      await _fireStore
+          .collection(ServicePath.user)
+          .doc(uid)
+          .update({"bio": bio});
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
   Future<void> createPost({required PostModel postModel}) async {
     try {
       await _fireStore
@@ -67,6 +78,22 @@ class DatabaseService {
       return posts;
     } on FirebaseException {
       rethrow;
+    }
+  }
+
+  Future<void> likePost({required PostModel postModel}) async {
+    try {
+      if(postModel.likes!.contains(postModel.userId)){
+        await _fireStore.collection(ServicePath.post).doc(postModel.id).update({
+          'likes': FieldValue.arrayRemove([postModel.userId])
+        });
+      } else {
+        await _fireStore.collection(ServicePath.post).doc(postModel.id).update({
+          'likes': FieldValue.arrayUnion([postModel.userId])
+        });
+      }
+    } catch(e) {
+      print(e.toString());
     }
   }
 }

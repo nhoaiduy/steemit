@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Tiểu sử"),
+        "lbl_change_language":
+            MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
         "lbl_change_password":
             MessageLookupByLibrary.simpleMessage("Đối mật khẩu"),
         "lbl_comment": MessageLookupByLibrary.simpleMessage("Bình luận"),
@@ -78,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_update_bio":
             MessageLookupByLibrary.simpleMessage("Cập nhật tiểu sử"),
         "txt_bio_hint": MessageLookupByLibrary.simpleMessage("Nhập tiểu sử"),
+        "txt_check_mail":
+            MessageLookupByLibrary.simpleMessage("Vui lòng kiểm tra email"),
         "txt_comment": MessageLookupByLibrary.simpleMessage("bình luận"),
         "txt_comment_hint":
             MessageLookupByLibrary.simpleMessage("Nhập bình luận"),
@@ -90,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bài đăng không có nội dung"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Nhập email của bạn"),
+        "txt_empty_bio":
+            MessageLookupByLibrary.simpleMessage("Vui lòng nhập tiểu sử"),
         "txt_err_empty_email":
             MessageLookupByLibrary.simpleMessage("Vui lòng nhập email của bạn"),
         "txt_err_empty_first_name":
@@ -118,12 +124,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_male": MessageLookupByLibrary.simpleMessage("Nam"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu mới"),
+        "txt_no_image":
+            MessageLookupByLibrary.simpleMessage("Không có ảnh nào"),
         "txt_old_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu cũ"),
         "txt_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khâ của bạn"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("Bạn đang nghĩ gì?"),
-        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Tìm kiếm")
+        "txt_search_hint": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
+        "txt_system_language":
+            MessageLookupByLibrary.simpleMessage("Ngôn ngữ hệ thống"),
+        "txt_update_successfully":
+            MessageLookupByLibrary.simpleMessage("Cập nhật thành công")
       };
 }
