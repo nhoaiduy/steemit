@@ -9,7 +9,7 @@ import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/snackbar/snackbar_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/controller/loading_cover_controller.dart';
-import 'package:steemit/util/helper/Image_helper.dart';
+import 'package:steemit/util/helper/image_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 

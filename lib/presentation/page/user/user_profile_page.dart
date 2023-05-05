@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/generated/l10n.dart';
-import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
-import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
+import 'package:steemit/presentation/bloc/user/data/user/user_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
-import 'package:steemit/presentation/page/post/create_post_page.dart';
-import 'package:steemit/presentation/page/setting/setting_page.dart';
-import 'package:steemit/presentation/page/setting/update_bio_page.dart';
-import 'package:steemit/presentation/page/setting/update_profile_page.dart';
+import 'package:steemit/presentation/page/user/user_info_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
@@ -20,25 +15,20 @@ import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+class UserProfilePage extends StatefulWidget {
+  final String userId;
+
+  const UserProfilePage(this.userId, {Key? key}) : super(key: key);
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<UserProfilePage> createState() => _UserProfilePageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
-  String myId = "";
-
+class _UserProfilePageState extends State<UserProfilePage> {
   @override
   void initState() {
-    getIt.get<MeCubit>().getData();
-    getIt.get<BaseLayerCubit>().stream.listen((event) {
-      if (!mounted) return;
-      if (event is LanguageState) {
-        setState(() {});
-      }
-    });
+    getIt.get<UserCubit>().clean();
+    getIt.get<UserCubit>().getData(userId: widget.userId);
     super.initState();
   }
 
@@ -48,22 +38,9 @@ class _AccountPageState extends State<AccountPage> {
       body: Column(
         children: [
           Header.background(
-            topPadding: MediaQuery.of(context).padding.top,
-            content: S.current.lbl_account,
-            suffixIconPath: Icons.settings,
-            onSuffix: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SettingPage()));
-            },
-            secondSuffixIconPath: Icons.edit,
-            onSecondSuffix: () async {
-              await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CreatePostPage()));
-              getIt.get<PostsCubit>().getPosts();
-            },
-          ),
+              topPadding: MediaQuery.of(context).padding.top,
+              content: S.current.lbl_account,
+              prefixIconPath: Icons.chevron_left),
           _buildBody()
         ],
       ),
@@ -82,8 +59,8 @@ class _AccountPageState extends State<AccountPage> {
 
   _buildTopArea() {
     double screenWidth = MediaQuery.of(context).size.width;
-    return BlocBuilder<MeCubit, MeState>(builder: (context, state) {
-      if (state is MeSuccess) {
+    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+      if (state is UserSuccess) {
         final user = state.user;
         return Container(
           padding: const EdgeInsets.all(16.0),
@@ -104,30 +81,20 @@ class _AccountPageState extends State<AccountPage> {
                   style: BaseTextStyle.subtitle2(),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  _showBottomSheet(
-                      body: UpdateBioPage(
-                    bio: user.bio,
-                  ));
-                },
-                child: Container(
+              if (user.bio != null)
+                Container(
                   padding:
                       const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 16.0),
                   color: Colors.transparent,
                   child: Text(
-                    user.bio ?? S.current.btn_add_bio,
+                    user.bio!,
                     style: BaseTextStyle.body1(color: BaseColor.grey300),
                   ),
                 ),
-              ),
               const SizedBox(height: 16.0),
               ButtonWidget.tertiary(
-                  onTap: () => _showBottomSheet(
-                          body: UpdateProfilePage(
-                        userModel: user,
-                      )),
-                  content: S.current.btn_update_profile),
+                  onTap: () => _showBottomSheet(body: UserInfoPage(user)),
+                  content: S.current.btn_user_info),
             ],
           ),
         );
@@ -171,13 +138,13 @@ class _AccountPageState extends State<AccountPage> {
         bloc: getIt.get<PostsCubit>()..getPosts(),
         builder: (context, state) {
           if (state is PostsSuccess) {
-            final myPosts = state.posts
-                .where((post) => post.userId == authService.getUserId())
+            final posts = state.posts
+                .where((post) => post.userId == widget.userId)
                 .toList();
-            if (myPosts.isNotEmpty) {
+            if (posts.isNotEmpty) {
               return Column(
-                children: List.generate(myPosts.length, (index) {
-                  final post = myPosts[index];
+                children: List.generate(posts.length, (index) {
+                  final post = posts[index];
                   return PostCard(postModel: post);
                 }),
               );

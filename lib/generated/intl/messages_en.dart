@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_update": MessageLookupByLibrary.simpleMessage("Update"),
         "btn_update_profile":
             MessageLookupByLibrary.simpleMessage("Update profile"),
+        "btn_user_info":
+            MessageLookupByLibrary.simpleMessage("User Information"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Account"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "lbl_change_language":

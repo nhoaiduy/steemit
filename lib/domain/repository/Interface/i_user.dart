@@ -5,4 +5,6 @@ abstract class UserRepositoryInterface {
   Future<Either<String, void>> updateBio({required String bio});
 
   Future<Either<String, UserModel>> getCurrentUser();
+
+  Future<Either<String, UserModel>> getUserById({required String userId});
 }

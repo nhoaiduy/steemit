@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "btn_update_profile":
             MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
+        "btn_user_info":
+            MessageLookupByLibrary.simpleMessage("Thông tin người dùng"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Tiểu sử"),
         "lbl_change_language":

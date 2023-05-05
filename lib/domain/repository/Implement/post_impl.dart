@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:either_dart/src/either.dart';
+import 'package:either_dart/either.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/data/service/database_service.dart';

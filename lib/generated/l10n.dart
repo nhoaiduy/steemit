@@ -839,6 +839,16 @@ class S {
       args: [],
     );
   }
+
+  /// `User Information`
+  String get btn_user_info {
+    return Intl.message(
+      'User Information',
+      name: 'btn_user_info',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

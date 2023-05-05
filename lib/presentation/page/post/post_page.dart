@@ -16,7 +16,7 @@ class _PostPageState extends State<PostPage> {
     return Scaffold(
         appBar: _appBar(),
         body: SingleChildScrollView(
-          child: Column(children: []
+          child: Column(children: const []
               //     List.generate(100, (index) {
               //   return PostCard();
               //

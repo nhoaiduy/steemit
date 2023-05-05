@@ -5,6 +5,7 @@ import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/post/comments_page.dart';
+import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -79,9 +80,18 @@ class _PostCardState extends State<PostCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          "${postModel.user!.firstName} ${postModel.user!.lastName}",
-                          style: BaseTextStyle.label()),
+                      GestureDetector(
+                        onTap: () => isMe
+                            ? null
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        UserProfilePage(postModel.userId!))),
+                        child: Text(
+                            "${postModel.user!.firstName} ${postModel.user!.lastName}",
+                            style: BaseTextStyle.label()),
+                      ),
                       Text(
                         StringHelper.formatDate(
                             postModel.updatedAt!.toDate().toString()),

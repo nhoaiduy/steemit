@@ -55,8 +55,8 @@ class _SearchPageState extends State<SearchPage> {
       child: Wrap(
         children: List.generate(100, (index) {
           return GestureDetector(
-            onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => PostPage())),
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const PostPage())),
             child: Container(
               width: screenWidth / 3,
               height: screenWidth / 3,

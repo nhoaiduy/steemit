@@ -9,6 +9,7 @@ import 'package:steemit/presentation/bloc/post/data/saved_posts/saved_posts_cubi
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
 import 'package:steemit/presentation/bloc/user/controller/user_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
+import 'package:steemit/presentation/bloc/user/data/user/user_cubit.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -23,4 +24,5 @@ void setup() {
   getIt.registerSingleton<UserControllerCubit>(UserControllerCubit());
   getIt.registerSingleton<MeCubit>(MeCubit());
   getIt.registerSingleton<SavedPostsCubit>(SavedPostsCubit());
+  getIt.registerSingleton<UserCubit>(UserCubit());
 }
