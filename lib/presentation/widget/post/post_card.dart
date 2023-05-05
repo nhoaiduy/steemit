@@ -37,9 +37,7 @@ class _PostCardState extends State<PostCard> {
   void initState() {
     postModel = widget.postModel;
     getIt.get<MeCubit>().getData();
-    final state = getIt
-        .get<MeCubit>()
-        .state;
+    final state = getIt.get<MeCubit>().state;
     if (state is MeSuccess) {
       final user = state.user;
       if (user.id == postModel.userId) {
@@ -67,7 +65,7 @@ class _PostCardState extends State<PostCard> {
       decoration: const BoxDecoration(
           color: Colors.white,
           border:
-          Border(bottom: BorderSide(width: 3, color: BaseColor.grey60))),
+              Border(bottom: BorderSide(width: 3, color: BaseColor.grey60))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,8 +80,7 @@ class _PostCardState extends State<PostCard> {
                   margin: const EdgeInsets.only(top: 10),
                   child: AvatarWidget.base(
                       name:
-                      "${postModel.user!.firstName} ${postModel.user!
-                          .lastName}",
+                          "${postModel.user!.firstName} ${postModel.user!.lastName}",
                       size: mediumAvatarSize),
                 ),
                 Container(
@@ -93,17 +90,15 @@ class _PostCardState extends State<PostCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () =>
-                        isMe
+                        onTap: () => isMe
                             ? null
                             : Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    UserProfilePage(postModel.userId!))),
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        UserProfilePage(postModel.userId!))),
                         child: Text(
-                            "${postModel.user!.firstName} ${postModel.user!
-                                .lastName}",
+                            "${postModel.user!.firstName} ${postModel.user!.lastName}",
                             style: BaseTextStyle.label()),
                       ),
                       Row(
@@ -122,7 +117,6 @@ class _PostCardState extends State<PostCard> {
                                 ))
                         ],
                       ),
-
                     ],
                   ),
                 ),
@@ -173,7 +167,7 @@ class _PostCardState extends State<PostCard> {
           if (postModel.content != null)
             Container(
                 padding:
-                const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
@@ -183,7 +177,7 @@ class _PostCardState extends State<PostCard> {
                   child: RichText(
                     softWrap: true,
                     overflow:
-                    isShow ? TextOverflow.ellipsis : TextOverflow.visible,
+                        isShow ? TextOverflow.ellipsis : TextOverflow.visible,
                     text: TextSpan(
                       children: [
                         TextSpan(
@@ -203,11 +197,10 @@ class _PostCardState extends State<PostCard> {
               children: [
                 (postModel.likes!.isNotEmpty)
                     ? Text(
-                  '${postModel.likes!.length} ${postModel.likes!.length > 1 ? S
-                      .current.txt_likes : S.current.txt_like}',
-                  style: BaseTextStyle.body2(),
-                  overflow: TextOverflow.fade,
-                )
+                        '${postModel.likes!.length} ${postModel.likes!.length > 1 ? S.current.txt_likes : S.current.txt_like}',
+                        style: BaseTextStyle.body2(),
+                        overflow: TextOverflow.fade,
+                      )
                     : const SizedBox.shrink(),
                 InkWell(
                   onTap: () {
@@ -217,9 +210,7 @@ class _PostCardState extends State<PostCard> {
                             builder: (context) => const CommentsPage()));
                   },
                   child: Text(
-                    '${postModel.comments!.length} ${postModel.comments!
-                        .length > 1 ? S.current.txt_comments : S.current
-                        .txt_comment}',
+                    '${postModel.comments!.length} ${postModel.comments!.length > 1 ? S.current.txt_comments : S.current.txt_comment}',
                     style: BaseTextStyle.body2(),
                   ),
                 ),
@@ -328,10 +319,7 @@ class _PostCardState extends State<PostCard> {
             builder: (context) {
               return AlertDialog(
                 content: SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: Image.network(
                     urlImage,
                     fit: BoxFit.cover,
