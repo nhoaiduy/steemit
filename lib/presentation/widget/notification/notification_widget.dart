@@ -8,7 +8,7 @@ class NotificationWidget {
     return Container(
       width: double.infinity,
       height: 80,
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       decoration: const BoxDecoration(
           color: Colors.white,
           border: Border(bottom: BorderSide(color: BaseColor.grey40))),

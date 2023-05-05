@@ -41,7 +41,7 @@ class PostShimmer extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0)),
                           const SizedBox(height: 2.0),
                           ShimmerWidget.base(
-                              width: 60,
+                              width: 150,
                               height: 16,
                               borderRadius: BorderRadius.circular(10.0))
                         ],

@@ -6,6 +6,7 @@ class PostModel {
   String? userId;
   UserModel? user;
   String? content;
+  String? location;
   List<String>? images;
   List<String>? likes;
   List<CommentModel>? comments;
@@ -19,6 +20,7 @@ class PostModel {
       this.user,
       this.content,
       this.images,
+      this.location,
       this.likes,
       this.comments,
       this.createAt,
@@ -30,6 +32,7 @@ class PostModel {
     userId = json["userId"];
     user = json["user"] != null ? UserModel.fromJson(json["user"]) : null;
     content = json["content"];
+    location = json["location"];
     images = json["images"] != null
         ? (json["images"] as List).map((e) => e.toString()).toList()
         : List.empty();
@@ -50,9 +53,9 @@ class PostModel {
     return {
       "id": id,
       "userId": userId,
-      "user": user?.toJson(),
       "content": content,
       "images": images,
+      "location": location,
       "likes": likes,
       "comments": comments?.map((e) => e.toJson()).toList(),
       "createdAt": createAt,

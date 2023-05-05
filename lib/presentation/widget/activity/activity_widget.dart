@@ -12,7 +12,7 @@ class ActivityWidget {
     return Container(
       width: double.infinity,
       height: 80,
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       decoration: const BoxDecoration(
           color: Colors.white,
           border: Border(bottom: BorderSide(color: BaseColor.grey40))),
@@ -32,8 +32,7 @@ class ActivityWidget {
                             TextSpan(
                                 text: content, style: BaseTextStyle.body1()),
                             TextSpan(
-                                text: "$userName",
-                                style: BaseTextStyle.label()),
+                                text: userName, style: BaseTextStyle.label()),
                             TextSpan(
                                 text: "'s posst", style: BaseTextStyle.body1()),
                           ]),

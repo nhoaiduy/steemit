@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/widget/activity/activity_widget.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
-import 'package:steemit/util/style/base_color.dart';
-import 'package:steemit/util/style/base_text_style.dart';
 
 class RecentActivitiesPage extends StatefulWidget {
   const RecentActivitiesPage({Key? key}) : super(key: key);
@@ -40,30 +38,5 @@ class _RecentActivitiesPageState extends State<RecentActivitiesPage> {
         ),
       ],
     ));
-  }
-
-  _appBar() {
-    return AppBar(
-      backgroundColor: BaseColor.background,
-      leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.chevron_left,
-            color: BaseColor.grey900,
-            size: 36,
-          )),
-      title: Text(
-        S.current.lbl_recent_activities,
-        style: BaseTextStyle.subtitle1(),
-      ),
-      elevation: 0,
-      bottom: PreferredSize(
-        preferredSize: const Size(double.infinity, 1.0),
-        child: Container(
-          decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: BaseColor.grey60))),
-        ),
-      ),
-    );
   }
 }

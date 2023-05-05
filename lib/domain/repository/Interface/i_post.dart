@@ -5,7 +5,7 @@ import 'package:steemit/data/model/post_model.dart';
 
 abstract class PostRepositoryInterface {
   Future<Either<String, void>> createPost(
-      {String? content, List<File>? images});
+      {String? content, List<File>? images, String? location});
 
   Future<Either<String, List<PostModel>>> getPosts({bool isMyPosts = true});
 
@@ -17,4 +17,6 @@ abstract class PostRepositoryInterface {
 
   Future<Either<String, List<PostModel>>> getSavedPosts(
       {required List<String> postIdList});
+
+  Future<Either<String, void>> deletePost({required String postId});
 }
