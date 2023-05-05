@@ -839,6 +839,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Wrong-Password`
+  String get txt_err_wrong_password {
+    return Intl.message(
+      'The password is invalid or the user does not have a password',
+      name: 'txt_err_wrong_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success Change Password`
+  String get txt_change_password_successfully {
+    return Intl.message(
+      "Change password successfully",
+      name: 'txt_change_password_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

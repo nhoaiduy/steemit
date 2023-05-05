@@ -138,6 +138,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_system_language":
             MessageLookupByLibrary.simpleMessage("System language"),
         "txt_update_successfully":
-            MessageLookupByLibrary.simpleMessage("Update successfully")
+            MessageLookupByLibrary.simpleMessage("Update successfully"),
+        "txt_err_wrong_password":
+            MessageLookupByLibrary.simpleMessage("The password is invalid or the user does not have a password"),
+        "txt_change_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Change password successfully"),
       };
 }

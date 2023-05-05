@@ -77,5 +77,7 @@
   "txt_check_mail": "Vui lòng kiểm tra email",
   "txt_empty_bio": "Vui lòng nhập tiểu sử",
   "txt_update_successfully": "Cập nhật thành công",
-  "btn_saved_post": "Đã lưu bài viết"
+  "btn_saved_post": "Đã lưu bài viết",
+  "txt_err_wrong_password": "Mật khẩu không hợp lệ hoặc tài khoản không có mật khẩu",
+  "txt_change_password_successfully": "Đổi mật khẩu thành công",
 }

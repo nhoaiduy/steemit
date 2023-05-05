@@ -138,6 +138,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_system_language":
             MessageLookupByLibrary.simpleMessage("Ngôn ngữ hệ thống"),
         "txt_update_successfully":
-            MessageLookupByLibrary.simpleMessage("Cập nhật thành công")
+            MessageLookupByLibrary.simpleMessage("Cập nhật thành công"),
+        "txt_err_wrong_password":
+            MessageLookupByLibrary.simpleMessage("Mật khẩu không hợp lệ hoặc tài khoản không có mật khẩu"),
+        "txt_change_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Đổi mật khẩu thành công"),
       };
 }
