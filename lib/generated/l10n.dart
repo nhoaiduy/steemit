@@ -829,6 +829,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Saved post`
+  String get btn_saved_post {
+    return Intl.message(
+      'Saved post',
+      name: 'btn_saved_post',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

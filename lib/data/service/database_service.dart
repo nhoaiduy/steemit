@@ -81,19 +81,56 @@ class DatabaseService {
     }
   }
 
-  Future<void> likePost({required PostModel postModel}) async {
+  Future<void> savePost({required String postId, required String uid}) async {
     try {
-      if(postModel.likes!.contains(postModel.userId)){
-        await _fireStore.collection(ServicePath.post).doc(postModel.id).update({
-          'likes': FieldValue.arrayRemove([postModel.userId])
-        });
-      } else {
-        await _fireStore.collection(ServicePath.post).doc(postModel.id).update({
-          'likes': FieldValue.arrayUnion([postModel.userId])
-        });
-      }
-    } catch(e) {
-      print(e.toString());
+      await _fireStore.collection(ServicePath.user).doc(uid).update({
+        "savedPosts": FieldValue.arrayUnion([postId])
+      });
+    } on FirebaseException {
+      rethrow;
     }
   }
+
+  Future<void> unSavePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.user).doc(uid).update({
+        "savedPosts": FieldValue.arrayRemove([postId])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<PostModel> getPostById({required String postId}) async {
+    try {
+      final response =
+          await _fireStore.collection(ServicePath.post).doc(postId).get();
+      final PostModel postModel = PostModel.fromJson(response.data()!);
+      postModel.user = await getUser(uid: postModel.userId!);
+      return postModel;
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> likePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).update({
+        "likes": FieldValue.arrayUnion([uid])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> unLikePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).update({
+        "likes": FieldValue.arrayRemove([uid])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
 }

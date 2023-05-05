@@ -11,6 +11,7 @@ class SnackBarWidget {
     return SnackBar(
         backgroundColor: backgroundColor ?? BaseColor.blue500,
         behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 1),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
         content: Text(

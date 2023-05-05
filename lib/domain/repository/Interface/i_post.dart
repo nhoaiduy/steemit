@@ -8,4 +8,13 @@ abstract class PostRepositoryInterface {
       {String? content, List<File>? images});
 
   Future<Either<String, List<PostModel>>> getPosts({bool isMyPosts = true});
+
+  Future<Either<String, void>> savePost({required String postId});
+
+  Future<Either<String, void>> unSavePost({required String postId});
+
+  Future<Either<String, PostModel>> getPostById({required String postId});
+
+  Future<Either<String, List<PostModel>>> getSavedPosts(
+      {required List<String> postIdList});
 }

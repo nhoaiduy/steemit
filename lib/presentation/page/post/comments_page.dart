@@ -26,6 +26,7 @@ class _CommentsPageState extends State<CommentsPage> {
           ),
           Expanded(
             child: ListView.builder(
+              padding: EdgeInsets.zero,
               itemCount: 3,
               itemBuilder: (context, index) => const CommentsCard(),
             ),

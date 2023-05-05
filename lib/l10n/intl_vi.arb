@@ -76,5 +76,6 @@
   "txt_system_language": "Ngôn ngữ hệ thống",
   "txt_check_mail": "Vui lòng kiểm tra email",
   "txt_empty_bio": "Vui lòng nhập tiểu sử",
-  "txt_update_successfully": "Cập nhật thành công"
+  "txt_update_successfully": "Cập nhật thành công",
+  "btn_saved_post": "Đã lưu bài viết"
 }

@@ -76,5 +76,6 @@
   "txt_system_language": "System language",
   "txt_check_mail": "Please check your email",
   "txt_empty_bio": "Please enter your bio",
-  "txt_update_successfully": "Update successfully"
+  "txt_update_successfully": "Update successfully",
+  "btn_saved_post": "Saved post"
 }

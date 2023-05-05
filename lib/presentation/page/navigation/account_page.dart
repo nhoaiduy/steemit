@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/generated/l10n.dart';
-import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
-import 'package:steemit/presentation/bloc/authentication_layer/authentication_state.dart';
 import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
+import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/post/create_post_page.dart';
 import 'package:steemit/presentation/page/post/post_page.dart';
@@ -30,6 +29,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
+    getIt.get<MeCubit>().getData();
     getIt.get<BaseLayerCubit>().stream.listen((event) {
       if (!mounted) return;
       if (event is LanguageState) {
@@ -69,21 +69,19 @@ class _AccountPageState extends State<AccountPage> {
   _buildBody() {
     return Expanded(
       child: SingleChildScrollView(
-        child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
-            bloc: getIt.get<AuthenticationCubit>(),
-            builder: (context, state) {
-              if (state is AuthenticatedState) {
-                final user = state.userModel;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTopArea(user: user),
-                    _buildPostListArea(user: user)
-                  ],
-                );
-              }
-              return _shimmer();
-            }),
+        child: BlocBuilder<MeCubit, MeState>(builder: (context, state) {
+          if (state is MeSuccess) {
+            final user = state.user;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildTopArea(user: user),
+                _buildPostListArea(user: user)
+              ],
+            );
+          }
+          return _shimmer();
+        }),
       ),
     );
   }
@@ -129,42 +127,6 @@ class _AccountPageState extends State<AccountPage> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Text(
-                            S.current.lbl_following,
-                            style: BaseTextStyle.label(),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Text(
-                          "${user.followings.length}",
-                          style: BaseTextStyle.body1(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Text(
-                            S.current.lbl_follower,
-                            style: BaseTextStyle.label(),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Text(
-                          "${user.followers.length}",
-                          style: BaseTextStyle.body1(),
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ))
             ],
