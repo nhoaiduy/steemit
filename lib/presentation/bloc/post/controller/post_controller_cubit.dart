@@ -13,17 +13,19 @@ class PostControllerCubit extends Cubit<PostControllerState> {
 
   final PostRepository _postRepository = PostRepository();
 
-  Future<void> create({required String content,
-    required List<File> images,
-    required BuildContext context}) async {
+  Future<void> create(
+      {required String content,
+      required List<File> images,
+      required BuildContext context,
+      String? location}) async {
     LoadingCoverController.instance.common(context);
     if (content.isEmpty && images.isEmpty) {
       emit(PostControllerFailure(S.current.txt_create_empty_post));
       return;
     }
 
-    final response =
-    await _postRepository.createPost(content: content, images: images);
+    final response = await _postRepository.createPost(
+        content: content, images: images, location: location);
 
     if (response.isLeft) {
       emit(PostControllerFailure(response.left));
@@ -44,6 +46,15 @@ class PostControllerCubit extends Cubit<PostControllerState> {
 
   Future<void> unSave({required String postId}) async {
     final response = await _postRepository.unSavePost(postId: postId);
+    if (response.isLeft) {
+      emit(PostControllerFailure(response.left));
+      return;
+    }
+    emit(PostControllerSuccess());
+  }
+
+  Future<void> delete({required String postId}) async {
+    final response = await _postRepository.deletePost(postId: postId);
     if (response.isLeft) {
       emit(PostControllerFailure(response.left));
       return;

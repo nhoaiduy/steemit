@@ -43,13 +43,9 @@ class _HomePageState extends State<HomePage> {
       actions: [
         IconButton(
             onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CreatePostPage()))
-                    .then((value) {
-                  getIt.get<PostsCubit>().clean();
-                  getIt.get<PostsCubit>().getPosts();
-                }),
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CreatePostPage())),
             icon: const Icon(
               Icons.edit_outlined,
               color: BaseColor.grey900,

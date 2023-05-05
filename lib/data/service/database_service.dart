@@ -128,4 +128,12 @@ class DatabaseService {
       rethrow;
     }
   }
+
+  Future<void> deletePost({required String postId}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).delete();
+    } on FirebaseException {
+      rethrow;
+    }
+  }
 }
