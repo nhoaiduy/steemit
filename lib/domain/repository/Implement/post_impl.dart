@@ -14,7 +14,7 @@ class PostRepository extends PostRepositoryInterface {
 
   @override
   Future<Either<String, void>> createPost(
-      {String? content, List<File>? images}) async {
+      {String? content, List<File>? images, String? location}) async {
     try {
       final String postId = _uuid.v1();
       final List<String> imagePaths = List.empty(growable: true);
@@ -31,6 +31,7 @@ class PostRepository extends PostRepositoryInterface {
           likes: List.empty(),
           images: imagePaths,
           delete: false,
+          location: location,
           userId: authService.getUserId(),
           createAt: Timestamp.now(),
           updatedAt: Timestamp.now());
@@ -95,6 +96,16 @@ class PostRepository extends PostRepositoryInterface {
         savedPosts.add(response);
       }
       return Right(savedPosts);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> deletePost({required String postId}) async {
+    try {
+      await databaseService.deletePost(postId: postId);
+      return const Right(null);
     } on FirebaseException catch (e) {
       return Left(e.message!);
     }
