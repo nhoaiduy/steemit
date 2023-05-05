@@ -12,6 +12,7 @@ import 'package:steemit/presentation/bloc/register/register_cubit.dart';
 import 'package:steemit/presentation/bloc/user/controller/user_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/user/user_cubit.dart';
+import 'package:steemit/presentation/bloc/user/data/users/users_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/base_layer/base_layer_page.dart';
 
@@ -28,17 +29,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider.value(value: getIt.get<AuthenticationCubit>()),
+
+      ///Base
       BlocProvider.value(value: getIt.get<BaseLayerCubit>()),
+
+      ///Authentication
+      BlocProvider.value(value: getIt.get<AuthenticationCubit>()),
       BlocProvider.value(value: getIt.get<LoginCubit>()),
       BlocProvider.value(value: getIt.get<RegisterCubit>()),
+      BlocProvider.value(value: getIt.get<ForgotPasswordCubit>()),
+
+      ///Post
       BlocProvider.value(value: getIt.get<PostControllerCubit>()),
       BlocProvider.value(value: getIt.get<PostsCubit>()),
-      BlocProvider.value(value: getIt.get<ForgotPasswordCubit>()),
+      BlocProvider.value(value: getIt.get<SavedPostsCubit>()),
+
+      ///User
       BlocProvider.value(value: getIt.get<UserControllerCubit>()),
       BlocProvider.value(value: getIt.get<MeCubit>()),
-      BlocProvider.value(value: getIt.get<SavedPostsCubit>()),
       BlocProvider.value(value: getIt.get<UserCubit>()),
+      BlocProvider.value(value: getIt.get<UsersCubit>()),
     ], child: const BaseLayer());
   }
 }

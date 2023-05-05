@@ -28,43 +28,47 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-        title: BaseImage.base(
-          ImagePath.appIcon,
-        ),
-        actions: [
-          IconButton(
-              onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CreatePostPage()))
-                      .then((value) {
-                    getIt.get<PostsCubit>().clean();
-                    getIt.get<PostsCubit>().getPosts();
-                  }),
-              icon: const Icon(
-                Icons.edit_outlined,
-                color: BaseColor.grey900,
-              )),
-          IconButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SearchPage())),
-              icon: const Icon(
-                Icons.search_outlined,
-                color: BaseColor.grey900,
-              ))
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size(double.infinity, 1.0),
-          child: Container(
-            decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: BaseColor.grey60))),
-          ),
+      appBar: _appBar(),
+      body: _buildBody(),
+    );
+  }
+
+  _appBar() {
+    return AppBar(
+      elevation: 0.0,
+      backgroundColor: Colors.transparent,
+      title: BaseImage.base(
+        ImagePath.appIcon,
+      ),
+      actions: [
+        IconButton(
+            onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreatePostPage()))
+                    .then((value) {
+                  getIt.get<PostsCubit>().clean();
+                  getIt.get<PostsCubit>().getPosts();
+                }),
+            icon: const Icon(
+              Icons.edit_outlined,
+              color: BaseColor.grey900,
+            )),
+        IconButton(
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SearchPage())),
+            icon: const Icon(
+              Icons.search_outlined,
+              color: BaseColor.grey900,
+            ))
+      ],
+      bottom: PreferredSize(
+        preferredSize: const Size(double.infinity, 1.0),
+        child: Container(
+          decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: BaseColor.grey60))),
         ),
       ),
-      body: _buildBody(),
     );
   }
 

@@ -9,6 +9,22 @@ final DatabaseService databaseService = DatabaseService();
 class DatabaseService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
+  Future<List<UserModel>> getAllUsers() async {
+    try {
+      final response = await _fireStore
+          .collection(ServicePath.user)
+          .where("id", isNotEqualTo: authService.getUserId())
+          .get();
+      final List<UserModel> users = List.empty(growable: true);
+      users.addAll(response.docs
+          .map((user) => UserModel.fromJson(user.data()))
+          .toList());
+      return users;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<UserModel> getUser({required String uid}) async {
     try {
       final response =

@@ -10,19 +10,28 @@ import 'package:steemit/presentation/bloc/register/register_cubit.dart';
 import 'package:steemit/presentation/bloc/user/controller/user_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/user/user_cubit.dart';
+import 'package:steemit/presentation/bloc/user/data/users/users_cubit.dart';
 
 GetIt getIt = GetIt.instance;
 
 void setup() {
+  ///Base
+  getIt.registerSingleton<BaseLayerCubit>(BaseLayerCubit());
+
+  ///Authentication
   getIt.registerSingleton<AuthenticationCubit>(AuthenticationCubit());
   getIt.registerSingleton<LoginCubit>(LoginCubit());
   getIt.registerSingleton<RegisterCubit>(RegisterCubit());
+  getIt.registerSingleton<ForgotPasswordCubit>(ForgotPasswordCubit());
+
+  ///Post
   getIt.registerSingleton<PostControllerCubit>(PostControllerCubit());
   getIt.registerSingleton<PostsCubit>(PostsCubit());
-  getIt.registerSingleton<BaseLayerCubit>(BaseLayerCubit());
-  getIt.registerSingleton<ForgotPasswordCubit>(ForgotPasswordCubit());
+  getIt.registerSingleton<SavedPostsCubit>(SavedPostsCubit());
+
+  ///User
   getIt.registerSingleton<UserControllerCubit>(UserControllerCubit());
   getIt.registerSingleton<MeCubit>(MeCubit());
-  getIt.registerSingleton<SavedPostsCubit>(SavedPostsCubit());
   getIt.registerSingleton<UserCubit>(UserCubit());
+  getIt.registerSingleton<UsersCubit>(UsersCubit());
 }

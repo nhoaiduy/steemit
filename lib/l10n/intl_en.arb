@@ -78,5 +78,7 @@
   "txt_empty_bio": "Please enter your bio",
   "txt_update_successfully": "Update successfully",
   "btn_saved_post": "Saved post",
-  "btn_user_info": "User Information"
+  "btn_user_info": "User Information",
+  "txt_no_user": "There is no user",
+  "txt_no_post": "There is no post"
 }
