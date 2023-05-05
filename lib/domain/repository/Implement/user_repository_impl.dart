@@ -41,4 +41,14 @@ class UserRepositoryImplement extends UserRepositoryInterface {
       return Left(e.message!);
     }
   }
+
+  @override
+  Future<Either<String, List<UserModel>>> getAllUsers() async {
+    try {
+      final response = await databaseService.getAllUsers();
+      return Right(response);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
 }

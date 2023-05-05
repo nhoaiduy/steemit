@@ -187,7 +187,7 @@ class _AccountPageState extends State<AccountPage> {
               height: 200,
               alignment: Alignment.center,
               child: Text(
-                S.current.btn_saved_post,
+                S.current.txt_no_post,
                 style: BaseTextStyle.body1(),
               ),
             );

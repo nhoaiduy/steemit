@@ -849,6 +849,26 @@ class S {
       args: [],
     );
   }
+
+  /// `There is no user`
+  String get txt_no_user {
+    return Intl.message(
+      'There is no user',
+      name: 'txt_no_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is no post`
+  String get txt_no_post {
+    return Intl.message(
+      'There is no post',
+      name: 'txt_no_post',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

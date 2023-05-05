@@ -130,6 +130,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu mới"),
         "txt_no_image":
             MessageLookupByLibrary.simpleMessage("Không có ảnh nào"),
+        "txt_no_post":
+            MessageLookupByLibrary.simpleMessage("Không có bài viết nào"),
+        "txt_no_user":
+            MessageLookupByLibrary.simpleMessage("Không có người dùng nào"),
         "txt_old_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu cũ"),
         "txt_password_hint":

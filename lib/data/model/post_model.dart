@@ -50,7 +50,6 @@ class PostModel {
     return {
       "id": id,
       "userId": userId,
-      "user": user?.toJson(),
       "content": content,
       "images": images,
       "likes": likes,
