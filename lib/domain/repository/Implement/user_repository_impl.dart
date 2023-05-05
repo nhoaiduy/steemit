@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:either_dart/src/either.dart';
+import 'package:either_dart/either.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/data/service/database_service.dart';
@@ -25,6 +25,27 @@ class UserRepositoryImplement extends UserRepositoryInterface {
     try {
       final response =
           await databaseService.getUser(uid: authService.getUserId());
+      return Right(response);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  @override
+  Future<Either<String, UserModel>> getUserById(
+      {required String userId}) async {
+    try {
+      final response = await databaseService.getUser(uid: userId);
+      return Right(response);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  @override
+  Future<Either<String, List<UserModel>>> getAllUsers() async {
+    try {
+      final response = await databaseService.getAllUsers();
       return Right(response);
     } on FirebaseException catch (e) {
       return Left(e.message!);

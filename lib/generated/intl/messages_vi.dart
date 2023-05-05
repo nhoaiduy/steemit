@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "btn_update_profile":
             MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
+        "btn_user_info":
+            MessageLookupByLibrary.simpleMessage("Thông tin người dùng"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Tiểu sử"),
         "lbl_change_language":
@@ -128,6 +130,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu mới"),
         "txt_no_image":
             MessageLookupByLibrary.simpleMessage("Không có ảnh nào"),
+        "txt_no_post":
+            MessageLookupByLibrary.simpleMessage("Không có bài viết nào"),
+        "txt_no_user":
+            MessageLookupByLibrary.simpleMessage("Không có người dùng nào"),
         "txt_old_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu cũ"),
         "txt_password_hint":

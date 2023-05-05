@@ -1,10 +1,13 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/post/comments_page.dart';
+import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -28,12 +31,15 @@ class _PostCardState extends State<PostCard> {
   bool isMe = false;
   bool isLike = false;
   PostModel postModel = PostModel();
+  final CarouselController imageController = CarouselController();
 
   @override
   void initState() {
     postModel = widget.postModel;
     getIt.get<MeCubit>().getData();
-    final state = getIt.get<MeCubit>().state;
+    final state = getIt
+        .get<MeCubit>()
+        .state;
     if (state is MeSuccess) {
       final user = state.user;
       if (user.id == postModel.userId) {
@@ -61,7 +67,7 @@ class _PostCardState extends State<PostCard> {
       decoration: const BoxDecoration(
           color: Colors.white,
           border:
-              Border(bottom: BorderSide(width: 3, color: BaseColor.grey60))),
+          Border(bottom: BorderSide(width: 3, color: BaseColor.grey60))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -76,7 +82,8 @@ class _PostCardState extends State<PostCard> {
                   margin: const EdgeInsets.only(top: 10),
                   child: AvatarWidget.base(
                       name:
-                          "${postModel.user!.firstName} ${postModel.user!.lastName}",
+                      "${postModel.user!.firstName} ${postModel.user!
+                          .lastName}",
                       size: mediumAvatarSize),
                 ),
                 Container(
@@ -85,14 +92,37 @@ class _PostCardState extends State<PostCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          "${postModel.user!.firstName} ${postModel.user!.lastName}",
-                          style: BaseTextStyle.label()),
-                      Text(
-                        StringHelper.formatDate(
-                            postModel.updatedAt!.toDate().toString()),
-                        style: BaseTextStyle.caption(),
+                      GestureDetector(
+                        onTap: () =>
+                        isMe
+                            ? null
+                            : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    UserProfilePage(postModel.userId!))),
+                        child: Text(
+                            "${postModel.user!.firstName} ${postModel.user!
+                                .lastName}",
+                            style: BaseTextStyle.label()),
                       ),
+                      Row(
+                        children: [
+                          Text(
+                            StringHelper.formatDate(
+                                postModel.updatedAt!.toDate().toString()),
+                            style: BaseTextStyle.caption(),
+                          ),
+                          if (postModel.location != null)
+                            Padding(
+                                padding: const EdgeInsets.only(left: 12.0),
+                                child: Text(
+                                  postModel.location!,
+                                  style: BaseTextStyle.caption(),
+                                ))
+                        ],
+                      ),
+
                     ],
                   ),
                 ),
@@ -124,6 +154,13 @@ class _PostCardState extends State<PostCard> {
                         ),
                       if (isMe)
                         PopupMenuItem<String>(
+                          onTap: () async {
+                            getIt.get<PostsCubit>().clean();
+                            await getIt
+                                .get<PostControllerCubit>()
+                                .delete(postId: postModel.id!);
+                            getIt.get<PostsCubit>().getPosts();
+                          },
                           value: S.current.btn_delete,
                           child: Text(S.current.btn_delete),
                         ),
@@ -136,7 +173,7 @@ class _PostCardState extends State<PostCard> {
           if (postModel.content != null)
             Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
@@ -146,7 +183,7 @@ class _PostCardState extends State<PostCard> {
                   child: RichText(
                     softWrap: true,
                     overflow:
-                        isShow ? TextOverflow.ellipsis : TextOverflow.visible,
+                    isShow ? TextOverflow.ellipsis : TextOverflow.visible,
                     text: TextSpan(
                       children: [
                         TextSpan(
@@ -158,15 +195,7 @@ class _PostCardState extends State<PostCard> {
                   ),
                 )),
           // Image
-          if (postModel.images!.isNotEmpty)
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: double.infinity,
-              child: Image.network(
-                postModel.images!.first,
-                fit: BoxFit.cover,
-              ),
-            ),
+          if (postModel.images!.isNotEmpty) imageSlider(),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
             child: Row(
@@ -174,10 +203,11 @@ class _PostCardState extends State<PostCard> {
               children: [
                 (postModel.likes!.isNotEmpty)
                     ? Text(
-                        '${postModel.likes!.length} ${postModel.likes!.length > 1 ? S.current.txt_likes : S.current.txt_like}',
-                        style: BaseTextStyle.body2(),
-                        overflow: TextOverflow.fade,
-                      )
+                  '${postModel.likes!.length} ${postModel.likes!.length > 1 ? S
+                      .current.txt_likes : S.current.txt_like}',
+                  style: BaseTextStyle.body2(),
+                  overflow: TextOverflow.fade,
+                )
                     : const SizedBox.shrink(),
                 InkWell(
                   onTap: () {
@@ -187,7 +217,9 @@ class _PostCardState extends State<PostCard> {
                             builder: (context) => const CommentsPage()));
                   },
                   child: Text(
-                    '${postModel.comments!.length} ${postModel.comments!.length > 1 ? S.current.txt_comments : S.current.txt_comment}',
+                    '${postModel.comments!.length} ${postModel.comments!
+                        .length > 1 ? S.current.txt_comments : S.current
+                        .txt_comment}',
                     style: BaseTextStyle.body2(),
                   ),
                 ),
@@ -272,6 +304,49 @@ class _PostCardState extends State<PostCard> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget imageSlider() {
+    return CarouselSlider.builder(
+        carouselController: imageController,
+        itemCount: postModel.images!.length,
+        itemBuilder: (context, index, realIndex) {
+          final urlImage = postModel.images![index];
+          return buildImage(urlImage: urlImage);
+        },
+        options: CarouselOptions(
+            height: 250, enableInfiniteScroll: false, viewportFraction: 1));
+  }
+
+  Widget buildImage({required String urlImage}) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  child: Image.network(
+                    urlImage,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                contentPadding: EdgeInsets.zero,
+              );
+            });
+      },
+      child: SizedBox(
+        width: double.infinity,
+        child: Image.network(
+          urlImage,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
