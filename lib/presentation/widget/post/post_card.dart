@@ -29,6 +29,7 @@ class _PostCardState extends State<PostCard> {
   bool isShow = true;
   bool isSaved = false;
   bool isMe = false;
+  bool isLike = false;
   PostModel postModel = PostModel();
   final CarouselController imageController = CarouselController();
 
@@ -49,6 +50,11 @@ class _PostCardState extends State<PostCard> {
       if (user.savedPosts!.contains(postModel.id)) {
         setState(() {
           isSaved = true;
+        });
+      }
+      if (postModel.likes!.contains(user.id)) {
+        setState(() {
+          isLike = true;
         });
       }
     }
@@ -229,34 +235,69 @@ class _PostCardState extends State<PostCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.favorite,
-                        color: Colors.redAccent,
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      // await DatabaseService().likePost(
+                      //     postModel: postModel
+                      // );
+                      if (isLike) {
+                        await getIt
+                            .get<PostControllerCubit>()
+                            .unLike(postId: postModel.id!);
+                        postModel.likes!.removeAt(0);
+                      } else {
+                        await getIt
+                            .get<PostControllerCubit>()
+                            .like(postId: postModel.id!);
+                        postModel.likes!.add("");
+                      }
+                      setState(() {
+                        isLike = !isLike;
+                      });
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          isLike
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.redAccent,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.redAccent,
+                                ),
+                          const SizedBox(width: 5),
+                          Text(S.current.btn_like),
+                        ],
                       ),
-                      const SizedBox(width: 5),
-                      Text(S.current.btn_like),
-                    ],
+                    ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CommentsPage()));
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.comment_outlined,
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CommentsPage()));
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.comment_outlined,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(S.current.btn_comment),
+                        ],
                       ),
-                      const SizedBox(width: 5),
-                      Text(S.current.btn_comment),
-                    ],
+                    ),
                   ),
                 ),
               ],

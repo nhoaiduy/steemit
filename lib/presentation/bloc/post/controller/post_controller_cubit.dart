@@ -53,6 +53,25 @@ class PostControllerCubit extends Cubit<PostControllerState> {
     emit(PostControllerSuccess());
   }
 
+  Future<void> like({required String postId}) async {
+    final response = await _postRepository.likePost(postId: postId);
+    if (response.isLeft) {
+      emit(PostControllerFailure(response.left));
+      return;
+    }
+    emit(PostControllerSuccess());
+  }
+
+  Future<void> unLike({required String postId}) async {
+    final response = await _postRepository.unLikePost(postId: postId);
+    if (response.isLeft) {
+      emit(PostControllerFailure(response.left));
+      return;
+    }
+    emit(PostControllerSuccess());
+  }
+
+
   Future<void> delete({required String postId}) async {
     final response = await _postRepository.deletePost(postId: postId);
     if (response.isLeft) {

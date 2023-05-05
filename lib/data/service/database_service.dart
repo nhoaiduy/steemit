@@ -129,9 +129,30 @@ class DatabaseService {
     }
   }
 
+  Future<void> likePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).update({
+        "likes": FieldValue.arrayUnion([uid])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+
   Future<void> deletePost({required String postId}) async {
     try {
       await _fireStore.collection(ServicePath.post).doc(postId).delete();
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> unLikePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).update({
+        "likes": FieldValue.arrayRemove([uid])
+      });
     } on FirebaseException {
       rethrow;
     }

@@ -102,6 +102,28 @@ class PostRepository extends PostRepositoryInterface {
   }
 
   @override
+  Future<Either<String, void>> likePost({required String postId}) async {
+    try {
+      await databaseService.likePost(
+          postId: postId, uid: authService.getUserId());
+      return const Right(null);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> unLikePost({required String postId}) async {
+    try {
+      await databaseService.unLikePost(
+          postId: postId, uid: authService.getUserId());
+      return const Right(null);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+  
+  @override
   Future<Either<String, void>> deletePost({required String postId}) async {
     try {
       await databaseService.deletePost(postId: postId);

@@ -11,7 +11,6 @@ class StorageService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final Uuid _uuid = const Uuid();
 
-
   Future<String> savePostImages(File file, String postId) async {
     try {
       final response = await _storage
