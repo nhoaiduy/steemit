@@ -3,6 +3,9 @@ import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
+import 'package:steemit/presentation/injection/injection.dart';
+import 'package:steemit/presentation/page/authentication/login_page.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/helper/login_helper.dart';
@@ -32,61 +35,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   bool _isHideConfirmPassword = true;
 
   String? _changePasswordErrorText;
-  String? _changePasswordSuccessText;
-
-  changePassword(
-      {required String email,
-        required String oldPassword,
-        required String newPassword,
-        required String confirmPassword}) async{
-
-    setState(() {
-      _changePasswordSuccessText = null;
-      _changePasswordErrorText = null;
-    });
-
-    Either<String, void> validOldPassword = ValidationHelper.validPassword(oldPassword);
-    if (validOldPassword.isLeft) {
-      _changePasswordErrorText = Left(validOldPassword.left).left;
-      return;
-    }
-
-    Either<String, void> validNewPassword = ValidationHelper.validPassword(newPassword);
-    if (validNewPassword.isLeft) {
-      _changePasswordErrorText = Left(validNewPassword.left).left;
-      return;
-    }
-
-    if (newPassword != confirmPassword) {
-      _changePasswordErrorText = Left(S.current.txt_err_mismatch_password).left;
-      return;
-    }
-
-    var cred = EmailAuthProvider.credential(email: email, password: oldPassword);
-    await currentUser!.reauthenticateWithCredential(cred).then((value) {
-      check = true;
-    }).catchError((e){
-      _changePasswordErrorText = Left(S.current.txt_err_wrong_password).left;
-      return;
-    });
-
-    if(check){
-      try{
-        await currentUser!.updatePassword(newPassword);
-        setState(() {
-          oldPasswordController.clear();
-          newPasswordController.clear();
-          confirmController.clear();
-          _changePasswordErrorText = null;
-          check = false;
-        });
-        _changePasswordSuccessText = Left(S.current.txt_change_password_successfully).left;
-      } on FirebaseAuthException catch (e){
-        _changePasswordErrorText = Left(e.message!).left;
-        return;
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,15 +45,23 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             prefixContent: S.current.btn_cancel,
             suffixContent: S.current.btn_update,
             onSuffix: () async {
+              clearError();
+              resetCheck();
               unFocus();
+              resetHidePasswordState();
               await changePassword(
                   email: currentUser!.email.toString(),
                   oldPassword: oldPasswordController.text,
                   newPassword: newPasswordController.text,
                   confirmPassword: confirmController.text,
               );
-              resetHidePasswordState();
-              //if (mounted) Navigator.pop(context);
+              if (check){
+                if (mounted) {
+                  int count = 0;
+                  Navigator.of(context).popUntil((route) => count++ >= 2);
+                }
+                getIt.get<AuthenticationCubit>().logout();
+              }
             }),
         _buildBody(),
       ],
@@ -183,14 +139,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     style: BaseTextStyle.body1(color: BaseColor.red500),
                   ),
                 ),
-              if (_changePasswordSuccessText != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    _changePasswordSuccessText!,
-                    style: BaseTextStyle.body1(color: BaseColor.green500),
-                  ),
-                ),
               const SizedBox(
                 height: commonPadding,
               ),
@@ -201,11 +149,67 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
   void unFocus() => FocusScope.of(context).unfocus();
 
+  void clearError() {
+    setState(() {
+      _changePasswordErrorText = "";
+    });
+  }
+
   void resetHidePasswordState() {
     setState(() {
       _isHideOldPassword = true;
       _isHideNewPassword = true;
       _isHideConfirmPassword = true;
     });
+  }
+
+  void resetCheck() {
+    setState(() {
+      check = false;
+    });
+  }
+
+  changePassword(
+      {required String email,
+        required String oldPassword,
+        required String newPassword,
+        required String confirmPassword}) async{
+
+    Either<String, void> validOldPassword = ValidationHelper.validPassword(oldPassword);
+    if (validOldPassword.isLeft) {
+      _changePasswordErrorText = Left(validOldPassword.left).left;
+      return;
+    }
+    Either<String, void> validNewPassword = ValidationHelper.validPassword(newPassword);
+    if (validNewPassword.isLeft) {
+      _changePasswordErrorText = Left(validNewPassword.left).left;
+      return;
+    }
+    if (newPassword != confirmPassword) {
+      _changePasswordErrorText = Left(S.current.txt_err_mismatch_password).left;
+      return;
+    }
+
+    var cred = EmailAuthProvider.credential(email: email, password: oldPassword);
+    await currentUser!.reauthenticateWithCredential(cred).then((value) {
+      check = true;
+    }).catchError((e){
+      _changePasswordErrorText = Left(S.current.txt_err_wrong_password).left;
+      return;
+    });
+
+    if(check){
+      try{
+        await currentUser!.updatePassword(newPassword);
+        setState(() {
+          oldPasswordController.clear();
+          newPasswordController.clear();
+          confirmController.clear();
+        });
+      } on FirebaseAuthException catch (e){
+        _changePasswordErrorText = Left(e.message!).left;
+        return;
+      }
+    }
   }
 }
