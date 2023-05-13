@@ -9,6 +9,22 @@ final DatabaseService databaseService = DatabaseService();
 class DatabaseService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
+  Future<List<UserModel>> getAllUsers() async {
+    try {
+      final response = await _fireStore
+          .collection(ServicePath.user)
+          .where("id", isNotEqualTo: authService.getUserId())
+          .get();
+      final List<UserModel> users = List.empty(growable: true);
+      users.addAll(response.docs
+          .map((user) => UserModel.fromJson(user.data()))
+          .toList());
+      return users;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<UserModel> getUser({required String uid}) async {
     try {
       final response =
@@ -108,6 +124,35 @@ class DatabaseService {
       final PostModel postModel = PostModel.fromJson(response.data()!);
       postModel.user = await getUser(uid: postModel.userId!);
       return postModel;
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> likePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).update({
+        "likes": FieldValue.arrayUnion([uid])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+
+  Future<void> deletePost({required String postId}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).delete();
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> unLikePost({required String postId, required String uid}) async {
+    try {
+      await _fireStore.collection(ServicePath.post).doc(postId).update({
+        "likes": FieldValue.arrayRemove([uid])
+      });
     } on FirebaseException {
       rethrow;
     }

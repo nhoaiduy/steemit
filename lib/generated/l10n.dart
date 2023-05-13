@@ -845,6 +845,12 @@ class S {
     return Intl.message(
       'The password is invalid or the user does not have a password',
       name: 'txt_err_wrong_password',
+      
+  /// `User Information`
+  String get btn_user_info {
+    return Intl.message(
+      'User Information',
+      name: 'btn_user_info',
       desc: '',
       args: [],
     );
@@ -855,6 +861,22 @@ class S {
     return Intl.message(
       "Change password successfully",
       name: 'txt_change_password_successfully',
+
+  /// `There is no user`
+  String get txt_no_user {
+    return Intl.message(
+      'There is no user',
+      name: 'txt_no_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is no post`
+  String get txt_no_post {
+    return Intl.message(
+      'There is no post',
+      name: 'txt_no_post',
       desc: '',
       args: [],
     );

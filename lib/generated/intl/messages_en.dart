@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_update": MessageLookupByLibrary.simpleMessage("Update"),
         "btn_update_profile":
             MessageLookupByLibrary.simpleMessage("Update profile"),
+        "btn_user_info":
+            MessageLookupByLibrary.simpleMessage("User Information"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Account"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "lbl_change_language":
@@ -128,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter your new password"),
         "txt_no_image":
             MessageLookupByLibrary.simpleMessage("There is no image"),
+        "txt_no_post": MessageLookupByLibrary.simpleMessage("There is no post"),
+        "txt_no_user": MessageLookupByLibrary.simpleMessage("There is no user"),
         "txt_old_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your old password"),
         "txt_password_hint":

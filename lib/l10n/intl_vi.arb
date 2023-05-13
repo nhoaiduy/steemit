@@ -79,5 +79,8 @@
   "txt_update_successfully": "Cập nhật thành công",
   "btn_saved_post": "Đã lưu bài viết",
   "txt_err_wrong_password": "Mật khẩu không hợp lệ hoặc tài khoản không có mật khẩu",
-  "txt_change_password_successfully": "Đổi mật khẩu thành công"
+  "txt_change_password_successfully": "Đổi mật khẩu thành công",
+  "btn_user_info": "Thông tin người dùng",
+  "txt_no_user": "Không có người dùng nào",
+  "txt_no_post": "Không có bài viết nào"
 }

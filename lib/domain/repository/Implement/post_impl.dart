@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:either_dart/src/either.dart';
+import 'package:either_dart/either.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/data/service/database_service.dart';
@@ -14,7 +14,7 @@ class PostRepository extends PostRepositoryInterface {
 
   @override
   Future<Either<String, void>> createPost(
-      {String? content, List<File>? images}) async {
+      {String? content, List<File>? images, String? location}) async {
     try {
       final String postId = _uuid.v1();
       final List<String> imagePaths = List.empty(growable: true);
@@ -31,6 +31,7 @@ class PostRepository extends PostRepositoryInterface {
           likes: List.empty(),
           images: imagePaths,
           delete: false,
+          location: location,
           userId: authService.getUserId(),
           createAt: Timestamp.now(),
           updatedAt: Timestamp.now());
@@ -95,6 +96,38 @@ class PostRepository extends PostRepositoryInterface {
         savedPosts.add(response);
       }
       return Right(savedPosts);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> likePost({required String postId}) async {
+    try {
+      await databaseService.likePost(
+          postId: postId, uid: authService.getUserId());
+      return const Right(null);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> unLikePost({required String postId}) async {
+    try {
+      await databaseService.unLikePost(
+          postId: postId, uid: authService.getUserId());
+      return const Right(null);
+    } on FirebaseException catch (e) {
+      return Left(e.message!);
+    }
+  }
+  
+  @override
+  Future<Either<String, void>> deletePost({required String postId}) async {
+    try {
+      await databaseService.deletePost(postId: postId);
+      return const Right(null);
     } on FirebaseException catch (e) {
       return Left(e.message!);
     }
