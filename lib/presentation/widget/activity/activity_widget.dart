@@ -8,7 +8,8 @@ class ActivityWidget {
   static base(
       {required String content,
       required String userName,
-      required String imagePath}) {
+      required String imagePath,
+      required String time}) {
     return Container(
       width: double.infinity,
       height: 80,
@@ -34,10 +35,10 @@ class ActivityWidget {
                             TextSpan(
                                 text: userName, style: BaseTextStyle.label()),
                             TextSpan(
-                                text: "'s posst", style: BaseTextStyle.body1()),
+                                text: "'s post", style: BaseTextStyle.body1()),
                           ]),
                     )),
-                Text("dd/MM/yyyy", style: BaseTextStyle.caption()),
+                Text(time, style: BaseTextStyle.caption()),
               ],
             ),
           ),
