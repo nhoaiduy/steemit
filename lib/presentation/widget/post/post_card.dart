@@ -1,5 +1,11 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
@@ -10,6 +16,7 @@ import 'package:steemit/presentation/page/post/comments_page.dart';
 import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/util/helper/string_helper.dart';
+import 'package:steemit/util/path/services_path.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
@@ -30,8 +37,12 @@ class _PostCardState extends State<PostCard> {
   bool isSaved = false;
   bool isMe = false;
   bool isLike = false;
+  bool isLoading = false;
+  bool isOk = false;
+  double progress = 0.0;
   PostModel postModel = PostModel();
   final CarouselController imageController = CarouselController();
+  final Dio dio = Dio();
 
   @override
   void initState() {
@@ -305,13 +316,16 @@ class _PostCardState extends State<PostCard> {
         itemCount: postModel.images!.length,
         itemBuilder: (context, index, realIndex) {
           final urlImage = postModel.images![index];
-          return buildImage(urlImage: urlImage);
+          final postId = postModel.id!;
+          return isLoading
+              ? isDownload()
+              : buildImage(urlImage: urlImage, postId: postId);
         },
         options: CarouselOptions(
             height: 250, enableInfiniteScroll: false, viewportFraction: 1));
   }
 
-  Widget buildImage({required String urlImage}) {
+  Widget buildImage({required String urlImage, required String postId}) {
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -329,6 +343,22 @@ class _PostCardState extends State<PostCard> {
               );
             });
       },
+      onLongPress: (){
+        showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: buildListItem(
+                    urlImage: urlImage,
+                    postId: postId,
+                    content: S.current.btn_save_to_phone,
+                    icon: Icons.save_alt_outlined,
+                ),
+              );
+            },
+        );
+      },
       child: SizedBox(
         width: double.infinity,
         child: Image.network(
@@ -338,4 +368,165 @@ class _PostCardState extends State<PostCard> {
       ),
     );
   }
+
+  Widget buildListItem(
+      {required String urlImage,
+        required String postId,
+        required String content,
+        required IconData icon}) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.pop(context);
+        downloadFile(urlImage: urlImage, postId: postId);
+      },
+      child: Container(
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            Icon(icon),
+            const SizedBox(width: 8,),
+            Text(content, style: const TextStyle(fontSize: 16),),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget isDownload() {
+    String downloadProgressing = (progress * 100).toInt().toString();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        SizedBox(
+          height: 100,
+          width: 100,
+          child: CircularProgressIndicator(value: progress, color: BaseColor.green600,),
+        ),
+        Text("Downloading: $downloadProgressing%",
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: BaseColor.green600),),
+      ],
+
+    );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> messageFail(){
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: BaseColor.green500,
+        behavior: SnackBarBehavior.floating,
+        content: Text(S.current.txt_exist_this_file,
+            style: const TextStyle(fontSize: 18)),
+      ),
+    );
+  }
+
+  Future<bool> saveFile(String url, String fileName) async{
+    Directory? directory;
+    try{
+      if(Platform.isAndroid){
+        if(await requestPermission(Permission.storage)) {
+          directory = await getExternalStorageDirectory();
+          String newPath = "";
+          List<String> folders = directory!.path.split("/");
+          for(int i = 1; i < folders.length; i++){
+            String folder = folders[i];
+            if(folder != "Android"){
+              newPath += "/$folder";
+            } else {
+              break;
+            }
+          }
+          newPath = "$newPath/Steemit";
+          directory = Directory(newPath);
+         } else {
+           return false;
+         }
+      } else {
+        /// Here for IOS.
+        return false;
+      }
+      if(!await directory.exists()){
+        await directory.create(recursive: true);
+      }
+      if(await directory.exists()){
+        File saveFile = File("${directory.path}/$fileName");
+        //print("$saveFile \n ${saveFile.path}");
+        final List<FileSystemEntity> entities = await directory.list().toList();
+        for (var element in entities) {
+          if(saveFile.path == element.path) {
+            messageFail();
+            return false;
+          }
+        }
+        await dio.download(url, saveFile.path, onReceiveProgress: (downloaded, totalSize){
+          setState(() {
+            progress = downloaded / totalSize;
+          });
+        });
+        return true;
+      }
+    } catch(e){
+      print(e);
+    }
+    return false;
+  }
+
+  Future<bool> requestPermission(Permission permission) async{
+    if(await permission.isGranted){
+      return true;
+    } else {
+      var result = await permission.request();
+      if(result == PermissionStatus.granted) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  downloadFile({required String urlImage, required String postId}) async {
+    setState(() {
+      isLoading = true;
+      progress = 0.0;
+    });
+
+    final ref = FirebaseStorage.instance.ref(ServicePath.post).child(postId);
+    final result = await ref.listAll();
+    final urls = result.items.map((e) => e.getDownloadURL()).toList();
+    String? fileName;
+
+    for (int i=0; i<urls.length ; i++){
+      if(!isOk) {
+        await urls.elementAt(i).then((value) async {
+          if(value == urlImage) {
+            await result.items[i].getMetadata().then((value) {
+              List<String> types = value.contentType!.split("/");
+              String name = value.name;
+              String type = types[1];
+              fileName = "$name.$type";
+              setState(() {
+                isOk = true;
+              });
+            });
+          }
+        });
+      } else {
+        break;
+      }
+    }
+
+    bool downloaded = await saveFile(urlImage, fileName!);
+    if(downloaded) {
+      print("File Downloaded");
+    } else {
+      print("Problem Downloading File");
+    }
+
+    setState(() {
+      isLoading = false;
+      isOk = false;
+    });
+  }
+
+
 }

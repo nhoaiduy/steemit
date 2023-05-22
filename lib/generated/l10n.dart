@@ -869,6 +869,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Save to phone`
+  String get btn_save_to_phone {
+    return Intl.message(
+      'Save to phone',
+      name: 'btn_save_to_phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your device has this file`
+  String get txt_exist_this_file {
+    return Intl.message(
+      'Your device has this file',
+      name: 'txt_exist_this_file',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
