@@ -1,16 +1,23 @@
-# steemit
+# Steemit
 
-A new Flutter project. Steemit is a social network app.
+## I. Introduction
 
-## Getting Started
+Steemit is a social networking application that facilitates people to connect, and update each other's information
+quickly.
 
-This project is a starting point for a Flutter application.
+## II. Source structure
 
-A few resources to get you started if this is your first Flutter project:
+### assets
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- fonts: Store the fonts used by the application
+- images: Store default images of the application
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### lib
+
+- Data: Handle data from local and remote database
+- Domain: Handle business cases
+- l10n: Multi Language Data
+- Presentation: include screens and UI handler
+- Util: Constant and helper tools
+
+&copy; This application belongs to Steemit team.
