@@ -89,65 +89,60 @@ class MediaHelper {
       double? horizontalMargin}) {
     VideoPlayerController controller = VideoPlayerController.file(file)
       ..initialize();
-    return StatefulBuilder(builder: (context, setState) {
-      controller.addListener(() {
-        setState(() {});
-      });
-      return GestureDetector(
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ViewVideoPage(
-                      controller: controller,
-                    ))),
-        child: SizedBox(
-            width: cardSize,
-            height: cardSize,
-            child: Stack(
-              children: [
-                Container(
-                    width: cardSize,
-                    height: cardSize,
-                    margin: const EdgeInsets.only(right: 8.0, top: 8.0),
-                    decoration: BoxDecoration(
-                        color: BaseColor.grey40,
-                        borderRadius: BorderRadius.circular(12.0),
-                        border: Border.all(color: BaseColor.green500)),
-                    child: Stack(
-                      children: [
-                        if (controller.value.isInitialized)
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(12.0),
-                              child: VideoPlayer(controller)),
-                        const Align(
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.play_circle_outline,
-                            color: Colors.white,
-                          ),
+    return GestureDetector(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ViewVideoPage(
+                    controller: controller,
+                  ))),
+      child: SizedBox(
+          width: cardSize,
+          height: cardSize,
+          child: Stack(
+            children: [
+              Container(
+                  width: cardSize,
+                  height: cardSize,
+                  margin: const EdgeInsets.only(right: 8.0, top: 8.0),
+                  decoration: BoxDecoration(
+                      color: BaseColor.grey40,
+                      borderRadius: BorderRadius.circular(12.0),
+                      border: Border.all(color: BaseColor.green500)),
+                  child: Stack(
+                    children: [
+                      if (controller.value.isInitialized)
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: VideoPlayer(controller)),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.play_circle_outline,
+                          color: Colors.white,
                         ),
-                      ],
-                    )),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: remove,
-                    child: Container(
-                      width: 16.0,
-                      height: 16.0,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.grey.shade50),
-                      child: const Icon(
-                        Icons.clear,
-                        size: 16.0,
                       ),
+                    ],
+                  )),
+              Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: remove,
+                  child: Container(
+                    width: 16.0,
+                    height: 16.0,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.grey.shade50),
+                    child: const Icon(
+                      Icons.clear,
+                      size: 16.0,
                     ),
                   ),
-                )
-              ],
-            )),
-      );
-    });
+                ),
+              )
+            ],
+          )),
+    );
   }
 
   static Future<List<XFile?>> pickMedia(

@@ -170,32 +170,31 @@ class _CreatePostPageState extends State<CreatePostPage> {
         alignment: Alignment.bottomRight,
         child: Row(
           children: [
-            focusButton(
-                Container(
-                  width: 48,
-                  height: 48,
-                  margin: const EdgeInsets.only(left: 16.0),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: BaseColor.green500),
-                  child: const Icon(
-                    Icons.add_a_photo,
-                    color: Colors.white,
-                  ),
+            GestureDetector(
+              onTap: () => takePhoto(),
+              child: Container(
+                width: 48,
+                height: 48,
+                margin: const EdgeInsets.only(left: 16.0),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: BaseColor.green500),
+                child: const Icon(
+                  Icons.add_a_photo,
+                  color: Colors.white,
                 ),
-                true),
-            focusButton(
-                Container(
-                  width: 48,
-                  height: 48,
-                  margin: const EdgeInsets.all(16.0),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: BaseColor.green500),
-                  child: const Icon(
-                    Icons.image,
-                    color: Colors.white,
-                  ),
-                ),
-                false),
+              ),
+            ),
+            focusButton(Container(
+              width: 48,
+              height: 48,
+              margin: const EdgeInsets.all(16.0),
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: BaseColor.green500),
+              child: const Icon(
+                Icons.image,
+                color: Colors.white,
+              ),
+            )),
             GestureDetector(
               onTap: () => getLocation(),
               child: Container(
@@ -213,7 +212,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
         ));
   }
 
-  Widget focusButton(Widget child, bool isCamera) {
+  Widget focusButton(Widget child) {
     final double areaWidth = MediaQuery.of(context).size.width * 0.6;
     return FocusedMenuHolder(
         menuWidth: areaWidth,
@@ -250,7 +249,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   ],
                 ),
               ),
-              onPressed: () => isCamera ? takePhoto() : pickPhoto(),
+              onPressed: () => pickPhoto(),
               backgroundColor: Colors.transparent),
           FocusedMenuItem(
               title: Container(
@@ -273,7 +272,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   ],
                 ),
               ),
-              onPressed: () => isCamera ? takeVideo() : pickVideo(),
+              onPressed: () => pickVideo(),
               backgroundColor: Colors.transparent),
         ],
         onPressed: () {},
@@ -298,15 +297,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
           medias.add(i);
         });
       }
-    }
-  }
-
-  void takeVideo() async {
-    final response = await MediaHelper.takeMedia(MediaEnum.video);
-    if (response != null) {
-      setState(() {
-        medias.add(response);
-      });
     }
   }
 
