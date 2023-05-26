@@ -84,6 +84,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "lbl_update_bio": MessageLookupByLibrary.simpleMessage("Update bio"),
         "txt_bio_hint": MessageLookupByLibrary.simpleMessage("Enter your bio"),
+        "txt_change_password_successfully":
+            MessageLookupByLibrary.simpleMessage(
+                "Change password successfully"),
         "txt_check_mail":
             MessageLookupByLibrary.simpleMessage("Please check your email"),
         "txt_comment": MessageLookupByLibrary.simpleMessage("comment"),
@@ -116,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password must be more than 8 chars length"),
         "txt_err_mismatch_password":
             MessageLookupByLibrary.simpleMessage("Password is mismatch"),
+        "txt_err_wrong_password":
+            MessageLookupByLibrary.simpleMessage("The password is incorrect"),
         "txt_female": MessageLookupByLibrary.simpleMessage("Female"),
         "txt_first_name_hint":
             MessageLookupByLibrary.simpleMessage("Enter your first name"),

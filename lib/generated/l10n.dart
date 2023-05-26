@@ -840,6 +840,26 @@ class S {
     );
   }
 
+  /// `The password is incorrect`
+  String get txt_err_wrong_password {
+    return Intl.message(
+      'The password is incorrect',
+      name: 'txt_err_wrong_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password successfully`
+  String get txt_change_password_successfully {
+    return Intl.message(
+      'Change password successfully',
+      name: 'txt_change_password_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `User Information`
   String get btn_user_info {
     return Intl.message(

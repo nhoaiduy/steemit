@@ -84,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_update_bio":
             MessageLookupByLibrary.simpleMessage("Cập nhật tiểu sử"),
         "txt_bio_hint": MessageLookupByLibrary.simpleMessage("Nhập tiểu sử"),
+        "txt_change_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Đổi mật khẩu thành công"),
         "txt_check_mail":
             MessageLookupByLibrary.simpleMessage("Vui lòng kiểm tra email"),
         "txt_comment": MessageLookupByLibrary.simpleMessage("bình luận"),
@@ -116,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu phải có độ dài lớn hơn bằng 8"),
         "txt_err_mismatch_password":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không trùng khớp"),
+        "txt_err_wrong_password":
+            MessageLookupByLibrary.simpleMessage("Mật khẩu không đúng"),
         "txt_female": MessageLookupByLibrary.simpleMessage("Nữ"),
         "txt_first_name_hint":
             MessageLookupByLibrary.simpleMessage("Nhập họ của bạn"),

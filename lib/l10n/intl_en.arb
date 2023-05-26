@@ -78,6 +78,8 @@
   "txt_empty_bio": "Please enter your bio",
   "txt_update_successfully": "Update successfully",
   "btn_saved_post": "Saved post",
+  "txt_err_wrong_password": "The password is incorrect",
+  "txt_change_password_successfully": "Change password successfully",
   "btn_user_info": "User Information",
   "txt_no_user": "There is no user",
   "txt_no_post": "There is no post"
