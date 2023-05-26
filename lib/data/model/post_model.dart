@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:steemit/data/model/user_model.dart';
+import 'package:steemit/util/enum/media_enum.dart';
 
 class PostModel {
   String? id;
@@ -7,7 +8,7 @@ class PostModel {
   UserModel? user;
   String? content;
   String? location;
-  List<String>? images;
+  List<MediaModel>? medias;
   List<String>? likes;
   List<CommentModel>? comments;
   Timestamp? createAt;
@@ -19,7 +20,7 @@ class PostModel {
       this.userId,
       this.user,
       this.content,
-      this.images,
+      this.medias,
       this.location,
       this.likes,
       this.comments,
@@ -33,8 +34,8 @@ class PostModel {
     user = json["user"] != null ? UserModel.fromJson(json["user"]) : null;
     content = json["content"];
     location = json["location"];
-    images = json["images"] != null
-        ? (json["images"] as List).map((e) => e.toString()).toList()
+    medias = json["medias"] != null
+        ? (json["medias"] as List).map((e) => MediaModel.fromJson(e)).toList()
         : List.empty();
     likes = json["likes"] != null
         ? (json["likes"] as List).map((e) => e.toString()).toList()
@@ -54,7 +55,7 @@ class PostModel {
       "id": id,
       "userId": userId,
       "content": content,
-      "images": images,
+      "medias": medias?.map((e) => e.toJson()).toList(),
       "location": location,
       "likes": likes,
       "comments": comments?.map((e) => e.toJson()).toList(),
@@ -91,5 +92,25 @@ class CommentModel {
       "createdAt": createAt,
       "updatedAt": updatedAt,
     };
+  }
+}
+
+class MediaModel {
+  String? id;
+  String? name;
+  MediaEnum? type;
+  String? url;
+
+  MediaModel({this.id, this.name, this.type, this.url});
+
+  MediaModel.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    name = json["name"];
+    type = MediaEnum.values[json["type"]];
+    url = json["url"];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {"id": id, "name": name, "type": type!.index, "url": url};
   }
 }

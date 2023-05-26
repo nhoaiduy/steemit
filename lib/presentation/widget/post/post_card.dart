@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/post_model.dart';
+import 'package:steemit/data/service/storage_service.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
@@ -9,6 +11,9 @@ import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/post/comments_page.dart';
 import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
+import 'package:steemit/presentation/widget/post/video_card.dart';
+import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
+import 'package:steemit/util/enum/media_enum.dart';
 import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -189,7 +194,7 @@ class _PostCardState extends State<PostCard> {
                   ),
                 )),
           // Image
-          if (postModel.images!.isNotEmpty) imageSlider(),
+          if (postModel.medias!.isNotEmpty) imageSlider(),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
             child: Row(
@@ -302,27 +307,36 @@ class _PostCardState extends State<PostCard> {
   Widget imageSlider() {
     return CarouselSlider.builder(
         carouselController: imageController,
-        itemCount: postModel.images!.length,
+        itemCount: postModel.medias!.length,
         itemBuilder: (context, index, realIndex) {
-          final urlImage = postModel.images![index];
-          return buildImage(urlImage: urlImage);
+          final media = postModel.medias![index];
+          if (media.type == MediaEnum.image) {
+            return buildImage(image: media.url!, name: media.name!);
+          }
+          return VideoCard(url: media.url!, name: media.name!);
         },
         options: CarouselOptions(
             height: 250, enableInfiniteScroll: false, viewportFraction: 1));
   }
 
-  Widget buildImage({required String urlImage}) {
+  Widget buildImage({required String image, required String name}) {
     return GestureDetector(
+      onLongPress: () async {
+        await storageService.downloadFile(image, name);
+      },
       onTap: () {
         showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(
+                insetPadding: EdgeInsets.zero,
                 content: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: Image.network(
-                    urlImage,
+                  child: CachedNetworkImage(
+                    imageUrl: image,
                     fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        ShimmerWidget.base(width: double.infinity, height: 250),
                   ),
                 ),
                 contentPadding: EdgeInsets.zero,
@@ -331,9 +345,11 @@ class _PostCardState extends State<PostCard> {
       },
       child: SizedBox(
         width: double.infinity,
-        child: Image.network(
-          urlImage,
+        child: CachedNetworkImage(
+          imageUrl: image,
           fit: BoxFit.cover,
+          placeholder: (context, url) =>
+              ShimmerWidget.base(width: double.infinity, height: 250),
         ),
       ),
     );

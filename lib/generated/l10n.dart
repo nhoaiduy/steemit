@@ -370,11 +370,11 @@ class S {
     );
   }
 
-  /// `Photo`
-  String get lbl_photo {
+  /// `Photo/Video`
+  String get lbl_media {
     return Intl.message(
-      'Photo',
-      name: 'lbl_photo',
+      'Photo/Video',
+      name: 'lbl_media',
       desc: '',
       args: [],
     );
@@ -885,6 +885,26 @@ class S {
     return Intl.message(
       'There is no post',
       name: 'txt_no_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo`
+  String get btn_photo {
+    return Intl.message(
+      'Photo',
+      name: 'btn_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video`
+  String get btn_video {
+    return Intl.message(
+      'Video',
+      name: 'btn_video',
       desc: '',
       args: [],
     );

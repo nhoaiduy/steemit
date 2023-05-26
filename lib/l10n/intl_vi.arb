@@ -31,7 +31,7 @@
   "btn_post": "Đăng",
   "txt_post_hint": "Bạn đang nghĩ gì?",
   "lbl_content": "Nội dung",
-  "lbl_photo": "Ảnh",
+  "lbl_media": "Ảnh/Video",
   "lbl_new_post": "Bài đăng mới",
   "lbl_old_password": "Mật khẩu cũ",
   "lbl_new_password": "Mật khẩu mới",
@@ -82,5 +82,7 @@
   "txt_change_password_successfully": "Đổi mật khẩu thành công",
   "btn_user_info": "Thông tin người dùng",
   "txt_no_user": "Không có người dùng nào",
-  "txt_no_post": "Không có bài viết nào"
+  "txt_no_post": "Không có bài viết nào",
+  "btn_photo": "Ảnh",
+  "btn_video": "Video"
 }
