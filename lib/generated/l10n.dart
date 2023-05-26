@@ -840,12 +840,26 @@ class S {
     );
   }
 
-  /// `Wrong-Password`
+  /// `The password is incorrect`
   String get txt_err_wrong_password {
     return Intl.message(
-      'The password is invalid or the user does not have a password',
+      'The password is incorrect',
       name: 'txt_err_wrong_password',
-      
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password successfully`
+  String get txt_change_password_successfully {
+    return Intl.message(
+      'Change password successfully',
+      name: 'txt_change_password_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `User Information`
   String get btn_user_info {
     return Intl.message(
@@ -855,12 +869,6 @@ class S {
       args: [],
     );
   }
-
-  /// `Success Change Password`
-  String get txt_change_password_successfully {
-    return Intl.message(
-      "Change password successfully",
-      name: 'txt_change_password_successfully',
 
   /// `There is no user`
   String get txt_no_user {

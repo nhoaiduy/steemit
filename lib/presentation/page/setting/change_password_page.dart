@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
-import 'package:steemit/presentation/page/authentication/login_page.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/util/helper/login_helper.dart';
@@ -22,7 +20,6 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
-
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
   final confirmController = TextEditingController();
@@ -50,12 +47,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               unFocus();
               resetHidePasswordState();
               await changePassword(
-                  email: currentUser!.email.toString(),
-                  oldPassword: oldPasswordController.text,
-                  newPassword: newPasswordController.text,
-                  confirmPassword: confirmController.text,
+                email: currentUser!.email.toString(),
+                oldPassword: oldPasswordController.text,
+                newPassword: newPasswordController.text,
+                confirmPassword: confirmController.text,
               );
-              if (check){
+              if (check) {
                 if (mounted) {
                   int count = 0;
                   Navigator.of(context).popUntil((route) => count++ >= 2);
@@ -77,6 +74,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               top: 16.0,
               bottom: MediaQuery.of(context).viewInsets.bottom + 16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFieldWidget.common(
                   onChanged: (text) {},
@@ -139,9 +137,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     style: BaseTextStyle.body1(color: BaseColor.red500),
                   ),
                 ),
-              const SizedBox(
-                height: commonPadding,
-              ),
             ],
           )),
     );
@@ -171,43 +166,49 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
   changePassword(
       {required String email,
-        required String oldPassword,
-        required String newPassword,
-        required String confirmPassword}) async{
-
-    Either<String, void> validOldPassword = ValidationHelper.validPassword(oldPassword);
+      required String oldPassword,
+      required String newPassword,
+      required String confirmPassword}) async {
+    Either<String, void> validOldPassword =
+        ValidationHelper.validPassword(oldPassword);
     if (validOldPassword.isLeft) {
-      _changePasswordErrorText = Left(validOldPassword.left).left;
+      _changePasswordErrorText = validOldPassword.left;
       return;
     }
-    Either<String, void> validNewPassword = ValidationHelper.validPassword(newPassword);
+    Either<String, void> validNewPassword =
+        ValidationHelper.validPassword(newPassword);
     if (validNewPassword.isLeft) {
-      _changePasswordErrorText = Left(validNewPassword.left).left;
+      _changePasswordErrorText = validNewPassword.left;
       return;
     }
     if (newPassword != confirmPassword) {
-      _changePasswordErrorText = Left(S.current.txt_err_mismatch_password).left;
+      _changePasswordErrorText = S.current.txt_err_mismatch_password;
       return;
     }
 
-    var cred = EmailAuthProvider.credential(email: email, password: oldPassword);
+    var cred =
+        EmailAuthProvider.credential(email: email, password: oldPassword);
     await currentUser!.reauthenticateWithCredential(cred).then((value) {
       check = true;
-    }).catchError((e){
-      _changePasswordErrorText = Left(S.current.txt_err_wrong_password).left;
+    }).catchError((e) {
+      setState(() {
+        _changePasswordErrorText = S.current.txt_err_wrong_password;
+      });
       return;
     });
 
-    if(check){
-      try{
+    if (check) {
+      try {
         await currentUser!.updatePassword(newPassword);
         setState(() {
           oldPasswordController.clear();
           newPasswordController.clear();
           confirmController.clear();
         });
-      } on FirebaseAuthException catch (e){
-        _changePasswordErrorText = Left(e.message!).left;
+      } on FirebaseAuthException {
+        setState(() {
+          _changePasswordErrorText = S.current.txt_err_wrong_password;
+        });
         return;
       }
     }
