@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:steemit/domain/repository/Implement/post_impl.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/util/controller/loading_cover_controller.dart';
@@ -15,7 +14,7 @@ class PostControllerCubit extends Cubit<PostControllerState> {
 
   Future<void> create(
       {required String content,
-      required List<File> images,
+      required List<XFile> images,
       required BuildContext context,
       String? location}) async {
     LoadingCoverController.instance.common(context);
@@ -25,7 +24,7 @@ class PostControllerCubit extends Cubit<PostControllerState> {
     }
 
     final response = await _postRepository.createPost(
-        content: content, images: images, location: location);
+        content: content, medias: images, location: location);
 
     if (response.isLeft) {
       emit(PostControllerFailure(response.left));
@@ -70,7 +69,6 @@ class PostControllerCubit extends Cubit<PostControllerState> {
     }
     emit(PostControllerSuccess());
   }
-
 
   Future<void> delete({required String postId}) async {
     final response = await _postRepository.deletePost(postId: postId);

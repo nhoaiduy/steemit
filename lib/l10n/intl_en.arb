@@ -31,7 +31,7 @@
   "btn_post": "Post",
   "txt_post_hint": "What's on your mind?",
   "lbl_content": "Content",
-  "lbl_photo": "Photo",
+  "lbl_media": "Photo/Video",
   "lbl_new_post": "New post",
   "lbl_old_password": "Old password",
   "lbl_new_password": "New password",
@@ -82,5 +82,7 @@
   "txt_change_password_successfully": "Change password successfully",
   "btn_user_info": "User Information",
   "txt_no_user": "There is no user",
-  "txt_no_post": "There is no post"
+  "txt_no_post": "There is no post",
+  "btn_photo": "Photo",
+  "btn_video": "Video"
 }

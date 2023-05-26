@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_like": MessageLookupByLibrary.simpleMessage("Like"),
         "btn_log_out": MessageLookupByLibrary.simpleMessage("Log out"),
         "btn_login": MessageLookupByLibrary.simpleMessage("Login"),
+        "btn_photo": MessageLookupByLibrary.simpleMessage("Photo"),
         "btn_post": MessageLookupByLibrary.simpleMessage("Post"),
         "btn_register": MessageLookupByLibrary.simpleMessage("Register"),
         "btn_save_post": MessageLookupByLibrary.simpleMessage("Save post"),
@@ -45,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update profile"),
         "btn_user_info":
             MessageLookupByLibrary.simpleMessage("User Information"),
+        "btn_video": MessageLookupByLibrary.simpleMessage("Video"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Account"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "lbl_change_language":
@@ -65,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "lbl_gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "lbl_last_name": MessageLookupByLibrary.simpleMessage("Last name"),
+        "lbl_media": MessageLookupByLibrary.simpleMessage("Photo/Video"),
         "lbl_new_password":
             MessageLookupByLibrary.simpleMessage("New password"),
         "lbl_new_post": MessageLookupByLibrary.simpleMessage("New post"),
@@ -73,7 +76,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_old_password":
             MessageLookupByLibrary.simpleMessage("Old password"),
         "lbl_password": MessageLookupByLibrary.simpleMessage("Password"),
-        "lbl_photo": MessageLookupByLibrary.simpleMessage("Photo"),
         "lbl_post": MessageLookupByLibrary.simpleMessage("Post"),
         "lbl_recent_activities":
             MessageLookupByLibrary.simpleMessage("Recent activities"),

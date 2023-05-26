@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/data/service/database_service.dart';
@@ -14,13 +13,13 @@ class PostRepository extends PostRepositoryInterface {
 
   @override
   Future<Either<String, void>> createPost(
-      {String? content, List<File>? images, String? location}) async {
+      {String? content, List<XFile>? medias, String? location}) async {
     try {
       final String postId = _uuid.v1();
-      final List<String> imagePaths = List.empty(growable: true);
-      if (images != null) {
-        for (var image in images) {
-          imagePaths.add(await storageService.savePostImages(image, postId));
+      final List<MediaModel> mediaModels = List.empty(growable: true);
+      if (medias != null) {
+        for (var media in medias) {
+          mediaModels.add(await storageService.saveMedia(media, postId));
         }
       }
 
@@ -29,7 +28,7 @@ class PostRepository extends PostRepositoryInterface {
           id: postId,
           comments: List.empty(),
           likes: List.empty(),
-          images: imagePaths,
+          medias: mediaModels,
           delete: false,
           location: location,
           userId: authService.getUserId(),
@@ -122,7 +121,7 @@ class PostRepository extends PostRepositoryInterface {
       return Left(e.message!);
     }
   }
-  
+
   @override
   Future<Either<String, void>> deletePost({required String postId}) async {
     try {

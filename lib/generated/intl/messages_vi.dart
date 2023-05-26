@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_like": MessageLookupByLibrary.simpleMessage("Thích"),
         "btn_log_out": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "btn_login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
+        "btn_photo": MessageLookupByLibrary.simpleMessage("Ảnh"),
         "btn_post": MessageLookupByLibrary.simpleMessage("Đăng"),
         "btn_register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "btn_save_post": MessageLookupByLibrary.simpleMessage("Lưu bài viết"),
@@ -45,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
         "btn_user_info":
             MessageLookupByLibrary.simpleMessage("Thông tin người dùng"),
+        "btn_video": MessageLookupByLibrary.simpleMessage("Video"),
         "lbl_account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "lbl_bio": MessageLookupByLibrary.simpleMessage("Tiểu sử"),
         "lbl_change_language":
@@ -65,13 +67,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "lbl_gender": MessageLookupByLibrary.simpleMessage("Giới tính"),
         "lbl_last_name": MessageLookupByLibrary.simpleMessage("Tên"),
+        "lbl_media": MessageLookupByLibrary.simpleMessage("Ảnh/Video"),
         "lbl_new_password":
             MessageLookupByLibrary.simpleMessage("Mật khẩu mới"),
         "lbl_new_post": MessageLookupByLibrary.simpleMessage("Bài đăng mới"),
         "lbl_notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
         "lbl_old_password": MessageLookupByLibrary.simpleMessage("Mật khẩu cũ"),
         "lbl_password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
-        "lbl_photo": MessageLookupByLibrary.simpleMessage("Ảnh"),
         "lbl_post": MessageLookupByLibrary.simpleMessage("Bài viết"),
         "lbl_recent_activities":
             MessageLookupByLibrary.simpleMessage("Hoạt động gần đây"),
