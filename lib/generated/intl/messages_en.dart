@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_comment": MessageLookupByLibrary.simpleMessage("Comment"),
         "btn_delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "btn_done": MessageLookupByLibrary.simpleMessage("Done"),
+        "btn_downloading": MessageLookupByLibrary.simpleMessage("Downloading"),
         "btn_forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "btn_like": MessageLookupByLibrary.simpleMessage("Like"),
@@ -39,7 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_post": MessageLookupByLibrary.simpleMessage("Post"),
         "btn_register": MessageLookupByLibrary.simpleMessage("Register"),
         "btn_save_post": MessageLookupByLibrary.simpleMessage("Save post"),
+        "btn_save_to_phone":
+            MessageLookupByLibrary.simpleMessage("Save to phone"),
         "btn_saved_post": MessageLookupByLibrary.simpleMessage("Saved post"),
+        "btn_saved_to_phone":
+            MessageLookupByLibrary.simpleMessage("Saved to phone"),
         "btn_send": MessageLookupByLibrary.simpleMessage("Send"),
         "btn_update": MessageLookupByLibrary.simpleMessage("Update"),
         "btn_update_profile":

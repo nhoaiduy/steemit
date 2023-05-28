@@ -909,6 +909,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Save to phone`
+  String get btn_save_to_phone {
+    return Intl.message(
+      'Save to phone',
+      name: 'btn_save_to_phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Downloading`
+  String get btn_downloading {
+    return Intl.message(
+      'Downloading',
+      name: 'btn_downloading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved to phone`
+  String get btn_saved_to_phone {
+    return Intl.message(
+      'Saved to phone',
+      name: 'btn_saved_to_phone',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

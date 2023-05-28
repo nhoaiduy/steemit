@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
+import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/forgot_passeord/forgot_password_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
@@ -34,4 +35,7 @@ void setup() {
   getIt.registerSingleton<MeCubit>(MeCubit());
   getIt.registerSingleton<UserCubit>(UserCubit());
   getIt.registerSingleton<UsersCubit>(UsersCubit());
+
+  ///Download
+  getIt.registerSingleton<DownloadCubit>(DownloadCubit());
 }

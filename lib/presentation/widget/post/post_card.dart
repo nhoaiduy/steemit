@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/data/model/post_model.dart';
-import 'package:steemit/data/service/storage_service.dart';
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
@@ -11,8 +12,8 @@ import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/post/comments_page.dart';
 import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
-import 'package:steemit/presentation/widget/post/video_card.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
+import 'package:steemit/presentation/widget/video/video_card.dart';
 import 'package:steemit/util/enum/media_enum.dart';
 import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -310,33 +311,38 @@ class _PostCardState extends State<PostCard> {
         itemCount: postModel.medias!.length,
         itemBuilder: (context, index, realIndex) {
           final media = postModel.medias![index];
-          if (media.type == MediaEnum.image) {
-            return buildImage(image: media.url!, name: media.name!);
-          }
-          return VideoCard(url: media.url!, name: media.name!);
+          return GestureDetector(
+            onLongPress: () => download(media),
+            child: (media.type == MediaEnum.image)
+                ? buildImage(media: media)
+                : VideoCard(
+                    media: media,
+                    download: () => download(media),
+                  ),
+          );
         },
         options: CarouselOptions(
             height: 250, enableInfiniteScroll: false, viewportFraction: 1));
   }
 
-  Widget buildImage({required String image, required String name}) {
+  Widget buildImage({required MediaModel media}) {
     return GestureDetector(
-      onLongPress: () async {
-        await storageService.downloadFile(image, name);
-      },
       onTap: () {
         showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(
                 insetPadding: EdgeInsets.zero,
-                content: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: CachedNetworkImage(
-                    imageUrl: image,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        ShimmerWidget.base(width: double.infinity, height: 250),
+                content: GestureDetector(
+                  onLongPress: () => download(media),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: CachedNetworkImage(
+                      imageUrl: media.url!,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => ShimmerWidget.base(
+                          width: double.infinity, height: 250),
+                    ),
                   ),
                 ),
                 contentPadding: EdgeInsets.zero,
@@ -346,12 +352,67 @@ class _PostCardState extends State<PostCard> {
       child: SizedBox(
         width: double.infinity,
         child: CachedNetworkImage(
-          imageUrl: image,
+          imageUrl: media.url!,
           fit: BoxFit.cover,
           placeholder: (context, url) =>
               ShimmerWidget.base(width: double.infinity, height: 250),
         ),
       ),
     );
+  }
+
+  void download(MediaModel media) async {
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext bc) {
+          return Wrap(children: [
+            Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0))),
+                child: BlocBuilder<DownloadCubit, DownloadState>(
+                  builder: (context, state) {
+                    if (state is DownloadSuccess) {
+                      return ListTile(
+                        leading: const Icon(Icons.check),
+                        title: Text(
+                          S.current.btn_saved_to_phone,
+                          style: BaseTextStyle.body1(),
+                        ),
+                      );
+                    }
+                    if (state is DownloadDownloading) {
+                      return ListTile(
+                        leading: const CircularProgressIndicator(
+                          color: BaseColor.green500,
+                        ),
+                        title: Text(
+                          S.current.btn_downloading,
+                          style: BaseTextStyle.body1(),
+                        ),
+                      );
+                    }
+                    return ListTile(
+                      onTap: () => getIt
+                          .get<DownloadCubit>()
+                          .download(media.url!, media.name!),
+                      leading: const Icon(Icons.download),
+                      title: Text(
+                        S.current.btn_save_to_phone,
+                        style: BaseTextStyle.body1(),
+                      ),
+                    );
+                  },
+                ))
+          ]);
+        });
+    await Future.delayed(const Duration(milliseconds: 400));
+    if (getIt.get<DownloadCubit>().state is DownloadSuccess ||
+        getIt.get<DownloadCubit>().state is DownloadSuccess) {
+      getIt.get<DownloadCubit>().clean();
+    }
   }
 }

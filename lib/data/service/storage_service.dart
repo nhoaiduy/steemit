@@ -45,7 +45,7 @@ class StorageService {
       String dir = (await getDirectory())!.path;
       File file = File('$dir/$name');
       await file.writeAsBytes(bytes);
-    } on FirebaseException {
+    } catch (e) {
       rethrow;
     }
   }

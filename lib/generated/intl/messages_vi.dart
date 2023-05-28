@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_comment": MessageLookupByLibrary.simpleMessage("Binh luận"),
         "btn_delete": MessageLookupByLibrary.simpleMessage("Xóa"),
         "btn_done": MessageLookupByLibrary.simpleMessage("Xong"),
+        "btn_downloading": MessageLookupByLibrary.simpleMessage("Đang tải"),
         "btn_forgot_password":
             MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "btn_like": MessageLookupByLibrary.simpleMessage("Thích"),
@@ -38,8 +39,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "btn_post": MessageLookupByLibrary.simpleMessage("Đăng"),
         "btn_register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "btn_save_post": MessageLookupByLibrary.simpleMessage("Lưu bài viết"),
+        "btn_save_to_phone": MessageLookupByLibrary.simpleMessage("Lưu về máy"),
         "btn_saved_post":
             MessageLookupByLibrary.simpleMessage("Đã lưu bài viết"),
+        "btn_saved_to_phone":
+            MessageLookupByLibrary.simpleMessage("Đã lưu về máy"),
         "btn_send": MessageLookupByLibrary.simpleMessage("Gửi"),
         "btn_update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "btn_update_profile":
