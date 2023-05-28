@@ -35,6 +35,12 @@ class _PickVideoWidgetState extends State<PickVideoWidget> {
   }
 
   @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant PickVideoWidget oldWidget) {
     controller = VideoPlayerController.file(widget.file)
       ..initialize().then((value) => setState(() {}));

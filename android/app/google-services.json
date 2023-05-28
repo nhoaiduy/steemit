@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "149025372280",
-    "project_id": "steemit-7dfaa",
-    "storage_bucket": "steemit-7dfaa.appspot.com"
+    "project_number": "990351608534",
+    "project_id": "steemit-f8925",
+    "storage_bucket": "steemit-f8925.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:149025372280:android:eb01bc7f763f291feb158d",
+        "mobilesdk_app_id": "1:990351608534:android:5d907ce6b20ca403ded777",
         "android_client_info": {
           "package_name": "com.example.steemit"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "149025372280-j4l0ma2h0ho45tmgjpjqdtjct235m0vj.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyANwpWtbzZTGRaHJDB9sc0Wm8mfy7SbFNM"
+          "current_key": "AIzaSyB0oMfK0SXw4HzmSjGp40zm0CUZ7-nezSc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "149025372280-j4l0ma2h0ho45tmgjpjqdtjct235m0vj.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
