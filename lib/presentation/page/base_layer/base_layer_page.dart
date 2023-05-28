@@ -18,18 +18,27 @@ class BaseLayer extends StatelessWidget {
       bloc: GetIt.instance.get<BaseLayerCubit>(),
       builder: (context, state) {
         if (state is LanguageState) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            theme: ThemeData(scaffoldBackgroundColor: BaseColor.background),
-            supportedLocales: S.delegate.supportedLocales,
-            locale: state.locale,
-            home: const AuthenticationLayerPage(),
+          return GestureDetector(
+            onTap: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus &&
+                  currentFocus.focusedChild != null) {
+                FocusManager.instance.primaryFocus!.unfocus();
+              }
+            },
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              theme: ThemeData(scaffoldBackgroundColor: BaseColor.background),
+              supportedLocales: S.delegate.supportedLocales,
+              locale: state.locale,
+              home: const AuthenticationLayerPage(),
+            ),
           );
         }
         return const MaterialApp(
