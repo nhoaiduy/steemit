@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:steemit/data/service/storage_service.dart';
+import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/presentation/page/post/view_video_page.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoCard extends StatefulWidget {
-  final String url;
-  final String name;
+  final MediaModel media;
+  final VoidCallback? download;
 
-  const VideoCard({Key? key, required this.url, required this.name})
+  const VideoCard({Key? key, required this.media, required this.download})
       : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _VideoCardState extends State<VideoCard> {
 
   @override
   void initState() {
-    controller = VideoPlayerController.network(widget.url)
+    controller = VideoPlayerController.network(widget.media.url!)
       ..initialize().then((value) => setState(() {}));
     super.initState();
   }
@@ -34,15 +34,13 @@ class _VideoCardState extends State<VideoCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () async {
-        await storageService.downloadFile(widget.url, widget.name);
-      },
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => ViewVideoPage(
                       controller: controller!,
+                      download: widget.download,
                     )));
       },
       child: Container(

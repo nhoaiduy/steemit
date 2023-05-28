@@ -84,5 +84,8 @@
   "txt_no_user": "Không có người dùng nào",
   "txt_no_post": "Không có bài viết nào",
   "btn_photo": "Ảnh",
-  "btn_video": "Video"
+  "btn_video": "Video",
+  "btn_save_to_phone": "Lưu về máy",
+  "btn_downloading": "Đang tải",
+  "btn_saved_to_phone": "Đã lưu về máy"
 }

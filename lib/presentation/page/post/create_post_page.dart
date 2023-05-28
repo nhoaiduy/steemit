@@ -14,6 +14,7 @@ import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/snackbar/snackbar_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
+import 'package:steemit/presentation/widget/video/pick_video_widget.dart';
 import 'package:steemit/util/controller/loading_cover_controller.dart';
 import 'package:steemit/util/enum/media_enum.dart';
 import 'package:steemit/util/helper/image_helper.dart';
@@ -147,8 +148,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                           });
                         });
                   }
-                  return MediaHelper.videoCard(
-                      context: context,
+                  return PickVideoWidget(
                       file: File(e.path),
                       cardSize: cardSize,
                       horizontalMargin: horizontalMargin,

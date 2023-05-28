@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
+import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/forgot_passeord/forgot_password_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
@@ -29,7 +30,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-
       ///Base
       BlocProvider.value(value: getIt.get<BaseLayerCubit>()),
 
@@ -49,6 +49,9 @@ class MyApp extends StatelessWidget {
       BlocProvider.value(value: getIt.get<MeCubit>()),
       BlocProvider.value(value: getIt.get<UserCubit>()),
       BlocProvider.value(value: getIt.get<UsersCubit>()),
+
+      ///Download
+      BlocProvider.value(value: getIt.get<DownloadCubit>()),
     ], child: const BaseLayer());
   }
 }

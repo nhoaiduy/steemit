@@ -84,5 +84,8 @@
   "txt_no_user": "There is no user",
   "txt_no_post": "There is no post",
   "btn_photo": "Photo",
-  "btn_video": "Video"
+  "btn_video": "Video",
+  "btn_save_to_phone": "Save to phone",
+  "btn_downloading": "Downloading",
+  "btn_saved_to_phone": "Saved to phone"
 }
