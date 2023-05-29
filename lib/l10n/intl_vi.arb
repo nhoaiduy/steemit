@@ -87,5 +87,11 @@
   "btn_video": "Video",
   "btn_save_to_phone": "Lưu về máy",
   "btn_downloading": "Đang tải",
-  "btn_saved_to_phone": "Đã lưu về máy"
+  "btn_saved_to_phone": "Đã lưu về máy",
+  "txt_y": "năm",
+  "txt_w": "tuần",
+  "txt_d": "ngày",
+  "txt_h": "giờ",
+  "txt_m": "phút",
+  "txt_just_now": "Vừa xong"
 }

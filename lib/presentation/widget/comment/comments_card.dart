@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:steemit/data/model/post_model.dart';
+import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
+import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
 class CommentsCard extends StatefulWidget {
-  const CommentsCard({Key? key}) : super(key: key);
+  final CommentModel commentModel;
+
+  const CommentsCard({Key? key, required this.commentModel}) : super(key: key);
 
   @override
   State<CommentsCard> createState() => _CommentsCardState();
@@ -16,8 +21,19 @@ class _CommentsCardState extends State<CommentsCard> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AvatarWidget.base(name: "steemit_user"),
+          GestureDetector(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        UserProfilePage(widget.commentModel.userId!))),
+            child: AvatarWidget.base(
+                name:
+                    "${widget.commentModel.user!.firstName} ${widget.commentModel.user!.lastName}",
+                imagePath: widget.commentModel.user!.avatar),
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 8),
@@ -30,20 +46,23 @@ class _CommentsCardState extends State<CommentsCard> {
                       style: const TextStyle(color: BaseColor.grey900),
                       children: [
                         TextSpan(
-                            text: 'username',
-                            style: BaseTextStyle.body2(color: Colors.black)
+                            text:
+                                "${widget.commentModel.user!.firstName} ${widget.commentModel.user!.lastName} ",
+                            style: BaseTextStyle.label(color: Colors.black)
                                 .copyWith(fontWeight: FontWeight.bold)),
                         TextSpan(
-                            text: ' Original comments for the post',
+                            text: widget.commentModel.content,
                             style:
-                                BaseTextStyle.body2(color: BaseColor.grey600)),
+                                BaseTextStyle.body1(color: BaseColor.grey600)),
                       ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
-                    child: Text('23/3/2023',
-                        style: BaseTextStyle.body2(color: BaseColor.grey600)),
+                    child: Text(
+                        StringHelper.getDifference(DateTime.now().difference(
+                            widget.commentModel.createdAt!.toDate())),
+                        style: BaseTextStyle.caption(color: BaseColor.grey600)),
                   )
                 ],
               ),

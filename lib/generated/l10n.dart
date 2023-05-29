@@ -939,6 +939,66 @@ class S {
       args: [],
     );
   }
+
+  /// `y`
+  String get txt_y {
+    return Intl.message(
+      'y',
+      name: 'txt_y',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `w`
+  String get txt_w {
+    return Intl.message(
+      'w',
+      name: 'txt_w',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `d`
+  String get txt_d {
+    return Intl.message(
+      'd',
+      name: 'txt_d',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `h`
+  String get txt_h {
+    return Intl.message(
+      'h',
+      name: 'txt_h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `m`
+  String get txt_m {
+    return Intl.message(
+      'm',
+      name: 'txt_m',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Just now`
+  String get txt_just_now {
+    return Intl.message(
+      'Just now',
+      name: 'txt_just_now',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
