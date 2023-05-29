@@ -70,17 +70,18 @@ class CommentModel {
   String? id;
   String? content;
   String? userId;
-  Timestamp? createAt;
+  Timestamp? createdAt;
   Timestamp? updatedAt;
+  UserModel? user;
 
   CommentModel(
-      this.id, this.content, this.userId, this.createAt, this.updatedAt);
+      this.id, this.content, this.userId, this.createdAt, this.updatedAt);
 
   CommentModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     content = json["content"];
     userId = json["userId"];
-    createAt = json["createAt"];
+    createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
   }
 
@@ -89,7 +90,7 @@ class CommentModel {
       "id": id,
       "content": content,
       "userId": userId,
-      "createdAt": createAt,
+      "createdAt": createdAt,
       "updatedAt": updatedAt,
     };
   }

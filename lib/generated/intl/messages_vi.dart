@@ -104,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "txt_create_empty_post":
             MessageLookupByLibrary.simpleMessage("Bài đăng không có nội dung"),
+        "txt_d": MessageLookupByLibrary.simpleMessage("ngày"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Nhập email của bạn"),
         "txt_empty_bio":
@@ -131,10 +132,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nhập họ của bạn"),
         "txt_gender_hint":
             MessageLookupByLibrary.simpleMessage("Chọn giới tính"),
+        "txt_h": MessageLookupByLibrary.simpleMessage("giờ"),
+        "txt_just_now": MessageLookupByLibrary.simpleMessage("Vừa xong"),
         "txt_last_name_hint":
             MessageLookupByLibrary.simpleMessage("Nhập tên của bạn"),
         "txt_like": MessageLookupByLibrary.simpleMessage("lượt thích"),
         "txt_likes": MessageLookupByLibrary.simpleMessage("lượt thích"),
+        "txt_m": MessageLookupByLibrary.simpleMessage("phút"),
         "txt_male": MessageLookupByLibrary.simpleMessage("Nam"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu mới"),
@@ -154,6 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_system_language":
             MessageLookupByLibrary.simpleMessage("Ngôn ngữ hệ thống"),
         "txt_update_successfully":
-            MessageLookupByLibrary.simpleMessage("Cập nhật thành công")
+            MessageLookupByLibrary.simpleMessage("Cập nhật thành công"),
+        "txt_w": MessageLookupByLibrary.simpleMessage("tuần"),
+        "txt_y": MessageLookupByLibrary.simpleMessage("năm")
       };
 }

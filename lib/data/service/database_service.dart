@@ -1,13 +1,17 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/util/path/services_path.dart';
+import 'package:uuid/uuid.dart';
 
 final DatabaseService databaseService = DatabaseService();
 
 class DatabaseService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+  final Uuid _uuid = const Uuid();
 
   Future<List<UserModel>> getAllUsers() async {
     try {
@@ -139,7 +143,6 @@ class DatabaseService {
     }
   }
 
-
   Future<void> deletePost({required String postId}) async {
     try {
       await _fireStore.collection(ServicePath.post).doc(postId).delete();
@@ -152,6 +155,31 @@ class DatabaseService {
     try {
       await _fireStore.collection(ServicePath.post).doc(postId).update({
         "likes": FieldValue.arrayRemove([uid])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<List<CommentModel>> getComments({required String postId}) async {
+    try {
+      final response =
+          await _fireStore.collection(ServicePath.post).doc(postId).get();
+      final List<CommentModel> comments = List.empty(growable: true);
+      final PostModel postModel = PostModel.fromJson(response.data()!);
+      comments.addAll(postModel.comments!);
+      return comments;
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> addComment(String postId, String userId, String content) async {
+    try {
+      final CommentModel commentModel = CommentModel(
+          _uuid.v1(), content, userId, Timestamp.now(), Timestamp.now());
+      await _fireStore.collection(ServicePath.post).doc(postId).update({
+        "comments": FieldValue.arrayUnion([commentModel.toJson()])
       });
     } on FirebaseException {
       rethrow;

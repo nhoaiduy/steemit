@@ -106,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Create new account?"),
         "txt_create_empty_post":
             MessageLookupByLibrary.simpleMessage("This post has no content"),
+        "txt_d": MessageLookupByLibrary.simpleMessage("d"),
         "txt_email_hint":
             MessageLookupByLibrary.simpleMessage("Enter your email"),
         "txt_empty_bio":
@@ -133,10 +134,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter your first name"),
         "txt_gender_hint":
             MessageLookupByLibrary.simpleMessage("Select your gender"),
+        "txt_h": MessageLookupByLibrary.simpleMessage("h"),
+        "txt_just_now": MessageLookupByLibrary.simpleMessage("Just now"),
         "txt_last_name_hint":
             MessageLookupByLibrary.simpleMessage("Enter your last name"),
         "txt_like": MessageLookupByLibrary.simpleMessage("like"),
         "txt_likes": MessageLookupByLibrary.simpleMessage("likes"),
+        "txt_m": MessageLookupByLibrary.simpleMessage("m"),
         "txt_male": MessageLookupByLibrary.simpleMessage("Male"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your new password"),
@@ -154,6 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_system_language":
             MessageLookupByLibrary.simpleMessage("System language"),
         "txt_update_successfully":
-            MessageLookupByLibrary.simpleMessage("Update successfully")
+            MessageLookupByLibrary.simpleMessage("Update successfully"),
+        "txt_w": MessageLookupByLibrary.simpleMessage("w"),
+        "txt_y": MessageLookupByLibrary.simpleMessage("y")
       };
 }

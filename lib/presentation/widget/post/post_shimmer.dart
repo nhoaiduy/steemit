@@ -60,7 +60,7 @@ class PostShimmer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0))),
           // Image
           ShimmerWidget.base(
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: 250,
             width: double.infinity,
           ),
           // Actions
@@ -77,7 +77,7 @@ class PostShimmer extends StatelessWidget {
                   child: Row(
                     children: [
                       const Icon(
-                        Icons.favorite,
+                        Icons.favorite_outline,
                       ),
                       const SizedBox(width: 5),
                       Text(S.current.btn_like),

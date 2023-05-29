@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
+import 'package:steemit/presentation/bloc/comment/controller/comment_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/comment/data/comment_cubit.dart';
 import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/forgot_passeord/forgot_password_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
@@ -52,6 +54,10 @@ class MyApp extends StatelessWidget {
 
       ///Download
       BlocProvider.value(value: getIt.get<DownloadCubit>()),
+
+      ///Comment
+      BlocProvider.value(value: getIt.get<CommentCubit>()),
+      BlocProvider.value(value: getIt.get<CommentControllerCubit>()),
     ], child: const BaseLayer());
   }
 }

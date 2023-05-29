@@ -213,7 +213,9 @@ class _PostCardState extends State<PostCard> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CommentsPage()));
+                            builder: (context) => CommentsPage(
+                                  postId: postModel.id!,
+                                )));
                   },
                   child: Text(
                     '${postModel.comments!.length} ${postModel.comments!.length > 1 ? S.current.txt_comments : S.current.txt_comment}',
@@ -235,9 +237,6 @@ class _PostCardState extends State<PostCard> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () async {
-                      // await DatabaseService().likePost(
-                      //     postModel: postModel
-                      // );
                       if (isLike) {
                         await getIt
                             .get<PostControllerCubit>()
@@ -264,8 +263,7 @@ class _PostCardState extends State<PostCard> {
                                   color: Colors.redAccent,
                                 )
                               : const Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.redAccent,
+                                  Icons.favorite_outline,
                                 ),
                           const SizedBox(width: 5),
                           Text(S.current.btn_like),
@@ -280,7 +278,9 @@ class _PostCardState extends State<PostCard> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CommentsPage()));
+                              builder: (context) => CommentsPage(
+                                    postId: postModel.id!,
+                                  )));
                     },
                     child: Container(
                       color: Colors.transparent,
