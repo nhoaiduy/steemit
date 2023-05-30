@@ -93,5 +93,6 @@
   "txt_d": "ngày",
   "txt_h": "giờ",
   "txt_m": "phút",
-  "txt_just_now": "Vừa xong"
+  "txt_just_now": "Vừa xong",
+  "lbl_choose_location": "Chọn vị trí"
 }

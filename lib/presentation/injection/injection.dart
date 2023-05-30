@@ -5,6 +5,7 @@ import 'package:steemit/presentation/bloc/comment/controller/comment_controller_
 import 'package:steemit/presentation/bloc/comment/data/comment_cubit.dart';
 import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/forgot_passeord/forgot_password_cubit.dart';
+import 'package:steemit/presentation/bloc/location/data/locations/locations_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
@@ -44,4 +45,7 @@ void setup() {
   ///Comment
   getIt.registerSingleton<CommentCubit>(CommentCubit());
   getIt.registerSingleton<CommentControllerCubit>(CommentControllerCubit());
+
+  ///Location
+  getIt.registerSingleton<LocationsCubit>(LocationsCubit());
 }

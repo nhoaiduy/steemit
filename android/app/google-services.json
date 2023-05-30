@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "990351608534",
-    "project_id": "steemit-f8925",
-    "storage_bucket": "steemit-f8925.appspot.com"
+    "project_number": "335513052786",
+    "project_id": "steemit-4b08d",
+    "storage_bucket": "steemit-4b08d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:990351608534:android:5d907ce6b20ca403ded777",
+        "mobilesdk_app_id": "1:335513052786:android:fd9e01aad95ccbde9e04eb",
         "android_client_info": {
           "package_name": "com.example.steemit"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB0oMfK0SXw4HzmSjGp40zm0CUZ7-nezSc"
+          "current_key": "AIzaSyApzL3G_EvgmBgWYRa_iAdWQ7A-w8a63xw"
         }
       ],
       "services": {

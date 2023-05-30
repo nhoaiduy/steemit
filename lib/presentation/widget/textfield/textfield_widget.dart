@@ -12,6 +12,7 @@ class TextFieldWidget {
       String? hintText,
       String? errorText,
       String? initialValue,
+      double? height,
       bool required = false,
       bool isObscured = false,
       bool enable = true,
@@ -48,6 +49,7 @@ class TextFieldWidget {
                         style: BaseTextStyle.label(color: BaseColor.red400))
                 ])),
           Container(
+            height: height,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 color: isSearch ? fillColor : Colors.transparent),
@@ -224,6 +226,7 @@ class TextFieldWidget {
         onTap: onTap,
         onSubmit: onSubmit,
         labelText: labelText,
+        height: 48,
         hintText: S.current.txt_search_hint,
         errorText: errorText,
         initialValue: initialValue,
@@ -234,9 +237,10 @@ class TextFieldWidget {
         textEditingController: textEditingController,
         textCapitalization: textCapitalization,
         autoFocus: autoFocus,
-        maxLines: maxLines,
+        maxLines: 1,
         readOnly: readOnly,
         isSearch: true,
+        suffixIconPath: suffixIconPath,
         textInputAction: textInputAction,
         onPrefixIconTap: onPrefixIconTap,
         onSuffixIconTap: onSuffixIconTap,
@@ -264,7 +268,7 @@ class TextFieldWidget {
       TextInputAction? textInputAction,
       VoidCallback? onSuffixIconTap,
       VoidCallback? onPrefixIconTap,
-      String? suffixIconPath,
+      IconData? suffixIconPath,
       TextInputType? textInputType}) {
     return TextFieldWidget.search(
         onChanged: onChanged,
@@ -286,6 +290,7 @@ class TextFieldWidget {
         textInputAction: textInputAction,
         onPrefixIconTap: onPrefixIconTap,
         onSuffixIconTap: onSuffixIconTap,
+        suffixIconPath: suffixIconPath,
         textInputType: textInputType);
   }
 
