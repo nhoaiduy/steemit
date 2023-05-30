@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
         "lbl_change_password":
             MessageLookupByLibrary.simpleMessage("Đối mật khẩu"),
+        "lbl_choose_location":
+            MessageLookupByLibrary.simpleMessage("Chọn vị trí"),
         "lbl_comment": MessageLookupByLibrary.simpleMessage("Bình luận"),
         "lbl_confirm_new_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu mới"),

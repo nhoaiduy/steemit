@@ -4,14 +4,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:focused_menu_custom/focused_menu.dart';
 import 'package:focused_menu_custom/modals.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
+import 'package:steemit/presentation/widget/map/map_widget.dart';
 import 'package:steemit/presentation/widget/snackbar/snackbar_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/presentation/widget/video/pick_video_widget.dart';
@@ -33,6 +33,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController contentController = TextEditingController();
   final List<XFile> medias = List.empty(growable: true);
   String? location;
+  LatLng? latLng;
 
   @override
   void initState() {
@@ -75,93 +76,105 @@ class _CreatePostPageState extends State<CreatePostPage> {
   }
 
   Widget _buildBody() {
-    const double horizontalMargin = 16;
-    const double minCardSize = 80;
-    double contentWidth = min(MediaQuery.of(context).size.width, 700);
-    int count = contentWidth ~/ minCardSize;
-    double cardSize = (contentWidth - horizontalMargin) / count;
     return Expanded(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (location != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => setState(() {
-                        location = null;
-                      }),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(color: BaseColor.green500)),
-                        child: Row(
-                          children: [
-                            Text(
-                              location!,
-                              style: BaseTextStyle.body2(
-                                  color: BaseColor.green500),
-                            ),
-                            const Icon(
-                              Icons.close,
-                              size: 18,
-                              color: BaseColor.green500,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const Spacer()
-                  ],
-                ),
-              ),
+            if (location != null) locationArea(),
             TextFieldWidget.common(
                 onChanged: (text) {},
                 hintText: S.current.txt_post_hint,
                 textEditingController: contentController,
                 labelText: S.current.lbl_content),
-            if (medias.isNotEmpty)
-              Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0, top: 20.0),
-                  child:
-                      Text(S.current.lbl_media, style: BaseTextStyle.label())),
-            if (medias.isNotEmpty)
-              Wrap(
-                runSpacing: 12.0,
-                spacing: 12.0,
-                children: medias.map((e) {
-                  if (MediaHelper.checkType(e) == MediaEnum.image) {
-                    return MediaHelper.imageCard(
-                        context: context,
-                        file: File(e.path),
-                        cardSize: cardSize,
-                        horizontalMargin: horizontalMargin,
-                        remove: () {
-                          setState(() {
-                            medias.remove(e);
-                          });
-                        });
-                  }
-                  return PickVideoWidget(
-                      file: File(e.path),
-                      cardSize: cardSize,
-                      horizontalMargin: horizontalMargin,
-                      remove: () {
-                        setState(() {
-                          medias.remove(e);
-                        });
-                      });
-                }).toList(),
-              )
+            mediaArea(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget locationArea() {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: BaseColor.green500)),
+      margin: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(Icons.location_pin, color: BaseColor.red500),
+          ),
+          Expanded(
+            child: Text(
+              location!,
+              style: BaseTextStyle.body2(),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => setState(() {
+              location = null;
+              latLng = null;
+            }),
+            child: Container(
+                color: Colors.transparent,
+                padding: EdgeInsets.all(4.0),
+                child: const Icon(
+                  Icons.close,
+                  size: 20,
+                )),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget mediaArea() {
+    const double horizontalMargin = 16;
+    const double minCardSize = 80;
+    double contentWidth = min(MediaQuery.of(context).size.width, 700);
+    int count = contentWidth ~/ minCardSize;
+    double cardSize = (contentWidth - horizontalMargin) / count;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (medias.isNotEmpty)
+          Padding(
+              padding: const EdgeInsets.only(bottom: 8.0, top: 20.0),
+              child: Text(S.current.lbl_media, style: BaseTextStyle.label())),
+        if (medias.isNotEmpty)
+          Wrap(
+            runSpacing: 12.0,
+            spacing: 12.0,
+            children: medias.map((e) {
+              if (MediaHelper.checkType(e) == MediaEnum.image) {
+                return MediaHelper.imageCard(
+                    context: context,
+                    file: File(e.path),
+                    cardSize: cardSize,
+                    horizontalMargin: horizontalMargin,
+                    remove: () {
+                      setState(() {
+                        medias.remove(e);
+                      });
+                    });
+              }
+              return PickVideoWidget(
+                  file: File(e.path),
+                  cardSize: cardSize,
+                  horizontalMargin: horizontalMargin,
+                  remove: () {
+                    setState(() {
+                      medias.remove(e);
+                    });
+                  });
+            }).toList(),
+          )
+      ],
     );
   }
 
@@ -316,12 +329,21 @@ class _CreatePostPageState extends State<CreatePostPage> {
     final hasLocationPermission =
         await PermissionHelper.getLocationPermission();
     if (hasLocationPermission) {
-      Position position = await Geolocator.getCurrentPosition();
-      List<Placemark> placeMarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
-      setState(() {
-        location = placeMarks.first.administrativeArea;
-      });
+      if (mounted) {
+        final result = await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MapWidget(
+                      latLng: latLng,
+                      location: location,
+                    )));
+        if (result != null) {
+          setState(() {
+            latLng = result[0];
+            location = result[1];
+          });
+        }
+      }
     }
   }
 

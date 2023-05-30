@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change language"),
         "lbl_change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "lbl_choose_location":
+            MessageLookupByLibrary.simpleMessage("Choose location"),
         "lbl_comment": MessageLookupByLibrary.simpleMessage("Comment"),
         "lbl_confirm_new_password":
             MessageLookupByLibrary.simpleMessage("Confirm new password"),

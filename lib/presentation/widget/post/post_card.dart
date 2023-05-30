@@ -89,44 +89,48 @@ class _PostCardState extends State<PostCard> {
                           "${postModel.user!.firstName} ${postModel.user!.lastName}",
                       size: mediumAvatarSize),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, top: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () => isMe
-                            ? null
-                            : Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        UserProfilePage(postModel.userId!))),
-                        child: Text(
-                            "${postModel.user!.firstName} ${postModel.user!.lastName}",
-                            style: BaseTextStyle.label()),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            StringHelper.formatDate(
-                                postModel.updatedAt!.toDate().toString()),
-                            style: BaseTextStyle.caption(),
-                          ),
-                          if (postModel.location != null)
-                            Padding(
-                                padding: const EdgeInsets.only(left: 12.0),
-                                child: Text(
-                                  postModel.location!,
-                                  style: BaseTextStyle.caption(),
-                                ))
-                        ],
-                      ),
-                    ],
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 10, top: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () => isMe
+                              ? null
+                              : Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          UserProfilePage(postModel.userId!))),
+                          child: Text(
+                              "${postModel.user!.firstName} ${postModel.user!.lastName}",
+                              style: BaseTextStyle.label()),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              StringHelper.formatDate(
+                                  postModel.updatedAt!.toDate().toString()),
+                              style: BaseTextStyle.caption(),
+                            ),
+                            if (postModel.location != null)
+                              Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      postModel.location!,
+                                      style: BaseTextStyle.caption(),
+                                      overflow: TextOverflow.ellipsis,
+                                    )),
+                              )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                const Spacer(),
                 PopupMenuButton<String>(
                   onSelected: (value) {},
                   itemBuilder: (BuildContext context) {

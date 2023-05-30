@@ -999,6 +999,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Choose location`
+  String get lbl_choose_location {
+    return Intl.message(
+      'Choose location',
+      name: 'lbl_choose_location',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
