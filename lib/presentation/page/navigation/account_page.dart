@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/data/service/authentication_service.dart';
@@ -14,7 +16,8 @@ import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
-import 'package:steemit/presentation/widget/post/post_card.dart';
+import 'package:steemit/presentation/widget/post/post_grid_tile.dart';
+import 'package:steemit/presentation/widget/post/post_list_tile.dart';
 import 'package:steemit/presentation/widget/post/post_shimmer.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -29,6 +32,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   String myId = "";
+  int index = 0;
 
   @override
   void initState() {
@@ -44,28 +48,33 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Header.background(
-            topPadding: MediaQuery.of(context).padding.top,
-            content: S.current.lbl_account,
-            suffixIconPath: Icons.settings,
-            onSuffix: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SettingPage()));
-            },
-            secondSuffixIconPath: Icons.edit,
-            onSecondSuffix: () async {
-              await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CreatePostPage()));
-              getIt.get<PostsCubit>().getPosts();
-            },
-          ),
-          _buildBody()
-        ],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: Column(
+          children: [
+            Header.background(
+              topPadding: MediaQuery.of(context).padding.top,
+              content: S.current.lbl_account,
+              suffixIconPath: Icons.settings,
+              onSuffix: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingPage()));
+              },
+              secondSuffixIconPath: Icons.edit,
+              onSecondSuffix: () async {
+                await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CreatePostPage()));
+                getIt.get<PostsCubit>().getPosts();
+              },
+            ),
+            _buildBody()
+          ],
+        ),
       ),
     );
   }
@@ -167,6 +176,11 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   _buildPostListArea() {
+    const double horizontalMargin = 16;
+    const double minCardSize = 140;
+    double contentWidth = min(MediaQuery.of(context).size.width, 700);
+    int count = contentWidth ~/ minCardSize;
+    double cardSize = (contentWidth - horizontalMargin) / count;
     return BlocBuilder<PostsCubit, PostsState>(
         bloc: getIt.get<PostsCubit>()..getPosts(),
         builder: (context, state) {
@@ -176,10 +190,79 @@ class _AccountPageState extends State<AccountPage> {
                 .toList();
             if (myPosts.isNotEmpty) {
               return Column(
-                children: List.generate(myPosts.length, (index) {
-                  final post = myPosts[index];
-                  return PostCard(postModel: post);
-                }),
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: TabBar(
+                        labelStyle: BaseTextStyle.body1(),
+                        unselectedLabelStyle: BaseTextStyle.body2(),
+                        labelColor: BaseColor.green500,
+                        unselectedLabelColor: BaseColor.grey300,
+                        indicatorColor: BaseColor.green500,
+                        onTap: (value) => setState(() {
+                              index = value;
+                            }),
+                        tabs: [
+                          Tab(
+                            height: 48,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.list),
+                                const SizedBox(
+                                  width: 8.0,
+                                ),
+                                Text(
+                                  S.current.lbl_listview,
+                                )
+                              ],
+                            ),
+                          ),
+                          Tab(
+                            height: 48,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.grid_view,
+                                  size: 20,
+                                ),
+                                const SizedBox(
+                                  width: 8.0,
+                                ),
+                                Text(
+                                  S.current.lbl_gridview,
+                                )
+                              ],
+                            ),
+                          ),
+                        ]),
+                  ),
+                  [
+                    Column(
+                      children: List.generate(myPosts.length, (index) {
+                        final post = myPosts[index];
+                        return PostListTile(postModel: post);
+                      }),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(horizontalMargin),
+                      child: Wrap(
+                        runSpacing: horizontalMargin,
+                        spacing: horizontalMargin,
+                        children: List.generate(myPosts.length, (index) {
+                          final post = myPosts[index];
+                          return PostGridTile(
+                            postModel: post,
+                            cardSize: cardSize - horizontalMargin,
+                            horizontalMargin: horizontalMargin,
+                          );
+                        }),
+                      ),
+                    )
+                  ].elementAt(index)
+                ],
               );
             }
 

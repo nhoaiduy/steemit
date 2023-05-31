@@ -8,6 +8,7 @@ import 'package:steemit/presentation/bloc/forgot_passeord/forgot_password_cubit.
 import 'package:steemit/presentation/bloc/location/data/locations/locations_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/post/data/post/post_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/saved_posts/saved_posts_cubit.dart';
 import 'package:steemit/presentation/bloc/register/register_cubit.dart';
@@ -32,6 +33,7 @@ void setup() {
   getIt.registerSingleton<PostControllerCubit>(PostControllerCubit());
   getIt.registerSingleton<PostsCubit>(PostsCubit());
   getIt.registerSingleton<SavedPostsCubit>(SavedPostsCubit());
+  getIt.registerSingleton<PostCubit>(PostCubit());
 
   ///User
   getIt.registerSingleton<UserControllerCubit>(UserControllerCubit());

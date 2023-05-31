@@ -94,5 +94,7 @@
   "txt_h": "h",
   "txt_m": "m",
   "txt_just_now": "Just now",
-  "lbl_choose_location": "Choose location"
+  "lbl_choose_location": "Choose location",
+  "lbl_listview": "Listview",
+  "lbl_gridview": "Gridview"
 }
