@@ -72,7 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_forgot_password":
             MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "lbl_gender": MessageLookupByLibrary.simpleMessage("Giới tính"),
+        "lbl_gridview": MessageLookupByLibrary.simpleMessage("Dạng lưới"),
         "lbl_last_name": MessageLookupByLibrary.simpleMessage("Tên"),
+        "lbl_listview": MessageLookupByLibrary.simpleMessage("Danh sách"),
         "lbl_media": MessageLookupByLibrary.simpleMessage("Ảnh/Video"),
         "lbl_new_password":
             MessageLookupByLibrary.simpleMessage("Mật khẩu mới"),

@@ -6,10 +6,12 @@ import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/post/data/post/post_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/post/comments_page.dart';
+import 'package:steemit/presentation/page/post/post_page.dart';
 import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
@@ -19,19 +21,23 @@ import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
 
-class PostCard extends StatefulWidget {
+class PostListTile extends StatefulWidget {
   final PostModel postModel;
+  final VoidCallback? onCommentTap;
+  final VoidCallback? onTap;
 
-  const PostCard({
+  const PostListTile({
     Key? key,
     required this.postModel,
+    this.onCommentTap,
+    this.onTap,
   }) : super(key: key);
 
   @override
-  State<PostCard> createState() => _PostCardState();
+  State<PostListTile> createState() => _PostListTileState();
 }
 
-class _PostCardState extends State<PostCard> {
+class _PostListTileState extends State<PostListTile> {
   bool isShow = true;
   bool isSaved = false;
   bool isMe = false;
@@ -61,6 +67,18 @@ class _PostCardState extends State<PostCard> {
           isLike = true;
         });
       }
+
+      getIt.get<PostControllerCubit>().stream.listen((event) {
+        if (!mounted) return;
+        if (event is PostControllerSuccess) {
+          getIt.get<PostsCubit>().getPosts();
+          getIt.get<PostCubit>().getData(widget.postModel.id!);
+          getIt.get<PostControllerCubit>().clean();
+        }
+        if (event is PostControllerFailure) {
+          getIt.get<PostControllerCubit>().clean();
+        }
+      });
     }
     super.initState();
   }
@@ -76,102 +94,113 @@ class _PostCardState extends State<PostCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Header
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
-                .copyWith(right: 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: AvatarWidget.base(
-                      name:
-                          "${postModel.user!.firstName} ${postModel.user!.lastName}",
-                      size: mediumAvatarSize),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 10, top: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () => isMe
-                              ? null
-                              : Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          UserProfilePage(postModel.userId!))),
-                          child: Text(
-                              "${postModel.user!.firstName} ${postModel.user!.lastName}",
-                              style: BaseTextStyle.label()),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              StringHelper.formatDate(
-                                  postModel.updatedAt!.toDate().toString()),
-                              style: BaseTextStyle.caption(),
-                            ),
-                            if (postModel.location != null)
-                              Expanded(
-                                child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      postModel.location!,
-                                      style: BaseTextStyle.caption(),
-                                      overflow: TextOverflow.ellipsis,
-                                    )),
-                              )
-                          ],
-                        ),
-                      ],
+          GestureDetector(
+            onTap: () =>
+                widget.onTap ??
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PostPage(postId: widget.postModel.id!))),
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
+                  .copyWith(right: 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    child: AvatarWidget.base(
+                        name:
+                            "${postModel.user!.firstName} ${postModel.user!.lastName}",
+                        imagePath: postModel.user?.avatar,
+                        size: mediumAvatarSize),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 10, top: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () => isMe
+                                ? null
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UserProfilePage(
+                                            postModel.userId!))),
+                            child: Text(
+                                "${postModel.user!.firstName} ${postModel.user!.lastName}",
+                                style: BaseTextStyle.label()),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                StringHelper.formatDate(
+                                    postModel.updatedAt!.toDate().toString()),
+                                style: BaseTextStyle.caption(),
+                              ),
+                              if (postModel.location != null)
+                                Expanded(
+                                  child: Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text(
+                                        postModel.location!,
+                                        style: BaseTextStyle.caption(),
+                                        overflow: TextOverflow.ellipsis,
+                                      )),
+                                )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                PopupMenuButton<String>(
-                  onSelected: (value) {},
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      if (!isMe)
-                        PopupMenuItem<String>(
-                          value: S.current.btn_save_post,
-                          child: Text(isSaved
-                              ? S.current.btn_saved_post
-                              : S.current.btn_save_post),
-                          onTap: () async {
-                            if (isSaved) {
+                  PopupMenuButton<String>(
+                    onSelected: (value) {},
+                    itemBuilder: (BuildContext context) {
+                      return [
+                        if (!isMe)
+                          PopupMenuItem<String>(
+                            value: S.current.btn_save_post,
+                            child: Text(isSaved
+                                ? S.current.btn_saved_post
+                                : S.current.btn_save_post),
+                            onTap: () async {
+                              if (isSaved) {
+                                await getIt
+                                    .get<PostControllerCubit>()
+                                    .unSave(postId: postModel.id!);
+                              } else {
+                                await getIt
+                                    .get<PostControllerCubit>()
+                                    .save(postId: postModel.id!);
+                              }
+                              setState(() {
+                                isSaved = !isSaved;
+                              });
+                            },
+                          ),
+                        if (isMe)
+                          PopupMenuItem<String>(
+                            onTap: () async {
+                              getIt.get<PostsCubit>().clean();
                               await getIt
                                   .get<PostControllerCubit>()
-                                  .unSave(postId: postModel.id!);
-                            } else {
-                              await getIt
-                                  .get<PostControllerCubit>()
-                                  .save(postId: postModel.id!);
-                            }
-                            setState(() {
-                              isSaved = !isSaved;
-                            });
-                          },
-                        ),
-                      if (isMe)
-                        PopupMenuItem<String>(
-                          onTap: () async {
-                            getIt.get<PostsCubit>().clean();
-                            await getIt
-                                .get<PostControllerCubit>()
-                                .delete(postId: postModel.id!);
-                            getIt.get<PostsCubit>().getPosts();
-                          },
-                          value: S.current.btn_delete,
-                          child: Text(S.current.btn_delete),
-                        ),
-                    ];
-                  },
-                ),
-              ],
+                                  .delete(postId: postModel.id!);
+                              getIt.get<PostsCubit>().getPosts();
+                            },
+                            value: S.current.btn_delete,
+                            child: Text(S.current.btn_delete),
+                          ),
+                      ];
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           if (postModel.content != null)
@@ -213,14 +242,14 @@ class _PostCardState extends State<PostCard> {
                       )
                     : const SizedBox.shrink(),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CommentsPage(
-                                  postId: postModel.id!,
-                                )));
-                  },
+                  onTap: () =>
+                      widget.onCommentTap ??
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommentsPage(
+                                    postId: postModel.id!,
+                                  ))),
                   child: Text(
                     '${postModel.comments!.length} ${postModel.comments!.length > 1 ? S.current.txt_comments : S.current.txt_comment}',
                     style: BaseTextStyle.body2(),
@@ -278,14 +307,14 @@ class _PostCardState extends State<PostCard> {
                 ),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CommentsPage(
-                                    postId: postModel.id!,
-                                  )));
-                    },
+                    onTap: () =>
+                        widget.onCommentTap ??
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CommentsPage(
+                                      postId: postModel.id!,
+                                    ))),
                     child: Container(
                       color: Colors.transparent,
                       child: Row(

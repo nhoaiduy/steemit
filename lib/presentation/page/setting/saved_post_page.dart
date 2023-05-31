@@ -6,7 +6,7 @@ import 'package:steemit/presentation/bloc/post/data/saved_posts/saved_posts_cubi
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
-import 'package:steemit/presentation/widget/post/post_card.dart';
+import 'package:steemit/presentation/widget/post/post_list_tile.dart';
 import 'package:steemit/presentation/widget/post/post_shimmer.dart';
 
 class SavedPostPage extends StatefulWidget {
@@ -20,10 +20,7 @@ class _SavedPostPageState extends State<SavedPostPage> {
   @override
   void initState() {
     getIt.get<SavedPostsCubit>().clean();
-    getIt
-        .get<PostControllerCubit>()
-        .stream
-        .listen((event) {
+    getIt.get<PostControllerCubit>().stream.listen((event) {
       if (!mounted) return;
       if (event is PostControllerSuccess) {
         getIt.get<MeCubit>().getData();
@@ -38,10 +35,7 @@ class _SavedPostPageState extends State<SavedPostPage> {
       body: Column(
         children: [
           Header.background(
-            topPadding: MediaQuery
-                .of(context)
-                .padding
-                .top,
+            topPadding: MediaQuery.of(context).padding.top,
             content: S.current.lbl_saved_posts,
             prefixIconPath: Icons.chevron_left,
           ),
@@ -65,7 +59,7 @@ class _SavedPostPageState extends State<SavedPostPage> {
                       itemCount: state.posts.length,
                       itemBuilder: (context, index) {
                         final post = state.posts[index];
-                        return PostCard(postModel: post);
+                        return PostListTile(postModel: post);
                       });
                 }
                 return ListView.builder(

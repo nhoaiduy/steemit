@@ -73,7 +73,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lbl_forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "lbl_gender": MessageLookupByLibrary.simpleMessage("Gender"),
+        "lbl_gridview": MessageLookupByLibrary.simpleMessage("Gridview"),
         "lbl_last_name": MessageLookupByLibrary.simpleMessage("Last name"),
+        "lbl_listview": MessageLookupByLibrary.simpleMessage("Listview"),
         "lbl_media": MessageLookupByLibrary.simpleMessage("Photo/Video"),
         "lbl_new_password":
             MessageLookupByLibrary.simpleMessage("New password"),

@@ -4,7 +4,7 @@ import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/common/search_page.dart';
 import 'package:steemit/presentation/page/post/create_post_page.dart';
-import 'package:steemit/presentation/widget/post/post_card.dart';
+import 'package:steemit/presentation/widget/post/post_list_tile.dart';
 import 'package:steemit/presentation/widget/post/post_shimmer.dart';
 import 'package:steemit/util/path/image_path.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             itemCount: state.posts.length,
             itemBuilder: (context, index) {
               final post = state.posts[index];
-              return PostCard(
+              return PostListTile(
                 postModel: post,
               );
             });

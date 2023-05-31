@@ -9,7 +9,7 @@ import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
-import 'package:steemit/presentation/widget/post/post_card.dart';
+import 'package:steemit/presentation/widget/post/post_list_tile.dart';
 import 'package:steemit/presentation/widget/post/post_shimmer.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -145,7 +145,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               return Column(
                 children: List.generate(posts.length, (index) {
                   final post = posts[index];
-                  return PostCard(postModel: post);
+                  return PostListTile(postModel: post);
                 }),
               );
             }

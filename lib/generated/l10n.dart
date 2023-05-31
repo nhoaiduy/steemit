@@ -1009,6 +1009,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Listview`
+  String get lbl_listview {
+    return Intl.message(
+      'Listview',
+      name: 'lbl_listview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gridview`
+  String get lbl_gridview {
+    return Intl.message(
+      'Gridview',
+      name: 'lbl_gridview',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
