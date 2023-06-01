@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/comment/controller/comment_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/comment/data/comment_cubit.dart';
+import 'package:steemit/presentation/bloc/notification/controller/notification_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/post/post_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
@@ -15,6 +16,7 @@ import 'package:steemit/presentation/widget/post/post_list_tile.dart';
 import 'package:steemit/presentation/widget/post/post_shimmer.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
+import 'package:steemit/util/enum/activity_enum.dart';
 
 class PostPage extends StatefulWidget {
   final String postId;
@@ -42,6 +44,10 @@ class _PostPageState extends State<PostPage> {
         getIt.get<PostsCubit>().getPosts();
         getIt.get<CommentCubit>().getComments(widget.postId);
         getIt.get<CommentControllerCubit>().clean();
+        getIt
+            .get<NotificationControllerCubit>()
+            .addNotification(widget.postId, ActivityEnum.comment)
+            .then((value) => getIt.get<NotificationControllerCubit>().clean());
       }
       if (event is CommentControllerFailure) {
         getIt.get<CommentControllerCubit>().clean();

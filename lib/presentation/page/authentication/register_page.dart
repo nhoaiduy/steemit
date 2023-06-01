@@ -8,6 +8,7 @@ import 'package:steemit/presentation/widget/bottom_sheet/bottom_sheet_widget.dar
 import 'package:steemit/presentation/widget/button/button_widget.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
+import 'package:steemit/util/controller/loading_cover_controller.dart';
 import 'package:steemit/util/enum/gender_enum.dart';
 import 'package:steemit/util/helper/gender_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -52,6 +53,8 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.pop(context);
         return;
       }
+
+      LoadingCoverController.instance.close(context);
     });
     super.initState();
   }
@@ -208,7 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void clearError() {
     setState(() {
-      _registerErrorText = "";
+      _registerErrorText = null;
     });
   }
 
@@ -228,6 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
     unFocus();
     resetHidePasswordState();
     getIt.get<RegisterCubit>().register(
+        context: context,
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         email: emailNameController.text,

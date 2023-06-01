@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:steemit/data/model/activity_model.dart';
+import 'package:steemit/data/model/notification_model.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
@@ -210,6 +211,74 @@ class DatabaseService {
       await _fireStore.collection(ServicePath.user).doc(userId).update({
         "activities": FieldValue.arrayUnion([activityModel.toJson()])
       });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> saveToken(String? token, String userId) async {
+    try {
+      await _fireStore
+          .collection(ServicePath.user)
+          .doc(userId)
+          .update({"token": token});
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> clearToken(String userId) async {
+    try {
+      await _fireStore
+          .collection(ServicePath.user)
+          .doc(userId)
+          .update({"token": null});
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> addNotification(
+      NotificationModel notificationModel, String userId) async {
+    try {
+      await _fireStore.collection(ServicePath.user).doc(userId).update({
+        "notifications": FieldValue.arrayUnion([notificationModel.toJson()])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<List<NotificationModel>> getNotifications(
+      {required String userId}) async {
+    try {
+      final response =
+          await _fireStore.collection(ServicePath.user).doc(userId).get();
+      final List<NotificationModel> notifications = List.empty(growable: true);
+      final UserModel userModel = UserModel.fromJson(response.data()!);
+      notifications.addAll(userModel.notifications!);
+
+      notifications.sort(
+          (a, b) => b.createdAt!.toDate().compareTo(a.createdAt!.toDate()));
+      final List<NotificationModel> finalNotification =
+          List.empty(growable: true);
+
+      for (var notification in notifications) {
+        if (finalNotification
+            .where((element) =>
+                element.userId == notification.userId &&
+                element.postId == notification.postId &&
+                element.type == notification.type)
+            .isEmpty) {
+          finalNotification.add(notification);
+        }
+      }
+
+      for (var notification in finalNotification) {
+        notification.user = await getUser(uid: notification.userId!);
+      }
+
+      return finalNotification;
     } on FirebaseException {
       rethrow;
     }

@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:steemit/data/service/notification_service.dart';
 import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/activity/data/activities/activities_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
@@ -11,6 +13,8 @@ import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/forgot_passeord/forgot_password_cubit.dart';
 import 'package:steemit/presentation/bloc/location/data/locations/locations_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
+import 'package:steemit/presentation/bloc/notification/controller/notification_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/notification/data/notifications/notifications_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/post/post_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
@@ -23,10 +27,14 @@ import 'package:steemit/presentation/bloc/user/data/users/users_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
 import 'package:steemit/presentation/page/base_layer/base_layer_page.dart';
 
+Future<void> _handleBackgroundHandler(RemoteMessage message) async {}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  setup();
+  await notificationService.setup();
+  FirebaseMessaging.onBackgroundMessage(_handleBackgroundHandler);
+  setupGetIt();
   runApp(const MyApp());
 }
 
@@ -70,6 +78,10 @@ class MyApp extends StatelessWidget {
       ///Activity
       BlocProvider.value(value: getIt.get<ActivitiesCubit>()),
       BlocProvider.value(value: getIt.get<ActivityControllerCubit>()),
+
+      ///Notification
+      BlocProvider.value(value: getIt.get<NotificationControllerCubit>()),
+      BlocProvider.value(value: getIt.get<NotificationsCubit>()),
     ], child: const BaseLayer());
   }
 }

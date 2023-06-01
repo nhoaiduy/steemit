@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:steemit/data/service/notification_service.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_state.dart';
 import 'package:steemit/presentation/injection/injection.dart';
@@ -18,6 +19,7 @@ class AuthenticationLayerPage extends StatefulWidget {
 class _AuthenticationLayerPageState extends State<AuthenticationLayerPage> {
   @override
   void initState() {
+    notificationService.initInfo(context);
     super.initState();
   }
 

@@ -138,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_gender_hint":
             MessageLookupByLibrary.simpleMessage("Chọn giới tính"),
         "txt_h": MessageLookupByLibrary.simpleMessage("giờ"),
+        "txt_in": MessageLookupByLibrary.simpleMessage("vào"),
         "txt_just": MessageLookupByLibrary.simpleMessage("vừa"),
         "txt_just_now": MessageLookupByLibrary.simpleMessage("Vừa xong"),
         "txt_last_name_hint":
@@ -149,6 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_male": MessageLookupByLibrary.simpleMessage("Nam"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu mới"),
+        "txt_new_post": MessageLookupByLibrary.simpleMessage("bài viết mới"),
         "txt_no_activity": MessageLookupByLibrary.simpleMessage(
             "Chưa có hoạt động nào được ghi nhận"),
         "txt_no_image":
@@ -160,7 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_old_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu cũ"),
         "txt_password_hint":
-            MessageLookupByLibrary.simpleMessage("Nhập mật khâ của bạn"),
+            MessageLookupByLibrary.simpleMessage("Nhập mật khâu của bạn"),
         "txt_post": MessageLookupByLibrary.simpleMessage("đăng"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("Bạn đang nghĩ gì?"),
@@ -175,6 +177,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cập nhật thành công"),
         "txt_w": MessageLookupByLibrary.simpleMessage("tuần"),
         "txt_y": MessageLookupByLibrary.simpleMessage("năm"),
-        "txt_you": MessageLookupByLibrary.simpleMessage("Bạn")
+        "txt_you": MessageLookupByLibrary.simpleMessage("Bạn"),
+        "txt_your_post":
+            MessageLookupByLibrary.simpleMessage("bài viết của bạn")
       };
 }

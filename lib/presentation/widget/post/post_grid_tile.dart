@@ -58,6 +58,7 @@ class _PostGridTileState extends State<PostGridTile> {
         widget.postModel.content!,
         style: BaseTextStyle.label(color: Colors.white),
         maxLines: 3,
+        textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
       ));
     } else {

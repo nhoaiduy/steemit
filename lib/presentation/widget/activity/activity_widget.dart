@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:steemit/data/model/activity_model.dart';
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/util/enum/activity_enum.dart';
 import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
 import 'package:steemit/util/style/base_text_style.dart';
@@ -23,13 +24,14 @@ class ActivityWidget {
                 child: RichText(
                   text: TextSpan(
                       text:
-                          "${S.current.txt_you} ${S.current.txt_just} ${StringHelper.getActivityString(activityModel.type!)} ${S.current.txt_post_of} ",
+                          "${S.current.txt_you} ${S.current.txt_just} ${StringHelper.getActivityString(activityModel.type!)} ${activityModel.type! == ActivityEnum.post ? S.current.txt_new_post : S.current.txt_post_of} ",
                       style: BaseTextStyle.body1(),
                       children: [
-                        TextSpan(
-                            text:
-                                "${activityModel.user!.firstName} ${activityModel.user!.lastName}",
-                            style: BaseTextStyle.label()),
+                        if (activityModel.type! != ActivityEnum.post)
+                          TextSpan(
+                              text:
+                                  "${activityModel.user!.firstName} ${activityModel.user!.lastName}",
+                              style: BaseTextStyle.label()),
                       ]),
                 )),
             Text(

@@ -4,6 +4,7 @@ import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/comment/controller/comment_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/comment/data/comment_cubit.dart';
+import 'package:steemit/presentation/bloc/notification/controller/notification_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/bloc/user/data/me/me_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
@@ -39,6 +40,10 @@ class _CommentsPageState extends State<CommentsPage> {
         getIt.get<PostsCubit>().getPosts();
         getIt.get<CommentCubit>().getComments(widget.postId);
         getIt.get<CommentControllerCubit>().clean();
+        getIt
+            .get<NotificationControllerCubit>()
+            .addNotification(widget.postId, ActivityEnum.comment)
+            .then((value) => getIt.get<NotificationControllerCubit>().clean());
         getIt
             .get<ActivityControllerCubit>()
             .addComment(postId: widget.postId, type: ActivityEnum.comment)
