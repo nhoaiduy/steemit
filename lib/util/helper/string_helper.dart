@@ -1,4 +1,5 @@
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/util/enum/activity_enum.dart';
 
 class StringHelper {
   static String createNameKey(String name) {
@@ -38,5 +39,22 @@ class StringHelper {
       return "$difference ${S.current.txt_m}";
     }
     return S.current.txt_just_now;
+  }
+
+  static String getActivityString(ActivityEnum type) {
+    switch (type) {
+      case ActivityEnum.comment:
+        return S.current.txt_commented;
+      case ActivityEnum.like:
+        return S.current.txt_liked;
+      case ActivityEnum.post:
+        return S.current.txt_post;
+      case ActivityEnum.save:
+        return S.current.txt_saved;
+      case ActivityEnum.unlike:
+        return S.current.txt_unliked;
+      case ActivityEnum.unsave:
+        return S.current.txt_unsaved;
+    }
   }
 }

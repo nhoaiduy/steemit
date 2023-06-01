@@ -7,6 +7,7 @@ import 'package:focused_menu_custom/modals.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
 import 'package:steemit/presentation/injection/injection.dart';
@@ -16,6 +17,7 @@ import 'package:steemit/presentation/widget/snackbar/snackbar_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
 import 'package:steemit/presentation/widget/video/pick_video_widget.dart';
 import 'package:steemit/util/controller/loading_cover_controller.dart';
+import 'package:steemit/util/enum/activity_enum.dart';
 import 'package:steemit/util/enum/media_enum.dart';
 import 'package:steemit/util/helper/image_helper.dart';
 import 'package:steemit/util/helper/permission_helper.dart';
@@ -47,6 +49,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
       if (event is PostControllerSuccess) {
         getIt.get<PostsCubit>().clean();
         getIt.get<PostsCubit>().getPosts();
+        getIt
+            .get<ActivityControllerCubit>()
+            .addComment(postId: event.postId!, type: ActivityEnum.post)
+            .then((value) => getIt.get<ActivityControllerCubit>().clean());
         Navigator.pop(context);
       }
       LoadingCoverController.instance.close(context);

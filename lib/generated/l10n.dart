@@ -1029,6 +1029,106 @@ class S {
       args: [],
     );
   }
+
+  /// `No activity recorded yet`
+  String get txt_no_activity {
+    return Intl.message(
+      'No activity recorded yet',
+      name: 'txt_no_activity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You`
+  String get txt_you {
+    return Intl.message(
+      'You',
+      name: 'txt_you',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `posted`
+  String get txt_post {
+    return Intl.message(
+      'posted',
+      name: 'txt_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `liked`
+  String get txt_liked {
+    return Intl.message(
+      'liked',
+      name: 'txt_liked',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `commented`
+  String get txt_commented {
+    return Intl.message(
+      'commented',
+      name: 'txt_commented',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `saved`
+  String get txt_saved {
+    return Intl.message(
+      'saved',
+      name: 'txt_saved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `unliked`
+  String get txt_unliked {
+    return Intl.message(
+      'unliked',
+      name: 'txt_unliked',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `unsaved`
+  String get txt_unsaved {
+    return Intl.message(
+      'unsaved',
+      name: 'txt_unsaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `just`
+  String get txt_just {
+    return Intl.message(
+      'just',
+      name: 'txt_just',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `post of`
+  String get txt_post_of {
+    return Intl.message(
+      'post of',
+      name: 'txt_post_of',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

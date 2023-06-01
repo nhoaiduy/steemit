@@ -12,7 +12,7 @@ class PostRepository extends PostRepositoryInterface {
   final Uuid _uuid = const Uuid();
 
   @override
-  Future<Either<String, void>> createPost(
+  Future<Either<String, String>> createPost(
       {String? content, List<XFile>? medias, String? location}) async {
     try {
       final String postId = _uuid.v1();
@@ -35,7 +35,7 @@ class PostRepository extends PostRepositoryInterface {
           createAt: Timestamp.now(),
           updatedAt: Timestamp.now());
       await databaseService.createPost(postModel: post);
-      return const Right(null);
+      return Right(postId);
     } on FirebaseException catch (e) {
       return Left(e.message!);
     }
@@ -81,7 +81,7 @@ class PostRepository extends PostRepositoryInterface {
       final response = await databaseService.getPostById(postId: postId);
       return Right(response);
     } on FirebaseException catch (e) {
-      return Left(e.message!);
+      return Left(e.message ?? "");
     }
   }
 

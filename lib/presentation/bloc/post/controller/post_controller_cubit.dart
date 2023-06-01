@@ -31,7 +31,7 @@ class PostControllerCubit extends Cubit<PostControllerState> {
       return;
     }
 
-    emit(PostControllerSuccess());
+    emit(PostControllerSuccess(postId: response.right));
   }
 
   Future<void> save({required String postId}) async {

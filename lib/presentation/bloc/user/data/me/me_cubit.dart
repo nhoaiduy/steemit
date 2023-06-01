@@ -9,7 +9,7 @@ class MeCubit extends Cubit<MeState> {
   MeCubit() : super(MeInitial());
 
   Future<void> getData() async {
-    final response = await UserRepositoryImplement().getCurrentUser();
+    final response = await UserRepository().getCurrentUser();
     if (response.isLeft) {
       emit(MeFailure(response.left));
       return;

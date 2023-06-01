@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_comment": MessageLookupByLibrary.simpleMessage("bình luận"),
         "txt_comment_hint":
             MessageLookupByLibrary.simpleMessage("Nhập bình luận"),
+        "txt_commented": MessageLookupByLibrary.simpleMessage("bình luận"),
         "txt_comments": MessageLookupByLibrary.simpleMessage("bình luận"),
         "txt_confirm_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu mới"),
@@ -137,15 +138,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_gender_hint":
             MessageLookupByLibrary.simpleMessage("Chọn giới tính"),
         "txt_h": MessageLookupByLibrary.simpleMessage("giờ"),
+        "txt_just": MessageLookupByLibrary.simpleMessage("vừa"),
         "txt_just_now": MessageLookupByLibrary.simpleMessage("Vừa xong"),
         "txt_last_name_hint":
             MessageLookupByLibrary.simpleMessage("Nhập tên của bạn"),
         "txt_like": MessageLookupByLibrary.simpleMessage("lượt thích"),
+        "txt_liked": MessageLookupByLibrary.simpleMessage("thích"),
         "txt_likes": MessageLookupByLibrary.simpleMessage("lượt thích"),
         "txt_m": MessageLookupByLibrary.simpleMessage("phút"),
         "txt_male": MessageLookupByLibrary.simpleMessage("Nam"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu mới"),
+        "txt_no_activity": MessageLookupByLibrary.simpleMessage(
+            "Chưa có hoạt động nào được ghi nhận"),
         "txt_no_image":
             MessageLookupByLibrary.simpleMessage("Không có ảnh nào"),
         "txt_no_post":
@@ -156,14 +161,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nhập mật khẩu cũ"),
         "txt_password_hint":
             MessageLookupByLibrary.simpleMessage("Nhập mật khâ của bạn"),
+        "txt_post": MessageLookupByLibrary.simpleMessage("đăng"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("Bạn đang nghĩ gì?"),
+        "txt_post_of": MessageLookupByLibrary.simpleMessage("bài viết của"),
+        "txt_saved": MessageLookupByLibrary.simpleMessage("lưu"),
         "txt_search_hint": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "txt_system_language":
             MessageLookupByLibrary.simpleMessage("Ngôn ngữ hệ thống"),
+        "txt_unliked": MessageLookupByLibrary.simpleMessage("bỏ thích"),
+        "txt_unsaved": MessageLookupByLibrary.simpleMessage("bỏ lưu"),
         "txt_update_successfully":
             MessageLookupByLibrary.simpleMessage("Cập nhật thành công"),
         "txt_w": MessageLookupByLibrary.simpleMessage("tuần"),
-        "txt_y": MessageLookupByLibrary.simpleMessage("năm")
+        "txt_y": MessageLookupByLibrary.simpleMessage("năm"),
+        "txt_you": MessageLookupByLibrary.simpleMessage("Bạn")
       };
 }

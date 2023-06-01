@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/comment/controller/comment_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/comment/data/comment_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
@@ -12,6 +13,7 @@ import 'package:steemit/presentation/widget/comment/comments_card.dart';
 import 'package:steemit/presentation/widget/header/header_widget.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/presentation/widget/textfield/textfield_widget.dart';
+import 'package:steemit/util/enum/activity_enum.dart';
 
 class CommentsPage extends StatefulWidget {
   final String postId;
@@ -37,6 +39,10 @@ class _CommentsPageState extends State<CommentsPage> {
         getIt.get<PostsCubit>().getPosts();
         getIt.get<CommentCubit>().getComments(widget.postId);
         getIt.get<CommentControllerCubit>().clean();
+        getIt
+            .get<ActivityControllerCubit>()
+            .addComment(postId: widget.postId, type: ActivityEnum.comment)
+            .then((value) => getIt.get<ActivityControllerCubit>().clean());
       }
       if (event is CommentControllerFailure) {
         getIt.get<CommentControllerCubit>().clean();

@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/activity/data/activities/activities_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
 import 'package:steemit/presentation/bloc/comment/controller/comment_controller_cubit.dart';
@@ -64,6 +66,10 @@ class MyApp extends StatelessWidget {
 
       ///Location
       BlocProvider.value(value: getIt.get<LocationsCubit>()),
+
+      ///Activity
+      BlocProvider.value(value: getIt.get<ActivitiesCubit>()),
+      BlocProvider.value(value: getIt.get<ActivityControllerCubit>()),
     ], child: const BaseLayer());
   }
 }

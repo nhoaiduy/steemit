@@ -8,7 +8,7 @@ class UserControllerCubit extends Cubit<UserControllerState> {
   UserControllerCubit() : super(UserControllerInitial());
 
   Future<void> updateBio({required String bio}) async {
-    final response = await UserRepositoryImplement().updateBio(bio: bio);
+    final response = await UserRepository().updateBio(bio: bio);
     if (response.isLeft) {
       emit(UserControllerFailure(response.left));
       return;

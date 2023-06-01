@@ -1,1 +1,1 @@
-enum Activity { comment, like, share }
+enum ActivityEnum { comment, like, post, save, unlike, unsave }

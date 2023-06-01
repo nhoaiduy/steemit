@@ -96,5 +96,15 @@
   "txt_just_now": "Just now",
   "lbl_choose_location": "Choose location",
   "lbl_listview": "Listview",
-  "lbl_gridview": "Gridview"
+  "lbl_gridview": "Gridview",
+  "txt_no_activity": "No activity recorded yet",
+  "txt_you": "You",
+  "txt_post": "posted",
+  "txt_liked": "liked",
+  "txt_commented": "commented",
+  "txt_saved": "saved",
+  "txt_unliked": "unliked",
+  "txt_unsaved": "unsaved",
+  "txt_just": "just",
+  "txt_post_of": "post of"
 }
