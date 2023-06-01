@@ -157,6 +157,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No activity recorded yet"),
         "txt_no_image":
             MessageLookupByLibrary.simpleMessage("There is no image"),
+        "txt_no_notification":
+            MessageLookupByLibrary.simpleMessage("There is no notification"),
         "txt_no_post": MessageLookupByLibrary.simpleMessage("There is no post"),
         "txt_no_user": MessageLookupByLibrary.simpleMessage("There is no user"),
         "txt_old_password_hint":

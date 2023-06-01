@@ -55,7 +55,7 @@ class _NotificationPageState extends State<NotificationPage> {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(12.0)),
             child: Text(
-              S.current.txt_no_activity,
+              S.current.txt_no_notification,
               style: BaseTextStyle.body1(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

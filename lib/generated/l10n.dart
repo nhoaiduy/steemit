@@ -1159,6 +1159,16 @@ class S {
       args: [],
     );
   }
+
+  /// `There is no notification`
+  String get txt_no_notification {
+    return Intl.message(
+      'There is no notification',
+      name: 'txt_no_notification',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
