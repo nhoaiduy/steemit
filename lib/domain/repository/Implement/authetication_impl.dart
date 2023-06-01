@@ -35,6 +35,10 @@ class AuthenticationRepositoryImpl extends AuthenticationRepositoryInterface {
 
   @override
   Future<void> logout() async {
+    try {
+      await databaseService.clearToken(authService.getUserId());
+    } on FirebaseAuthException catch (e) {}
+
     await authService.logout();
   }
 

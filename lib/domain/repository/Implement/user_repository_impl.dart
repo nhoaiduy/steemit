@@ -4,6 +4,7 @@ import 'package:steemit/data/model/activity_model.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
 import 'package:steemit/data/service/database_service.dart';
+import 'package:steemit/data/service/notification_service.dart';
 import 'package:steemit/domain/repository/Implement/post_impl.dart';
 import 'package:steemit/domain/repository/Interface/i_user.dart';
 import 'package:steemit/generated/l10n.dart';
@@ -84,6 +85,17 @@ class UserRepository extends UserRepositoryInterface {
       {required String postId, required ActivityEnum type}) async {
     try {
       await databaseService.addActivity(postId, authService.getUserId(), type);
+      return const Right(null);
+    } on FirebaseException {
+      return const Left(null);
+    }
+  }
+
+  @override
+  Future<Either<void, void>> saveToken() async {
+    try {
+      final String? token = await notificationService.getToken();
+      await databaseService.saveToken(token, authService.getUserId());
       return const Right(null);
     } on FirebaseException {
       return const Left(null);

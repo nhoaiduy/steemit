@@ -6,6 +6,7 @@ import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/generated/l10n.dart';
 import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/download/download_cubit.dart';
+import 'package:steemit/presentation/bloc/notification/controller/notification_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/post/post_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
@@ -282,7 +283,10 @@ class _PostListTileState extends State<PostListTile> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () async {
-                      if (isLike) {
+                      setState(() {
+                        isLike = !isLike;
+                      });
+                      if (!isLike) {
                         await getIt
                             .get<PostControllerCubit>()
                             .unLike(postId: postModel.id!);
@@ -290,12 +294,16 @@ class _PostListTileState extends State<PostListTile> {
                       } else {
                         await getIt
                             .get<PostControllerCubit>()
-                            .like(postId: postModel.id!);
+                            .like(postId: postModel.id!)
+                            .then((value) => getIt
+                                .get<NotificationControllerCubit>()
+                                .addNotification(
+                                    widget.postModel.id!, ActivityEnum.comment)
+                                .then((value) => getIt
+                                    .get<NotificationControllerCubit>()
+                                    .clean()));
                         postModel.likes!.add("");
                       }
-                      setState(() {
-                        isLike = !isLike;
-                      });
                       getIt
                           .get<ActivityControllerCubit>()
                           .addComment(

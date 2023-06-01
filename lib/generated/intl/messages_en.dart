@@ -140,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_gender_hint":
             MessageLookupByLibrary.simpleMessage("Select your gender"),
         "txt_h": MessageLookupByLibrary.simpleMessage("h"),
+        "txt_in": MessageLookupByLibrary.simpleMessage("in"),
         "txt_just": MessageLookupByLibrary.simpleMessage("just"),
         "txt_just_now": MessageLookupByLibrary.simpleMessage("Just now"),
         "txt_last_name_hint":
@@ -151,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_male": MessageLookupByLibrary.simpleMessage("Male"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your new password"),
+        "txt_new_post": MessageLookupByLibrary.simpleMessage("a new post"),
         "txt_no_activity":
             MessageLookupByLibrary.simpleMessage("No activity recorded yet"),
         "txt_no_image":
@@ -175,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update successfully"),
         "txt_w": MessageLookupByLibrary.simpleMessage("w"),
         "txt_y": MessageLookupByLibrary.simpleMessage("y"),
-        "txt_you": MessageLookupByLibrary.simpleMessage("You")
+        "txt_you": MessageLookupByLibrary.simpleMessage("You"),
+        "txt_your_post": MessageLookupByLibrary.simpleMessage("your post")
       };
 }

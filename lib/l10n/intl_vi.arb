@@ -1,6 +1,6 @@
 {
   "txt_email_hint": "Nhập email của bạn",
-  "txt_password_hint": "Nhập mật khâ của bạn",
+  "txt_password_hint": "Nhập mật khâu của bạn",
   "btn_forgot_password": "Quên mật khẩu",
   "btn_login": "Đăng nhập",
   "txt_create_account": "Bạn chưa có tài khoản?",
@@ -106,5 +106,8 @@
   "txt_unliked": "bỏ thích",
   "txt_unsaved": "bỏ lưu",
   "txt_just": "vừa",
-  "txt_post_of": "bài viết của"
+  "txt_post_of": "bài viết của",
+  "txt_new_post": "bài viết mới",
+  "txt_your_post": "bài viết của bạn",
+  "txt_in": "vào"
 }

@@ -1,4 +1,5 @@
 import 'package:steemit/data/model/activity_model.dart';
+import 'package:steemit/data/model/notification_model.dart';
 import 'package:steemit/util/enum/gender_enum.dart';
 import 'package:steemit/util/helper/gender_helper.dart';
 
@@ -9,6 +10,7 @@ class UserModel {
   late String lastName;
   List<String>? savedPosts;
   List<ActivityModel>? activities;
+  List<NotificationModel>? notifications;
   Gender? gender;
   String? bio;
   String? token;
@@ -21,6 +23,7 @@ class UserModel {
       required this.lastName,
       this.savedPosts,
       this.activities,
+      this.notifications,
       this.gender,
       this.bio,
       this.token,
@@ -39,6 +42,11 @@ class UserModel {
             .map((e) => ActivityModel.fromJson(e))
             .toList()
         : List.empty(growable: true);
+    notifications = json["notifications"] != null
+        ? (json["notifications"] as List)
+            .map((e) => NotificationModel.fromJson(e))
+            .toList()
+        : List.empty(growable: true);
     if (json["gender"] != null) {
       gender = GenderHelper.mapStringToEnum(json["gender"]);
     }
@@ -55,6 +63,7 @@ class UserModel {
     data['lastName'] = lastName;
     data["savedPosts"] = savedPosts;
     data["activities"] = activities;
+    data["notifications"] = notifications;
     data['gender'] =
         gender != null ? GenderHelper.mapEnumToString(gender!) : null;
     data['bio'] = bio;

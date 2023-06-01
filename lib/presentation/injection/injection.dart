@@ -9,6 +9,8 @@ import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/forgot_passeord/forgot_password_cubit.dart';
 import 'package:steemit/presentation/bloc/location/data/locations/locations_cubit.dart';
 import 'package:steemit/presentation/bloc/login/login_cubit.dart';
+import 'package:steemit/presentation/bloc/notification/controller/notification_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/notification/data/notifications/notifications_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/post/post_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/posts/posts_cubit.dart';
@@ -21,7 +23,7 @@ import 'package:steemit/presentation/bloc/user/data/users/users_cubit.dart';
 
 GetIt getIt = GetIt.instance;
 
-void setup() {
+void setupGetIt() {
   ///Base
   getIt.registerSingleton<BaseLayerCubit>(BaseLayerCubit());
 
@@ -56,4 +58,9 @@ void setup() {
   ///Activity
   getIt.registerSingleton<ActivitiesCubit>(ActivitiesCubit());
   getIt.registerSingleton<ActivityControllerCubit>(ActivityControllerCubit());
+
+  ///Notification
+  getIt.registerSingleton<NotificationControllerCubit>(
+      NotificationControllerCubit());
+  getIt.registerSingleton<NotificationsCubit>(NotificationsCubit());
 }

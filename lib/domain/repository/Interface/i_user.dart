@@ -16,4 +16,6 @@ abstract class UserRepositoryInterface {
 
   Future<Either<void, void>> addActivity(
       {required String postId, required ActivityEnum type});
+
+  Future<Either<void, void>> saveToken();
 }

@@ -1129,6 +1129,36 @@ class S {
       args: [],
     );
   }
+
+  /// `a new post`
+  String get txt_new_post {
+    return Intl.message(
+      'a new post',
+      name: 'txt_new_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `your post`
+  String get txt_your_post {
+    return Intl.message(
+      'your post',
+      name: 'txt_your_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `in`
+  String get txt_in {
+    return Intl.message(
+      'in',
+      name: 'txt_in',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
