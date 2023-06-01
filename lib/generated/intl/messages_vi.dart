@@ -155,6 +155,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Chưa có hoạt động nào được ghi nhận"),
         "txt_no_image":
             MessageLookupByLibrary.simpleMessage("Không có ảnh nào"),
+        "txt_no_notification":
+            MessageLookupByLibrary.simpleMessage("Không có thông báo nào"),
         "txt_no_post":
             MessageLookupByLibrary.simpleMessage("Không có bài viết nào"),
         "txt_no_user":

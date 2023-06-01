@@ -111,91 +111,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = widget.userModel;
-    return Stack(
+    return Column(
       children: [
-        SingleChildScrollView(
-            padding: EdgeInsets.only(
-                left: 16.0,
-                right: 16.0,
-                top: 80.0,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 16.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: AvatarWidget.base(
-                      pickedImagePath: photoPath,
-                      imagePath: user.avatar,
-                      name: "${user.firstName} ${user.lastName}",
-                      size: extraLargeAvatarSize),
-                ),
-                ButtonWidget.text(
-                    onTap: () {
-                      pickImage(ImageSource.gallery);
-                    },
-                    content: user.avatar != null || photo != null
-                        ? S.current.btn_change_photo
-                        : S.current.btn_add_photo,
-                    context: context),
-                TextFieldWidget.common(
-                    onChanged: (text) {},
-                    labelText: S.current.lbl_first_name,
-                    hintText: S.current.txt_first_name_hint,
-                    prefixIconPath: Icons.text_fields_outlined,
-                    textEditingController: firstNameController,
-                    required: true),
-                const SizedBox(height: 20.0),
-                TextFieldWidget.common(
-                    onChanged: (text) {},
-                    labelText: S.current.lbl_last_name,
-                    hintText: S.current.txt_last_name_hint,
-                    prefixIconPath: Icons.text_fields_outlined,
-                    textEditingController: lastNameController,
-                    required: true),
-                const SizedBox(height: 20.0),
-                GestureDetector(
-                  onTap: () async {
-                    final result = await BottomSheetWidget.show(
-                        context: context,
-                        body: SelectGenderPage(
-                          preGender: gender,
-                        ));
-                    if (result != null) {
-                      setState(() {
-                        gender = result;
-                        genderController.text =
-                            GenderHelper.mapEnumToString(result);
-                      });
-                    }
-                  },
-                  child: Stack(
-                    children: [
-                      TextFieldWidget.common(
-                          onChanged: (text) {},
-                          labelText: S.current.lbl_gender,
-                          textEditingController: genderController,
-                          prefixIconPath: Icons.people_outline,
-                          readOnly: true,
-                          hintText: S.current.txt_gender_hint),
-                      Container(
-                        width: MediaQuery.of(context).size.width - 32,
-                        height: 80.0,
-                        color: Colors.transparent,
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                TextFieldWidget.common(
-                    onChanged: (text) {},
-                    labelText: S.current.lbl_email,
-                    hintText: S.current.txt_email_hint,
-                    prefixIconPath: Icons.email_outlined,
-                    textEditingController: emailController,
-                    enable: false,
-                    required: true),
-              ],
-            )),
         Header.background(
             content: S.current.btn_update_profile,
             prefixContent: S.current.btn_cancel,
@@ -206,7 +123,92 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   lastNameController.text, genderController.text);
               if (mounted) Navigator.pop(context);
               //reload();
-            })
+            }),
+        Expanded(
+          child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                  left: 16.0,
+                  right: 16.0,
+                  top: 24,
+                  bottom: MediaQuery.of(context).viewInsets.bottom + 16.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: AvatarWidget.base(
+                        pickedImagePath: photoPath,
+                        imagePath: user.avatar,
+                        name: "${user.firstName} ${user.lastName}",
+                        size: extraLargeAvatarSize),
+                  ),
+                  ButtonWidget.text(
+                      onTap: () {
+                        pickImage(ImageSource.gallery);
+                      },
+                      content: user.avatar != null || photo != null
+                          ? S.current.btn_change_photo
+                          : S.current.btn_add_photo,
+                      context: context),
+                  TextFieldWidget.common(
+                      onChanged: (text) {},
+                      labelText: S.current.lbl_first_name,
+                      hintText: S.current.txt_first_name_hint,
+                      prefixIconPath: Icons.text_fields_outlined,
+                      textEditingController: firstNameController,
+                      required: true),
+                  const SizedBox(height: 20.0),
+                  TextFieldWidget.common(
+                      onChanged: (text) {},
+                      labelText: S.current.lbl_last_name,
+                      hintText: S.current.txt_last_name_hint,
+                      prefixIconPath: Icons.text_fields_outlined,
+                      textEditingController: lastNameController,
+                      required: true),
+                  const SizedBox(height: 20.0),
+                  GestureDetector(
+                    onTap: () async {
+                      final result = await BottomSheetWidget.show(
+                          context: context,
+                          body: SelectGenderPage(
+                            preGender: gender,
+                          ));
+                      if (result != null) {
+                        setState(() {
+                          gender = result;
+                          genderController.text =
+                              GenderHelper.mapEnumToString(result);
+                        });
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        TextFieldWidget.common(
+                            onChanged: (text) {},
+                            labelText: S.current.lbl_gender,
+                            textEditingController: genderController,
+                            prefixIconPath: Icons.people_outline,
+                            readOnly: true,
+                            hintText: S.current.txt_gender_hint),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 32,
+                          height: 80.0,
+                          color: Colors.transparent,
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextFieldWidget.common(
+                      onChanged: (text) {},
+                      labelText: S.current.lbl_email,
+                      hintText: S.current.txt_email_hint,
+                      prefixIconPath: Icons.email_outlined,
+                      textEditingController: emailController,
+                      enable: false,
+                      required: true),
+                ],
+              )),
+        ),
       ],
     );
   }
