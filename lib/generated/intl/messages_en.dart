@@ -103,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_comment": MessageLookupByLibrary.simpleMessage("comment"),
         "txt_comment_hint":
             MessageLookupByLibrary.simpleMessage("Enter your comment"),
+        "txt_commented": MessageLookupByLibrary.simpleMessage("commented"),
         "txt_comments": MessageLookupByLibrary.simpleMessage("comments"),
         "txt_confirm_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter confirm new password"),
@@ -139,15 +140,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "txt_gender_hint":
             MessageLookupByLibrary.simpleMessage("Select your gender"),
         "txt_h": MessageLookupByLibrary.simpleMessage("h"),
+        "txt_just": MessageLookupByLibrary.simpleMessage("just"),
         "txt_just_now": MessageLookupByLibrary.simpleMessage("Just now"),
         "txt_last_name_hint":
             MessageLookupByLibrary.simpleMessage("Enter your last name"),
         "txt_like": MessageLookupByLibrary.simpleMessage("like"),
+        "txt_liked": MessageLookupByLibrary.simpleMessage("liked"),
         "txt_likes": MessageLookupByLibrary.simpleMessage("likes"),
         "txt_m": MessageLookupByLibrary.simpleMessage("m"),
         "txt_male": MessageLookupByLibrary.simpleMessage("Male"),
         "txt_new_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your new password"),
+        "txt_no_activity":
+            MessageLookupByLibrary.simpleMessage("No activity recorded yet"),
         "txt_no_image":
             MessageLookupByLibrary.simpleMessage("There is no image"),
         "txt_no_post": MessageLookupByLibrary.simpleMessage("There is no post"),
@@ -156,14 +161,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter your old password"),
         "txt_password_hint":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
+        "txt_post": MessageLookupByLibrary.simpleMessage("posted"),
         "txt_post_hint":
             MessageLookupByLibrary.simpleMessage("What\'s on your mind?"),
+        "txt_post_of": MessageLookupByLibrary.simpleMessage("post of"),
+        "txt_saved": MessageLookupByLibrary.simpleMessage("saved"),
         "txt_search_hint": MessageLookupByLibrary.simpleMessage("Search"),
         "txt_system_language":
             MessageLookupByLibrary.simpleMessage("System language"),
+        "txt_unliked": MessageLookupByLibrary.simpleMessage("unliked"),
+        "txt_unsaved": MessageLookupByLibrary.simpleMessage("unsaved"),
         "txt_update_successfully":
             MessageLookupByLibrary.simpleMessage("Update successfully"),
         "txt_w": MessageLookupByLibrary.simpleMessage("w"),
-        "txt_y": MessageLookupByLibrary.simpleMessage("y")
+        "txt_y": MessageLookupByLibrary.simpleMessage("y"),
+        "txt_you": MessageLookupByLibrary.simpleMessage("You")
       };
 }

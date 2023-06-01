@@ -5,7 +5,11 @@ abstract class PostControllerState {}
 
 class PostControllerInitial extends PostControllerState {}
 
-class PostControllerSuccess extends PostControllerState {}
+class PostControllerSuccess extends PostControllerState {
+  final String? postId;
+
+  PostControllerSuccess({this.postId});
+}
 
 class PostControllerFailure extends PostControllerState {
   final String message;

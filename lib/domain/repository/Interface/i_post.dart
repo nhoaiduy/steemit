@@ -3,7 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:steemit/data/model/post_model.dart';
 
 abstract class PostRepositoryInterface {
-  Future<Either<String, void>> createPost(
+  Future<Either<String, String>> createPost(
       {String? content, List<XFile>? medias, String? location});
 
   Future<Either<String, List<PostModel>>> getPosts({bool isMyPosts = true});

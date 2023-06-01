@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
+import 'package:steemit/presentation/bloc/activity/data/activities/activities_cubit.dart';
 import 'package:steemit/presentation/bloc/authentication_layer/authentication_cubit.dart';
 import 'package:steemit/presentation/bloc/base_layer/base_layer_cubit.dart';
 import 'package:steemit/presentation/bloc/comment/controller/comment_controller_cubit.dart';
@@ -50,4 +52,8 @@ void setup() {
 
   ///Location
   getIt.registerSingleton<LocationsCubit>(LocationsCubit());
+
+  ///Activity
+  getIt.registerSingleton<ActivitiesCubit>(ActivitiesCubit());
+  getIt.registerSingleton<ActivityControllerCubit>(ActivityControllerCubit());
 }

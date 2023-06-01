@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:steemit/data/model/activity_model.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/data/model/user_model.dart';
 import 'package:steemit/data/service/authentication_service.dart';
+import 'package:steemit/util/enum/activity_enum.dart';
 import 'package:steemit/util/path/services_path.dart';
 import 'package:uuid/uuid.dart';
 
@@ -125,6 +127,7 @@ class DatabaseService {
     try {
       final response =
           await _fireStore.collection(ServicePath.post).doc(postId).get();
+      if (response.data() == null) throw FirebaseException(plugin: '');
       final PostModel postModel = PostModel.fromJson(response.data()!);
       postModel.user = await getUser(uid: postModel.userId!);
       return postModel;
@@ -180,6 +183,32 @@ class DatabaseService {
           _uuid.v1(), content, userId, Timestamp.now(), Timestamp.now());
       await _fireStore.collection(ServicePath.post).doc(postId).update({
         "comments": FieldValue.arrayUnion([commentModel.toJson()])
+      });
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<List<ActivityModel>> getActivities({required String userId}) async {
+    try {
+      final response =
+          await _fireStore.collection(ServicePath.user).doc(userId).get();
+      final List<ActivityModel> activities = List.empty(growable: true);
+      final UserModel userModel = UserModel.fromJson(response.data()!);
+      activities.addAll(userModel.activities!);
+      return activities;
+    } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> addActivity(
+      String postId, String userId, ActivityEnum type) async {
+    try {
+      final ActivityModel activityModel =
+          ActivityModel(postId: postId, type: type, createdAt: Timestamp.now());
+      await _fireStore.collection(ServicePath.user).doc(userId).update({
+        "activities": FieldValue.arrayUnion([activityModel.toJson()])
       });
     } on FirebaseException {
       rethrow;

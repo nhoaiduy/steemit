@@ -9,7 +9,7 @@ class UsersCubit extends Cubit<UsersState> {
   UsersCubit() : super(UsersInitial());
 
   Future<void> getData() async {
-    final response = await UserRepositoryImplement().getAllUsers();
+    final response = await UserRepository().getAllUsers();
     if (response.isLeft) {
       emit(UsersFailure(response.left));
       return;

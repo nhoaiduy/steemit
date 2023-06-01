@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steemit/data/model/post_model.dart';
 import 'package:steemit/generated/l10n.dart';
+import 'package:steemit/presentation/bloc/activity/controller/activity_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/download/download_cubit.dart';
 import 'package:steemit/presentation/bloc/post/controller/post_controller_cubit.dart';
 import 'package:steemit/presentation/bloc/post/data/post/post_cubit.dart';
@@ -16,6 +17,7 @@ import 'package:steemit/presentation/page/user/user_profile_page.dart';
 import 'package:steemit/presentation/widget/avatar/avatar_widget.dart';
 import 'package:steemit/presentation/widget/shimmer/shimmer_widget.dart';
 import 'package:steemit/presentation/widget/video/video_card.dart';
+import 'package:steemit/util/enum/activity_enum.dart';
 import 'package:steemit/util/enum/media_enum.dart';
 import 'package:steemit/util/helper/string_helper.dart';
 import 'package:steemit/util/style/base_color.dart';
@@ -182,6 +184,16 @@ class _PostListTileState extends State<PostListTile> {
                               setState(() {
                                 isSaved = !isSaved;
                               });
+                              getIt
+                                  .get<ActivityControllerCubit>()
+                                  .addComment(
+                                      postId: postModel.id!,
+                                      type: isSaved
+                                          ? ActivityEnum.save
+                                          : ActivityEnum.unsave)
+                                  .then((value) => getIt
+                                      .get<ActivityControllerCubit>()
+                                      .clean());
                             },
                           ),
                         if (isMe)
@@ -284,6 +296,15 @@ class _PostListTileState extends State<PostListTile> {
                       setState(() {
                         isLike = !isLike;
                       });
+                      getIt
+                          .get<ActivityControllerCubit>()
+                          .addComment(
+                              postId: postModel.id!,
+                              type: isLike
+                                  ? ActivityEnum.like
+                                  : ActivityEnum.unlike)
+                          .then((value) =>
+                              getIt.get<ActivityControllerCubit>().clean());
                     },
                     child: Container(
                       color: Colors.transparent,

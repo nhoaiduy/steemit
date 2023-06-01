@@ -96,5 +96,15 @@
   "txt_just_now": "Vừa xong",
   "lbl_choose_location": "Chọn vị trí",
   "lbl_listview": "Danh sách",
-  "lbl_gridview": "Dạng lưới"
+  "lbl_gridview": "Dạng lưới",
+  "txt_no_activity": "Chưa có hoạt động nào được ghi nhận",
+  "txt_you": "Bạn",
+  "txt_post": "đăng",
+  "txt_liked": "thích",
+  "txt_commented": "bình luận",
+  "txt_saved": "lưu",
+  "txt_unliked": "bỏ thích",
+  "txt_unsaved": "bỏ lưu",
+  "txt_just": "vừa",
+  "txt_post_of": "bài viết của"
 }
